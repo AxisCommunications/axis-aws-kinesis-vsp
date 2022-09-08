@@ -1,0 +1,14 @@
+services:
+  kinesis_stream_producer:
+    image: $IMAGE_NAME
+    environment:
+      IP: $IP
+      STREAM_NAME: $STREAM_NAME
+      REGION: $REGION
+      ACCESS_KEY: $ACCESS_KEY_ID
+      SECRET_KEY: $SECRET_KEY
+      GST_PLUGIN_PATH: /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
+    volumes:
+      - ./start_stream.sh:/opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build/start_stream.sh
+    command: /bin/sh "start_stream.sh"
+
