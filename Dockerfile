@@ -7,7 +7,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-base-apps \
     gstreamer1.0-plugins-bad gstreamer1.0-plugins-good \
     gstreamer1.0-plugins-ugly gstreamer1.0-tools \
-    cmake pkg-config m4 git g++-5
+    cmake pkg-config m4 git g++-5 && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/app/
 
@@ -28,4 +28,5 @@ WORKDIR /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build/
 
 RUN apt update && apt install -y --no-install-recommends \
     gstreamer1.0-tools libssl-dev gstreamer1.0-rtsp \
-    gstreamer1.0-plugins-bad curl
+    gstreamer1.0-plugins-bad curl && rm -rf /var/lib/apt/lists/*
+
