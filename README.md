@@ -8,6 +8,7 @@ The following camera setup is supported
 
 - ARTPEC-7/8 system-on-chip
 - Firmware
+- Camera with SD card
 
 ## Prerequisites
 
@@ -76,6 +77,7 @@ This is both to specify the camera IP and for the container to find the correct 
 IP=<camera IP>
 USERNAME=<camera root username>
 PASSWORD=<camera root password>
+
 STREAM_NAME=<Kinesis video stream name>
 REGION=<aws-region>
 ACCESS_KEY_ID=<AWS access key ID>
