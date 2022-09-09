@@ -7,13 +7,13 @@ The Axis AWS Kinesis Video Streams Producer can be run on an Axis camera as a co
 The following camera setup is supported
 
 - ARTPEC-7/8 system-on-chip
-- Firmware
+- Firmware version 10.7 or greater
 - Camera with SD card
 
 ## Prerequisites
 
-- Docker Compose ACAP installed and started
-- AWS Account with security credentials
+- [Docker Compose](https://github.com/AxisCommunications/docker-compose-acap) or [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started with SD card storage selected
+- AWS Account with security credentials generated
   - Access key ID
   - Secret key
 - Kinesis video stream created
