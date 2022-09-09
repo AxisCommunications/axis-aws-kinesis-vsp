@@ -12,14 +12,18 @@ The following camera setup is supported
 ## Prerequisites
 
 - Docker Compose ACAP installed and started
-- AWS Account with credentials
+- AWS Account with security credentials
   - Access key ID
   - Secret key
 - Kinesis video stream created
 
 ## Install
 
+The image can be retrieved by either pulling it from Dockerhub, or by building it locally.
+
 ### From Dockerhub
+
+Get the docker image by pulling it from Dockerhub
 
 ```
 docker pull $REPO/$IMAGE_NAME:$ARCH
@@ -45,6 +49,8 @@ ARCH=arm64v8
 
 #### Build the image
 
+Once the ARCH environment variable has been added, the docker image can be built
+
 ```
 docker build -t kinesis_vsp . --build-arg ARCH
 ```
@@ -52,6 +58,7 @@ docker build -t kinesis_vsp . --build-arg ARCH
 ## Run on Camera
 
 Before running the solution, some environment variables need to be set up.
+This is both to specify the camera IP and for the container to find the correct Kinesis stream in AWS.
 
 ```
 IP=<camera IP>
@@ -73,7 +80,7 @@ or
 docker-compose up -d
 ```
 
-to run in detached mode (background).
+to run in detached (background) mode.
 
 
 ## Verify that the Kinesis Video Stream is successfully set up
