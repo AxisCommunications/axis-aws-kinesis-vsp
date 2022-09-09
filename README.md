@@ -23,7 +23,7 @@ The image can be retrieved by either pulling it from Dockerhub, or by building i
 
 ### From Dockerhub
 
-Get the docker image by pulling it from Dockerhub
+Get the Docker image by pulling it from Dockerhub
 
 ```
 docker pull $REPO/$IMAGE_NAME:$ARCH
@@ -31,11 +31,11 @@ docker pull $REPO/$IMAGE_NAME:$ARCH
 
 ### Build Locally
 
-#### Add the buildtime environment variables
+#### Add the Buildtime Environment Variables
 
 The camera architecture should be added as a buildtime environment variable, so that it corresponds to the target device's hardware.
 
-Use arm32 for ARTPEC-7 devices
+Use arm32v7 for ARTPEC-7 devices
 
 ```
 ARCH=arm32v7
@@ -47,26 +47,42 @@ and arm64v8 for ARTPEC-8.
 ARCH=arm64v8
 ```
 
-#### Build the image
+#### Build the Image
 
-Once the ARCH environment variable has been added, the docker image can be built
+Once the __ARCH__ environment variable has been added, the docker image can be built
 
 ```
 docker build -t kinesis_vsp . --build-arg ARCH
 ```
 
-## Run on Camera
+## Run on the Camera
+
+### Install Docker Compose ACAP Application
+
+It is recommended to install the [Docker Compose ACAP application](https://github.com/AxisCommunications/docker-compose-acap). It enables you to run Docker and Docker Compose commands from the camera's shell.
+
+```
+docker run --rm axisecp/docker-compose-acap:latest-<armv7hf/aarch64> $IP <root password> install
+```
+
+Where you use armv7hf for ARTPEC-7 and aarch64 for an ARTPEC-8 device.
+
+### Runtime Environment Variables
 
 Before running the solution, some environment variables need to be set up.
-This is both to specify the camera IP and for the container to find the correct Kinesis stream in AWS.
+This is both to specify the camera IP and for the container to find the correct Kinesis stream in AWS. The variables can also be set up directly into the docker-compose.yml file, depending on how you want your setup configured.
 
 ```
 IP=<camera IP>
+USERNAME=<camera root username>
+PASSWORD=<camera root password>
 STREAM_NAME=<Kinesis video stream name>
 REGION=<aws-region>
 ACCESS_KEY_ID=<AWS access key ID>
 SECRET_KEY=<AWS secret key>
 ```
+
+### Starting the Container
 
 To start the container you can use docker compose
 
@@ -74,7 +90,7 @@ To start the container you can use docker compose
 docker-compose up
 ```
 
-or
+__or__
 
 ```
 docker-compose up -d
@@ -83,7 +99,7 @@ docker-compose up -d
 to run in detached (background) mode.
 
 
-## Verify that the Kinesis Video Stream is successfully set up
+## Verify That the Kinesis Video Stream is Successfully Running
 
 The most straightforward way to verify that the stream from the camera actually reaches Kinesis video streams is to do it from the AWS UI. 
 
