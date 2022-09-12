@@ -8,15 +8,17 @@ The following camera setup is supported
 
 - ARTPEC-7/8 system-on-chip
 - Firmware version 10.7 or greater
-- Camera with SD card
+- Container capable camera with SD card
 
 ## Prerequisites
 
-- [Docker Compose](https://github.com/AxisCommunications/docker-compose-acap) installed and started with SD card storage selected
+- [Docker Compose](https://github.com/AxisCommunications/docker-compose-acap) installed and started with TLS and SD card storage selected
 - AWS Account with security credentials generated
   - Access key ID
   - Secret key
 - Kinesis video stream created
+- Docker
+- Docker Compose
 
 ## Install
 
