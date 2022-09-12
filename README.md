@@ -12,7 +12,7 @@ The following camera setup is supported
 
 ## Prerequisites
 
-- [Docker Compose](https://github.com/AxisCommunications/docker-compose-acap) or [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started with SD card storage selected
+- [Docker Compose](https://github.com/AxisCommunications/docker-compose-acap) installed and started with SD card storage selected
 - AWS Account with security credentials generated
   - Access key ID
   - Secret key
@@ -36,24 +36,30 @@ docker pull $REPO/$IMAGE_NAME:$ARCH
 
 The camera architecture should be added as a buildtime environment variable, so that it corresponds to the target device's hardware.
 
-Use arm32v7 for ARTPEC-7 devices
+Use arm32v7 for ARTPEC-7 devices:
 
 ```
 ARCH=arm32v7
 ```
 
-and arm64v8 for ARTPEC-8.
+and arm64v8 for ARTPEC-8:
 
 ```
 ARCH=arm64v8
 ```
 
-#### Build the Image
-
-Once the __ARCH__ environment variable has been added, the docker image can be built
+The image name will also be added as an environment variable:
 
 ```
-docker build -t kinesis_vsp . --build-arg ARCH
+IMAGE_NAME=kinesis-vsp
+```
+
+#### Build the Image
+
+Once the __ARCH__ environment variable has been added, the docker image can be built:
+
+```
+docker build -t $IMAGE_NAME . --build-arg ARCH
 ```
 
 ## Run on the Camera
@@ -66,7 +72,7 @@ It is recommended to install the [Docker Compose ACAP application](https://githu
 docker run --rm axisecp/docker-compose-acap:latest-<armv7hf/aarch64> $IP <root password> install
 ```
 
-Where you use armv7hf for ARTPEC-7 and aarch64 for an ARTPEC-8 device.
+Where you use the image tag 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64' for an ARTPEC-8 device.
 
 ### Runtime Environment Variables
 
@@ -84,22 +90,29 @@ ACCESS_KEY_ID=<AWS access key ID>
 SECRET_KEY=<AWS secret key>
 ```
 
+### Save and Load to the Camera
+
+The image can now be saved and loaded to the camera.
+
+```
+docker save $IMAGE_NAME | docker load -H $IP:2376 --tls-verify
+```
+
 ### Starting the Container
 
 To start the container you can use docker compose
 
 ```
-docker-compose up
+docker-compose up -H $IP:2376 --tls-verify
 ```
 
 __or__
 
 ```
-docker-compose up -d
+docker-compose up -d -H $IP:2376 --tls-verify
 ```
 
 to run in detached (background) mode.
-
 
 ## Verify That the Kinesis Video Stream is Successfully Running
 
@@ -109,6 +122,7 @@ The most straightforward way to verify that the stream from the camera actually 
 2. Search for and go to the Kinesis Video Streams service
 3. Select the correct region and kinesis video stream in the list.
 4. Click the 'Media Playback' button
-5. If everything is set up correctly, the stream should show up. Wait up to 10 seconds since there might be a delay. 
+5. If everything is set up correctly, the stream should show up. Wait a number of seconds since there might be a delay. 
 
 ## Known Limitations
+
