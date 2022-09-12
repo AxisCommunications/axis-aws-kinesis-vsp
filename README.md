@@ -87,7 +87,7 @@ USERNAME=<camera root username>
 PASSWORD=<camera root password>
 
 STREAM_NAME=<Kinesis video stream name>
-REGION=<aws-region>
+REGION=<AWS region>
 ACCESS_KEY_ID=<AWS access key ID>
 SECRET_KEY=<AWS secret key>
 ```
@@ -118,11 +118,11 @@ to run in detached (background) mode.
 
 ## Verify That the Kinesis Video Stream is Successfully Running
 
-The most straightforward way to verify that the stream from the camera actually reaches Kinesis video streams is to do it from the AWS UI. 
+The most straightforward way to verify that the stream from the camera actually reaches Kinesis Video Streams is to do it from the AWS UI.
 
 1. Log in to your AWS account
 2. Search for and go to the Kinesis Video Streams service
-3. Select the correct region and kinesis video stream in the list.
+3. Select the correct region and Kinesis video stream in the list.
 4. Click the 'Media Playback' button
 5. If everything is set up correctly, the stream should show up. Wait a number of seconds since there might be a delay. 
 
