@@ -56,7 +56,7 @@ IMAGE_NAME=kinesis-vsp
 
 #### Build the Image
 
-Once the __ARCH__ environment variable has been added, the docker image can be built:
+Once the environment variables have been added, the docker image can be built:
 
 ```
 docker build -t $IMAGE_NAME . --build-arg ARCH
@@ -125,4 +125,4 @@ The most straightforward way to verify that the stream from the camera actually 
 5. If everything is set up correctly, the stream should show up. Wait a number of seconds since there might be a delay. 
 
 ## Known Limitations
-
+When streaming to AWS Kinesis Video Streams there is a latency which can be affected by the selected AWS region, network setup and video resolution.

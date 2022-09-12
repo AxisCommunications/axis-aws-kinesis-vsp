@@ -29,4 +29,3 @@ WORKDIR /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build/
 RUN apt update && apt install -y --no-install-recommends \
     gstreamer1.0-tools libssl-dev gstreamer1.0-rtsp \
     gstreamer1.0-plugins-bad curl && rm -rf /var/lib/apt/lists/*
-
