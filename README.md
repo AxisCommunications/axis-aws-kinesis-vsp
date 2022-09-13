@@ -12,13 +12,13 @@ The following camera setup is supported
 
 ## Prerequisites
 
-- [Docker Compose](https://github.com/AxisCommunications/docker-compose-acap) installed and started with TLS and SD card storage selected
+- [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started with TLS and SD card storage selected
 - AWS Account with security credentials generated
   - Access key ID
   - Secret key
 - Kinesis video stream created
-- Docker
-- Docker Compose
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Install
 
@@ -105,13 +105,13 @@ docker save $IMAGE_NAME | docker load -H $IP:2376 --tls-verify
 To start the container you can use docker compose
 
 ```
-docker-compose up -H $IP:2376 --tls-verify
+docker-compose -H $IP:2376 --tls-verify up
 ```
 
 __or__
 
 ```
-docker-compose up -d -H $IP:2376 --tls-verify
+docker-compose -d -H $IP:2376 --tls-verify up
 ```
 
 to run in detached (background) mode.
