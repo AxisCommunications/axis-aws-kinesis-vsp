@@ -66,16 +66,6 @@ docker build -t $IMAGE_NAME . --build-arg ARCH
 
 ## Run on the Camera
 
-### Install Docker Compose ACAP Application
-
-It is recommended to install the [Docker Compose ACAP application](https://github.com/AxisCommunications/docker-compose-acap). It enables you to run Docker and Docker Compose commands from the camera's shell.
-
-```
-docker run --rm axisecp/docker-compose-acap:latest-<armv7hf/aarch64> $IP <root password> install
-```
-
-Where you use the image tag 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64' for an ARTPEC-8 device.
-
 ### Runtime Environment Variables
 
 Before running the solution, some environment variables need to be set up.
@@ -92,12 +82,22 @@ ACCESS_KEY_ID=<AWS access key ID>
 SECRET_KEY=<AWS secret key>
 ```
 
+### Install Docker Compose ACAP Application
+
+It is recommended to install the [Docker Compose ACAP application](https://github.com/AxisCommunications/docker-compose-acap). It enables you to run Docker and Docker Compose commands from the camera's shell.
+
+```
+docker run --rm axisecp/docker-compose-acap:latest-<armv7hf/aarch64> $IP_CAM $PASSWORD_CAM install
+```
+
+Where you use the image tag 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64' for an ARTPEC-8 device.
+
 ### Save and Load to the Camera
 
 The image can now be saved and loaded to the camera.
 
 ```
-docker save $IMAGE_NAME | docker load -H $IP:2376 --tls-verify
+docker save $IMAGE_NAME | docker load -H $IP_CAM:2376 --tls-verify
 ```
 
 ### Starting the Container
@@ -105,13 +105,14 @@ docker save $IMAGE_NAME | docker load -H $IP:2376 --tls-verify
 To start the container you can use docker compose
 
 ```
-docker-compose -H $IP:2376 --tls-verify up
+docker-compose -H $IP_CAM:2376 --tls-verify up
 ```
 
 __or__
 
+
 ```
-docker-compose -d -H $IP:2376 --tls-verify up
+docker-compose -d -H $IP_CAM:2376 --tls-verify up
 ```
 
 to run in detached (background) mode.
