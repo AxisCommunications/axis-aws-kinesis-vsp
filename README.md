@@ -82,11 +82,11 @@ Before running the solution, some environment variables need to be set up.
 This is both to specify the camera IP and for the container to find the correct Kinesis stream in AWS. The variables can also be set up directly into the docker-compose.yml file, depending on how you want your setup configured.
 
 ```
-IP=<camera IP>
-USERNAME=<camera root username>
-PASSWORD=<camera root password>
+IP_CAM=<camera IP>
+USERNAME_CAM=<camera username>
+PASSWORD_CAM=<camera password>
 
-STREAM_NAME=<Kinesis video stream name>
+STREAM_NAME=<AWS Kinesis video stream name>
 REGION=<AWS region>
 ACCESS_KEY_ID=<AWS access key ID>
 SECRET_KEY=<AWS secret key>

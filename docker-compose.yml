@@ -2,7 +2,7 @@ services:
   kinesis_stream_producer:
     image: $IMAGE_NAME
     environment:
-      IP: $IP
+      IP: $IP_CAM
       STREAM_NAME: $STREAM_NAME
       REGION: $REGION
       ACCESS_KEY: $ACCESS_KEY_ID
@@ -11,4 +11,3 @@ services:
     volumes:
       - ./start_stream.sh:/opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build/start_stream.sh
     command: /bin/sh "start_stream.sh"
-
