@@ -68,18 +68,12 @@ docker build -t $IMAGE_NAME . --build-arg ARCH
 
 ### Runtime Environment Variables
 
-Before running the solution, some environment variables need to be set up.
-This is both to specify the camera IP and for the container to find the correct Kinesis stream in AWS. The variables can also be set up directly into the docker-compose.yml file, depending on how you want your setup configured.
+Before running the solution, some environment variables need to be set up. Add the values to the variables located in the __.env__ file. They are needed for communicating with the camera and AWS. The values can also be added directly in the docker-compose.yml file, depending on how you want your setup configured.
+
+Add the camera IP address to your local environment variables for building the image and running the containers:
 
 ```
 IP_CAM=<camera IP>
-USERNAME_CAM=<camera username>
-PASSWORD_CAM=<camera password>
-
-STREAM_NAME=<AWS Kinesis video stream name>
-REGION=<AWS region>
-ACCESS_KEY_ID=<AWS access key ID>
-SECRET_KEY=<AWS secret key>
 ```
 
 ### Install Docker Compose ACAP Application
@@ -97,7 +91,7 @@ Where you use the image tag 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64' f
 The image can now be saved and loaded to the camera.
 
 ```
-docker save $IMAGE_NAME | docker load -H $IP_CAM:2376 --tls-verify
+docker save $IMAGE_NAME | docker --tlsverify -H $IP_CAM:2376 load
 ```
 
 ### Starting the Container
@@ -105,14 +99,14 @@ docker save $IMAGE_NAME | docker load -H $IP_CAM:2376 --tls-verify
 To start the container you can use docker compose
 
 ```
-docker-compose -H $IP_CAM:2376 --tls-verify up
+docker-compose --tlsverify -H $IP_CAM:2376 up
 ```
 
 __or__
 
 
 ```
-docker-compose -d -H $IP_CAM:2376 --tls-verify up
+docker-compose --tlsverify -H $IP_CAM:2376 up -d
 ```
 
 to run in detached (background) mode.
