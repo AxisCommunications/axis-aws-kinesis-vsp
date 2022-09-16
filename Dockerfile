@@ -26,6 +26,8 @@ COPY --from=0 /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/ /opt/app/a
 
 WORKDIR /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build/
 
-RUN apt update && apt install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
     gstreamer1.0-tools libssl-dev gstreamer1.0-rtsp \
-    gstreamer1.0-plugins-bad curl && rm -rf /var/lib/apt/lists/*
+    gstreamer1.0-plugins-bad
+
+COPY start_stream.sh .
