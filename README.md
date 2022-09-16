@@ -34,7 +34,7 @@ docker pull $REPO/$IMAGE_NAME:$ARCH
 
 ### Build Locally
 
-#### Add the Buildtime Environment Variables
+#### Add the Docker Build-time Environment Variables
 
 The camera architecture should be added as a buildtime environment variable, so that it corresponds to the target device's hardware.
 
@@ -70,23 +70,24 @@ docker build -t $IMAGE_NAME . --build-arg ARCH
 
 Before running the solution, some environment variables need to be set up. Add the values to the variables located in the __.env__ file. They are needed for communicating with the camera and AWS. The values can also be added directly in the docker-compose.yml file, depending on how you want your setup configured.
 
-Add the camera IP address to your local environment variables for building the image and running the containers:
+Add the camera IP address and password to your local environment variables:
 
 ```
 IP_CAM=<camera IP>
+PASSWORD_CAM=<camera password>
 ```
 
-### Install Docker Compose ACAP Application
+### Install the Docker ACAP Application
 
-It is recommended to install the [Docker Compose ACAP application](https://github.com/AxisCommunications/docker-compose-acap). It enables you to run Docker and Docker Compose commands from the camera's shell.
+It is recommended to install the [Docker ACAP application](https://github.com/AxisCommunications/docker-acap). It enables you to run Docker and Docker Compose commands from the camera's shell.
 
 ```
-docker run --rm axisecp/docker-compose-acap:latest-<armv7hf/aarch64> $IP_CAM $PASSWORD_CAM install
+docker run --rm axisecp/docker-acap:latest-<armv7hf/aarch64> $IP_CAM $PASSWORD_CAM install
 ```
 
 Where you use the image tag 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64' for an ARTPEC-8 device.
 
-### Save and Load to the Camera
+### Save and Load the Image to the Camera
 
 The image can now be saved and loaded to the camera.
 
