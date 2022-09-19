@@ -70,22 +70,21 @@ docker build -t $IMAGE_NAME . --build-arg ARCH
 
 Before running the solution, some environment variables need to be set up. Add the values to the variables located in the __.env__ file. They are needed for communicating with the camera and AWS. The values can also be added directly in the docker-compose.yml file, depending on how you want your setup configured.
 
-Add the camera IP address and password to your local environment variables:
+Add the camera IP address to your local environment variables:
 
 ```
 IP_CAM=<camera IP>
-PASSWORD_CAM=<camera password>
 ```
 
 ### Install the Docker ACAP Application
 
-It is recommended to install the [Docker ACAP application](https://github.com/AxisCommunications/docker-acap). It enables you to run Docker and Docker Compose commands from the camera's shell.
+Make sure that the [Docker ACAP application](https://github.com/AxisCommunications/docker-acap) is installed on the camera. To install it, you can run:
 
 ```
-docker run --rm axisecp/docker-acap:latest-<armv7hf/aarch64> $IP_CAM $PASSWORD_CAM install
+docker run --rm axisecp/docker-acap:latest-<armv7hf / aarch64> $IP_CAM <camera password> install
 ```
 
-Where you use the image tag 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64' for an ARTPEC-8 device.
+where you use the image tag 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64' for an ARTPEC-8 device.
 
 ### Save and Load the Image to the Camera
 
@@ -116,10 +115,10 @@ to run in detached (background) mode.
 
 The most straightforward way to verify that the stream from the camera actually reaches Kinesis Video Streams is to do it from the AWS UI.
 
-1. Log in to your AWS account
-2. Search for and go to the Kinesis Video Streams service
-3. Select the correct region and Kinesis video stream in the list.
-4. Click the 'Media Playback' button
+1. Log in to your AWS account.
+2. Search for and go to the Kinesis Video Streams service.
+3. Make sure that you are in the correct AWS region, and select the Kinesis video stream in the list.
+4. Click the 'Media Playback' button.
 5. If everything is set up correctly, the stream should show up. Wait a number of seconds since there might be a delay. 
 
 ## Known Limitations
