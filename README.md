@@ -20,23 +20,9 @@ The following camera setup is supported
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Install
+## Environment Variables
 
-The image can be retrieved by either pulling it from Dockerhub, or by building it locally.
-
-### From Dockerhub
-
-Get the Docker image by pulling it from Dockerhub
-
-```
-docker pull $REPO/$IMAGE_NAME:$ARCH
-```
-
-### Build Locally
-
-#### Add the Docker Build-time Environment Variables
-
-The camera architecture should be added as a buildtime environment variable, so that it corresponds to the target device's hardware.
+The camera architecture should be added as an environment variable, so that it corresponds to the target device's hardware.
 
 Use arm32v7 for ARTPEC-7 devices:
 
@@ -56,7 +42,25 @@ The image name will also be added as an environment variable:
 IMAGE_NAME=kinesis-vsp
 ```
 
-#### Build the Image
+Finally, add the camera IP address to your local environment variables:
+
+```
+IP_CAM=<camera IP>
+```
+
+## Install
+
+The image can be retrieved by either pulling it from Dockerhub, or by building it locally.
+
+### From Dockerhub
+
+Get the Docker image by pulling it from Dockerhub:
+
+```
+docker pull axisecp/$IMAGE_NAME:latest-$ARCH
+```
+
+### Build Locally
 
 Once the environment variables have been added, the docker image can be built:
 
@@ -68,13 +72,7 @@ docker build -t $IMAGE_NAME . --build-arg ARCH
 
 ### Runtime Environment Variables
 
-Before running the solution, some environment variables need to be set up. Add the values to the variables located in the __.env__ file. They are needed for communicating with the camera and AWS. The values can also be added directly in the docker-compose.yml file, depending on how you want your setup configured.
-
-Add the camera IP address to your local environment variables:
-
-```
-IP_CAM=<camera IP>
-```
+Before running the solution, additional environment variables need to be set up. Add the values to the variables located in the __.env__ file. They are needed for communicating with the camera and AWS. The values can also be added directly in the docker-compose.yml file, depending on how you want your setup configured.
 
 ### Install the Docker ACAP Application
 
