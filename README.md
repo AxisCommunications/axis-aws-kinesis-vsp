@@ -85,9 +85,9 @@ in the docker-compose.yml file, depending on how you want your setup configured.
 
 ### Install the Docker ACAP Application
 
-Make sure that the [Docker ACAP application]
-(https://github.com/AxisCommunications/docker-acap) is installed on the camera.
-To install it, you can run:
+Make sure that the
+[Docker ACAP application](https://github.com/AxisCommunications/docker-acap)
+is installed on the camera. To install it, you can run:
 
 ```sh
 docker run --rm axisecp/docker-acap:latest-<armv7hf / aarch64> $IP_CAM <camera
@@ -113,7 +113,7 @@ To start the container you can use docker compose
 docker-compose --tlsverify -H $IP_CAM:2376 up
 ```
 
-__or__
+or
 
 ```sh
 docker-compose --tlsverify -H $IP_CAM:2376 up -d
@@ -135,5 +135,6 @@ video stream in the list.
 of seconds since there might be a delay.
 
 ## Known Limitations
+
 When streaming to AWS Kinesis Video Streams there is a latency which can be
 affected by the selected AWS region, network setup and video resolution.
