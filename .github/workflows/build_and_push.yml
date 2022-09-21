@@ -20,7 +20,7 @@ jobs:
           ref: dev
 
       - name: Build the image
-        run: docker build -t kinesis-vsp:latest-${{ matrix.arch }} . --build-arg ${{ matrix.arch }}
+        run: docker build -t kinesis-vsp:latest-${{ matrix.arch }} . --build-arg ARCH=${{ matrix.arch }}
 
 #      - name: Docker login
 #        run: docker login ${{ secrets.username }} ${{ secrets.password }}

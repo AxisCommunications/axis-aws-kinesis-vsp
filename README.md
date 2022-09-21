@@ -1,6 +1,9 @@
 # Axis AWS Kinesis Video Streams Producer
 
-The Axis AWS Kinesis Video Streams Producer can be run on an Axis camera as a container, making it possible to stream video to AWS Kinesis Video Streams. The stream can thereafter be fed into other AWS services such as Rekognition to perform analytics.
+The Axis AWS Kinesis Video Streams Producer can be run on an Axis camera as a
+container, making it possible to stream video to AWS Kinesis Video Streams. The
+stream can thereafter be fed into other AWS services such as Rekognition to
+perform analytics.
 
 ## Compatibility
 
@@ -12,7 +15,8 @@ The following camera setup is supported
 
 ## Prerequisites
 
-- [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started with TLS and SD card storage selected
+- [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed
+and started with TLS and SD card storage selected
 - AWS Account with security credentials generated
   - Access key ID
   - Secret key
@@ -22,41 +26,43 @@ The following camera setup is supported
 
 ## Environment Variables
 
-The camera architecture should be added as an environment variable, so that it corresponds to the target device's hardware.
+The camera architecture should be added as an environment variable, so that it
+corresponds to the target device's hardware.
 
 Use arm32v7 for ARTPEC-7 devices:
 
-```
+```sh
 ARCH=arm32v7
 ```
 
 and arm64v8 for ARTPEC-8:
 
-```
+```sh
 ARCH=arm64v8
 ```
 
 The image name will also be added as an environment variable:
 
-```
+```sh
 IMAGE_NAME=kinesis-vsp
 ```
 
 Finally, add the camera IP address to your local environment variables:
 
-```
+```sh
 IP_CAM=<camera IP>
 ```
 
 ## Install
 
-The image can be retrieved by either pulling it from Dockerhub, or by building it locally.
+The image can be retrieved by either pulling it from Dockerhub, or by building
+it locally.
 
 ### From Dockerhub
 
 Get the Docker image by pulling it from Dockerhub:
 
-```
+```sh
 docker pull axisecp/$IMAGE_NAME:latest-$ARCH
 ```
 
@@ -64,7 +70,7 @@ docker pull axisecp/$IMAGE_NAME:latest-$ARCH
 
 Once the environment variables have been added, the docker image can be built:
 
-```
+```sh
 docker build -t $IMAGE_NAME . --build-arg ARCH
 ```
 
@@ -72,23 +78,30 @@ docker build -t $IMAGE_NAME . --build-arg ARCH
 
 ### Runtime Environment Variables
 
-Before running the solution, additional environment variables need to be set up. Add the values to the variables located in the __.env__ file. They are needed for communicating with the camera and AWS. The values can also be added directly in the docker-compose.yml file, depending on how you want your setup configured.
+Before running the solution, additional environment variables need to be set up.
+Add the values to the variables located in the __.env__ file. They are needed
+for communicating with the camera and AWS. The values can also be added directly
+in the docker-compose.yml file, depending on how you want your setup configured.
 
 ### Install the Docker ACAP Application
 
-Make sure that the [Docker ACAP application](https://github.com/AxisCommunications/docker-acap) is installed on the camera. To install it, you can run:
+Make sure that the [Docker ACAP application]
+(https://github.com/AxisCommunications/docker-acap) is installed on the camera.
+To install it, you can run:
 
-```
-docker run --rm axisecp/docker-acap:latest-<armv7hf / aarch64> $IP_CAM <camera password> install
+```sh
+docker run --rm axisecp/docker-acap:latest-<armv7hf / aarch64> $IP_CAM <camera
+password> install
 ```
 
-where you use the image tag 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64' for an ARTPEC-8 device.
+where you use the image tag 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64'
+for an ARTPEC-8 device.
 
 ### Save and Load the Image to the Camera
 
 The image can now be saved and loaded to the camera.
 
-```
+```sh
 docker save $IMAGE_NAME | docker --tlsverify -H $IP_CAM:2376 load
 ```
 
@@ -96,14 +109,13 @@ docker save $IMAGE_NAME | docker --tlsverify -H $IP_CAM:2376 load
 
 To start the container you can use docker compose
 
-```
+```sh
 docker-compose --tlsverify -H $IP_CAM:2376 up
 ```
 
 __or__
 
-
-```
+```sh
 docker-compose --tlsverify -H $IP_CAM:2376 up -d
 ```
 
@@ -111,13 +123,17 @@ to run in detached (background) mode.
 
 ## Verify That the Kinesis Video Stream is Successfully Running
 
-The most straightforward way to verify that the stream from the camera actually reaches Kinesis Video Streams is to do it from the AWS UI.
+The most straightforward way to verify that the stream from the camera actually
+reaches Kinesis Video Streams is to do it from the AWS UI.
 
 1. Log in to your AWS account.
 2. Search for and go to the Kinesis Video Streams service.
-3. Make sure that you are in the correct AWS region, and select the Kinesis video stream in the list.
+3. Make sure that you are in the correct AWS region, and select the Kinesis
+video stream in the list.
 4. Click the 'Media Playback' button.
-5. If everything is set up correctly, the stream should show up. Wait a number of seconds since there might be a delay. 
+5. If everything is set up correctly, the stream should show up. Wait a number
+of seconds since there might be a delay.
 
 ## Known Limitations
-When streaming to AWS Kinesis Video Streams there is a latency which can be affected by the selected AWS region, network setup and video resolution.
+When streaming to AWS Kinesis Video Streams there is a latency which can be
+affected by the selected AWS region, network setup and video resolution.
