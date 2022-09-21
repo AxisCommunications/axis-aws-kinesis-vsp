@@ -1,0 +1,29 @@
+name: Build Kinesis Video Streams producer image
+on:
+  push:
+    branches:
+      - "dev"
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: ["arm32v7", "arm64v8"]
+    env:
+      IMAGE_NAME: kinesis-vsp
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: dev
+
+      - name: Build the image
+        run: docker build -t kinesis-vsp:latest-${{ matrix.arch }} . --build-arg ${{ matrix.arch }}
+
+#      - name: Docker login
+#        run: docker login ${{ secrets.username }} ${{ secrets.password }}
+
+#      - name: Push image to Dockerhub
+#        run: docker push axisecp/${{ env.IMAGE_NAME }}:latest-${{ matrix.arch }}

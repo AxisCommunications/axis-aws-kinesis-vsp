@@ -1,5 +1,5 @@
+---
 name: Run markdown lint on README.md
-
 on:
   push:
     branches:
@@ -9,7 +9,11 @@ jobs:
   markdown_lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+         ref: 'dev'
+
       - name: README.md lint
         uses: nosborn/github-action-markdown-cli@v3.0.1
         with:
