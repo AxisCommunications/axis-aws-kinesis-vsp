@@ -36,6 +36,5 @@ jobs:
         with:
           context: .
           platform: linux/arm/v8
-          build-args:
-            ARCH: ${{ matrix.arch }}
+          build-args: ARCH = ${{ matrix.arch }}
           push: false
