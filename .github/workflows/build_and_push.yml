@@ -32,9 +32,6 @@ jobs:
 #          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build the image
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          platform: linux/arm/v8
-          build-args: ARCH = ${{ matrix.arch }}
-          push: false
+        run: |
+          docker run --privileged --rm multiarch/qemu-user-static
+          docker build -t $IMAGE_NAME . --build-arg ARG=${{ matrix.arch }}
