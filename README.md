@@ -44,7 +44,7 @@ ARCH=arm64v8
 The image name will also be added as an environment variable:
 
 ```sh
-IMAGE_NAME=kinesis-vsp
+IMAGE_NAME=kinesis-video-stream-application
 ```
 
 Finally, add the camera IP address to your local environment variables:
