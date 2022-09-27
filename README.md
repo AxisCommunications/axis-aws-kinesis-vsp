@@ -1,6 +1,6 @@
-# Axis AWS Kinesis Video Streams Producer
+# AWS Kinesis Video Stream Application
 
-The Axis AWS Kinesis Video Streams Producer can be run on an Axis camera as a
+The AWS Kinesis Video Stream Application can be run on an Axis camera as a
 container, making it possible to stream video to AWS Kinesis Video Streams. The
 stream can thereafter be fed into other AWS services such as Rekognition to
 perform analytics.
