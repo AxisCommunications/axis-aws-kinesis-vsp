@@ -1,53 +1,40 @@
 # AWS Kinesis Video Stream Application
 
-The AWS Kinesis Video Stream Application can be run on an Axis camera as a
-container, making it possible to stream video to AWS Kinesis Video Streams. The
-stream can thereafter be fed into other AWS services such as Rekognition to
-perform analytics.
+The AWS Kinesis Video Stream Application can be run on a virtualization enabled
+Axis camera as a container, making it possible to stream video to AWS Kinesis
+Video Streams. The stream can thereafter be fed into other AWS services such as
+Rekognition to perform image and or video analytics.
 
 ## Compatibility
 
 The following camera setup is supported
 
 - ARTPEC-7/8 system-on-chip
-- Firmware version 10.7 or greater
-- Container capable camera with SD card
+- Firmware version with virtualization support enabled
+- SD card has been set up
 
 ## Prerequisites
 
 - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed
-and started with TLS and SD card storage selected
-- AWS Account with security credentials generated
+and started
+  - 'Use TLS' set to Yes
+  - 'SD card support' set to Yes
+- AWS Account with [security credentials](https://docs.aws.amazon.com/IAM/latest
+/UserGuide/id_credentials_access-keys.html) generated
   - Access key ID
   - Secret key
-- Kinesis video stream created
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Environment Variables
 
-The camera architecture should be added as an environment variable, so that it
-corresponds to the target device's hardware.
-
-Use arm32v7 for ARTPEC-7 devices:
-
-```sh
-ARCH=arm32v7
-```
-
-and arm64v8 for ARTPEC-8:
-
-```sh
-ARCH=arm64v8
-```
-
-The image name will also be added as an environment variable:
+Add the image name as an environment variable so that it can be reused:
 
 ```sh
 IMAGE_NAME=kinesis-video-stream-application
 ```
 
-Finally, add the camera IP address to your local environment variables:
+Also, add the camera's IP address:
 
 ```sh
 IP_CAM=<camera IP>
@@ -63,10 +50,26 @@ it locally.
 Get the Docker image by pulling it from Dockerhub:
 
 ```sh
-docker pull axisecp/$IMAGE_NAME:latest-$ARCH
+docker pull axisecp/$IMAGE_NAME:latest-<armv7hf or aarch64>
 ```
 
+where the image tag is 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64' for
+ARTPEC-8 devices.
+
 ### Build Locally
+
+Add the architecture for the Docker image, depending on the camera
+system-on-chip. Use arm32v7 for ARTPEC-7 devices:
+
+```sh
+ARCH=arm32v7
+```
+
+and arm64v8 for ARTPEC-8:
+
+```sh
+ARCH=arm64v8
+```
 
 Once the environment variables have been added, the docker image can be built:
 
@@ -82,20 +85,6 @@ Before running the solution, additional environment variables need to be set up.
 Add the values to the variables located in the __.env__ file. They are needed
 for communicating with the camera and AWS. The values can also be added directly
 in the docker-compose.yml file, depending on how you want your setup configured.
-
-### Install the Docker ACAP Application
-
-Make sure that the
-[Docker ACAP application](https://github.com/AxisCommunications/docker-acap)
-is installed on the camera. To install it, you can run:
-
-```sh
-docker run --rm axisecp/docker-acap:latest-<armv7hf / aarch64> $IP_CAM <camera
-password> install
-```
-
-where you use the image tag 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64'
-for an ARTPEC-8 device.
 
 ### Save and Load the Image to the Camera
 
@@ -120,6 +109,13 @@ docker-compose --tlsverify -H $IP_CAM:2376 up -d
 ```
 
 to run in detached (background) mode.
+
+Once the docker-compose command has been run, an RTSP stream is set up with the
+start_stream.sh script. The AWS Gstreamer plugin kvssink sends media based on
+the Matroska container format to AWS Kinesis Video Streams. The plugin is set up
+with default values, however these values can be modified according to the
+[kvssink parameter reference](https://docs.aws.amazon.com/kinesisvideostreams
+/latest/dg/examples-gstreamer-plugin-parameters.html).
 
 ## Verify That the Kinesis Video Stream is Successfully Running
 
