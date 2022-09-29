@@ -10,7 +10,11 @@ jobs:
     strategy:
       matrix:
         arch: ["arm32v7", "arm64v8"]
-        tag_ext: ["armv7hf", "aarch64"]
+        include:
+          - tag_ext: "armv7hf"
+            arch: "arm32v7"
+          - tag_ext: "aarch64"
+            arch: "arm64v8"
     env:
       IMAGE_NAME: kinesis-video-stream-application
 
