@@ -10,6 +10,7 @@ jobs:
     strategy:
       matrix:
         arch: ["arm32v7", "arm64v8"]
+        tag_ext: ["armv7hf", "aarch64"]
     env:
       IMAGE_NAME: kinesis-video-stream-application
 
@@ -34,7 +35,7 @@ jobs:
       - name: Build the image
         run: |
           docker run --privileged --rm multiarch/qemu-user-static
-          docker build -t axisecp/$IMAGE_NAME:latest-${{ matrix.arch }} . --build-arg ARCH=${{ matrix.arch }}
+          docker build -t axisecp/$IMAGE_NAME:latest-${{ matrix.tag_ext }} . --build-arg ARCH=${{ matrix.arch }}
 
       - name: Push the image to DockerHub
-        run: docker push axisecp/$IMAGE_NAME:latest-${{ matrix.arch }}
+        run: docker push axisecp/$IMAGE_NAME:latest-${{ matrix.tag_ext }}

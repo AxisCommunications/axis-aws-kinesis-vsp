@@ -10,4 +10,5 @@ services:
       ACCESS_KEY_ID: $ACCESS_KEY_ID
       SECRET_KEY: $SECRET_KEY
       GST_PLUGIN_PATH: /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
+      no_proxy: $IP_CAM
     command: /bin/sh "start_stream.sh"
