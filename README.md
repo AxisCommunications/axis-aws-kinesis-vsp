@@ -19,8 +19,8 @@ The following camera setup is supported
 and started
   - 'Use TLS' set to Yes
   - 'SD card support' set to Yes
-- AWS Account with [security credentials](https://docs.aws.amazon.com/IAM/latest
-/UserGuide/id_credentials_access-keys.html) generated
+- AWS Account with
+[security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) generated
   - Access key ID
   - Secret key
 - [Docker](https://docs.docker.com/get-docker/)
@@ -114,8 +114,8 @@ Once the docker-compose command has been run, an RTSP stream is set up with the
 start_stream.sh script. The AWS Gstreamer plugin kvssink sends media based on
 the Matroska container format to AWS Kinesis Video Streams. The plugin is set up
 with default values, however these values can be modified according to the
-[kvssink parameter reference](https://docs.aws.amazon.com/kinesisvideostreams
-/latest/dg/examples-gstreamer-plugin-parameters.html).
+[kvssink parameter reference](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/examples-gstreamer-plugin-parameters.html)
+.
 
 ## Verify That the Kinesis Video Stream is Successfully Running
 
