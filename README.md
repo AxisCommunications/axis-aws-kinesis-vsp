@@ -5,6 +5,22 @@ Axis camera as a container, making it possible to stream video to AWS Kinesis
 Video Streams. The stream can thereafter be fed into other AWS services such as
 Rekognition to perform image and or video analytics.
 
+Table of Contents
+=================
+
+- [Compatibility](#Compatibility)
+- [Prerequisites](#Prerequisites)
+- [Environment Variables](#Environment-Variables)
+- [Install](#Install)
+    - [From Dockerhub](#From-Dockerhub)
+    - [Build Locally](#Build-Locally)
+- [Run on the Camera](#Run-on-the-Camera)
+    - [Runtime Environment Variables](#Runtime-Envinroment-Variables)
+    - [Save and Load the Image to the Camera](#Save-and-Load-the-image-to-the-Camera)
+    - [Starting the Container](#Starting-the-Container)
+- [Verify That the Kinesis Video Stream is Successfully Running](#Verify-That-the-Kinesis-Video-Stream-is-Successfully-Running)
+[Known Limitations](#Known-Limitations)
+
 ## Compatibility
 
 The following camera setup is supported
