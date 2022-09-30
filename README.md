@@ -19,7 +19,7 @@ Table of Contents
     - [Save and Load the Image to the Camera](#Save-and-Load-the-image-to-the-Camera)
     - [Starting the Container](#Starting-the-Container)
 - [Verify That the Kinesis Video Stream is Successfully Running](#Verify-That-the-Kinesis-Video-Stream-is-Successfully-Running)
-[Known Limitations](#Known-Limitations)
+- [Known Limitations](#Known-Limitations)
 
 ## Compatibility
 
