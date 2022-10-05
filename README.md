@@ -1,34 +1,31 @@
 # AWS Kinesis Video Stream Application
 
 The AWS Kinesis Video Stream Application can be run on a virtualization enabled
-Axis camera as a container, making it possible to stream video to AWS Kinesis
-Video Streams. The stream can thereafter be fed into other AWS services such as
-Rekognition to perform image and or video analytics.
+Axis camera as a container, making it possible to stream video to
+[AWS Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/). The
+stream can thereafter be fed into other AWS services such as Rekognition to
+perform image and or video analytics.
 
-## Compatibility
+## Requirements
 
-The following camera setup is supported
+The following camera setup is supported:
 
-- ARTPEC-7/8 system-on-chip
-- Firmware version with virtualization support enabled
-- SD card has been set up
+- Camera
+  - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII)
+  - Firmware: 10.9 or higher
+  - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started, using TLS and SD card as storage
 
-## Prerequisites
-
-- [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed
-and started
-  - 'Use TLS' set to Yes
-  - 'SD card support' set to Yes
-- AWS Account with
+- Computer
+  - AWS Account with
 [security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) generated
-  - Access key ID
-  - Secret key
-- [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+    - Access key ID
+    - Secret key
+  - [Docker](https://docs.docker.com/get-docker/)
+  - [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Environment Variables
 
-Add the image name as an environment variable so that it can be reused:
+Add the image name as a shell variable so that it can be reused:
 
 ```sh
 IMAGE_NAME=kinesis-video-stream-application
@@ -42,12 +39,12 @@ DEVICE_IP=<camera IP>
 
 ## Install
 
-The image can be retrieved by either pulling it from Dockerhub, or by building
+The image can be retrieved by either pulling it from Docker Hub, or by building
 it locally.
 
-### From Dockerhub
+### From Docker Hub
 
-Get the Docker image by pulling it from Dockerhub:
+Get the Docker image by pulling it from Docker Hub:
 
 ```sh
 docker pull axisecp/$IMAGE_NAME:latest-<armv7hf or aarch64>
@@ -88,7 +85,7 @@ in the docker-compose.yml file, depending on how you want your setup configured.
 
 ### Save and Load the Image to the Camera
 
-The image can now be saved and loaded to the camera.
+The image can now be saved and loaded to the camera:
 
 ```sh
 docker save $IMAGE_NAME | docker --tlsverify -H $DEVICE_IP:2376 load
@@ -96,13 +93,13 @@ docker save $IMAGE_NAME | docker --tlsverify -H $DEVICE_IP:2376 load
 
 ### Starting the Container
 
-To start the container you can use docker compose
+To start the container you can use docker compose:
 
 ```sh
 docker-compose --tlsverify -H $DEVICE_IP:2376 up
 ```
 
-or
+or:
 
 ```sh
 docker-compose --tlsverify -H $DEVICE_IP:2376 up -d
