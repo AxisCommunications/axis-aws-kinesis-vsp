@@ -1,9 +1,10 @@
 ---
 name: Run markdown lint on README.md
+
 on:
   push:
     branches:
-      - "dev"
+      - '*'
 
 jobs:
   markdown_lint:
@@ -15,7 +16,7 @@ jobs:
          ref: 'dev'
 
       - name: README.md lint
-        uses: nosborn/github-action-markdown-cli@v3.0.1
-        with:
-          files: .
-          config_file: .markdownlint_config.yml
+        uses: github/super-linter/slim@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: main

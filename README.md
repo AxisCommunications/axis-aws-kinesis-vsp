@@ -37,7 +37,7 @@ IMAGE_NAME=kinesis-video-stream-application
 Also, add the camera's IP address:
 
 ```sh
-IP_CAM=<camera IP>
+DEVICE_IP=<camera IP>
 ```
 
 ## Install
@@ -91,7 +91,7 @@ in the docker-compose.yml file, depending on how you want your setup configured.
 The image can now be saved and loaded to the camera.
 
 ```sh
-docker save $IMAGE_NAME | docker --tlsverify -H $IP_CAM:2376 load
+docker save $IMAGE_NAME | docker --tlsverify -H $DEVICE_IP:2376 load
 ```
 
 ### Starting the Container
@@ -99,13 +99,13 @@ docker save $IMAGE_NAME | docker --tlsverify -H $IP_CAM:2376 load
 To start the container you can use docker compose
 
 ```sh
-docker-compose --tlsverify -H $IP_CAM:2376 up
+docker-compose --tlsverify -H $DEVICE_IP:2376 up
 ```
 
 or
 
 ```sh
-docker-compose --tlsverify -H $IP_CAM:2376 up -d
+docker-compose --tlsverify -H $DEVICE_IP:2376 up -d
 ```
 
 to run in detached (background) mode.
