@@ -42,5 +42,5 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Push the image to DockerHub
+      - name: Push the image to Docker Hub
         run: docker push axisecp/$IMAGE_NAME:latest-${{ matrix.tag_ext }}

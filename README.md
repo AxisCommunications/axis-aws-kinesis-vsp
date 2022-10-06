@@ -6,6 +6,8 @@ Axis camera as a container, making it possible to stream video to
 stream can thereafter be fed into other AWS services such as Rekognition to
 perform image and or video analytics.
 
+![diagram](./assets/diagram.png)
+
 ## Requirements
 
 The following setup is supported:
