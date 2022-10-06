@@ -8,7 +8,7 @@ perform image and or video analytics.
 
 ## Requirements
 
-The following camera setup is supported:
+The following setup is supported:
 
 - Camera
   - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII)
