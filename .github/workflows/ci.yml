@@ -1,5 +1,5 @@
 ---
-name: Run markdown lint on README.md
+name: Continuous integration workflow
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - '*'
 
 jobs:
-  markdown_lint:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -15,7 +15,7 @@ jobs:
         with:
          ref: 'dev'
 
-      - name: README.md lint
+      - name: Run Super-Linter
         uses: github/super-linter/slim@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
