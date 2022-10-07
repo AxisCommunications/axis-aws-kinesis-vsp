@@ -1,6 +1,6 @@
 ARG ARCH
 
-FROM $ARCH/ubuntu:18.04
+FROM $ARCH/ubuntu:18.04 as base
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     libssl-dev libcurl4-openssl-dev liblog4cplus-dev libgstreamer1.0-dev \
@@ -22,7 +22,7 @@ RUN cmake .. -DBUILD_GSTREAMER_PLUGIN=TRUE && make
 
 FROM $ARCH/ubuntu:18.04
 
-COPY --from=0 /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/ /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/
+COPY --from=base /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/ /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/
 
 WORKDIR /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build/
 
