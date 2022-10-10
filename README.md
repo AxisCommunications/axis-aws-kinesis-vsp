@@ -21,23 +21,16 @@ The following setup is supported:
   - AWS Account with
 [security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) generated
     - Access key ID
-    - Secret key
+    - Secret access key
   - [Docker](https://docs.docker.com/get-docker/)
   - [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Environment Variables
 
-Add the image name as a shell variable so that it can be reused:
-
-```sh
-IMAGE_NAME=kinesis-video-stream-application
-```
-
-Also, add the camera's IP address:
-
-```sh
-DEVICE_IP=<camera IP>
-```
+Before running the solution, environment variables need to be set up.
+Add the values to the variables located in the __.env__ file. They are needed
+for communicating with the camera and AWS. The values can also be added directly
+in the docker-compose.yml file, depending on how you want your setup configured.
 
 ## Install
 
@@ -46,16 +39,28 @@ it locally.
 
 ### From Docker Hub
 
+Add the image name as a shell variable so that it can be reused:
+
+```sh
+IMAGE_NAME=axisecp/kinesis-video-stream-application
+```
+
 Get the Docker image by pulling it from Docker Hub:
 
 ```sh
-docker pull axisecp/$IMAGE_NAME:latest-<armv7hf or aarch64>
+docker pull ${IMAGE_NAME}:latest-<armv7hf or aarch64>
 ```
 
 where the image tag is 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64' for
 ARTPEC-8 devices.
 
 ### Build Locally
+
+Add the image name as a shell variable:
+
+```sh
+IMAGE_NAME=kinesis-video-stream-application
+```
 
 Add the architecture for the Docker image, depending on the camera
 system-on-chip. Use arm32v7 for ARTPEC-7 devices:
@@ -70,7 +75,9 @@ and arm64v8 for ARTPEC-8:
 ARCH=arm64v8
 ```
 
-Once the environment variables have been added, the docker image can be built:
+Once the shell variables have been added, the docker image can be built:
+
+> __Note__: If you decide to build the image locally, make sure that IMAGE_NAME and IMAGE_TAG in the __.env__ file is in line with the values you used to build the image.
 
 ```sh
 docker build -t $IMAGE_NAME . --build-arg ARCH
@@ -78,14 +85,19 @@ docker build -t $IMAGE_NAME . --build-arg ARCH
 
 ## Run on the Camera
 
-### Runtime Environment Variables
-
-Before running the solution, additional environment variables need to be set up.
-Add the values to the variables located in the __.env__ file. They are needed
-for communicating with the camera and AWS. The values can also be added directly
-in the docker-compose.yml file, depending on how you want your setup configured.
-
 ### Save and Load the Image to the Camera
+
+Add the camera's IP address as a shell variable:
+
+```sh
+DEVICE_IP=<camera IP>
+```
+
+Clear Docker memory:
+
+```sh
+docker --tlsverify -H $DEVICE_IP:2376 system prune --all --force
+```
 
 The image can now be saved and loaded to the camera:
 

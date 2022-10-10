@@ -1,6 +1,6 @@
 services:
   kinesis_stream_producer:
-    image: $IMAGE_NAME
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
     environment:
       DEVICE_IP: $DEVICE_IP
       DEVICE_USERNAME: $DEVICE_USERNAME
