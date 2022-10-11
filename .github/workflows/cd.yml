@@ -34,7 +34,7 @@ jobs:
       - name: Build the image
         run: |
           docker run --privileged --rm multiarch/qemu-user-static
-          docker build -t axisecp/"$IMAGE_NAME":latest-${{ matrix.tag_ext }} . --build-arg ARCH=${{ matrix.arch }}
+          docker build -t axisecp/"$IMAGE_NAME":latest-${{ matrix.tag_ext }} --build-arg ARCH=${{ matrix.arch }} .
 
       - name: Docker login
         uses: docker/login-action@v2

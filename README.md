@@ -63,25 +63,25 @@ IMAGE_NAME=kinesis-video-stream-application
 ```
 
 Add the architecture for the Docker image, depending on the camera
-system-on-chip. Use arm32v7 for ARTPEC-7 devices:
+system-on-chip. Use `arm32v7` for ARTPEC-7 devices:
 
 ```sh
 ARCH=arm32v7
 ```
 
-and arm64v8 for ARTPEC-8:
+and `arm64v8` for ARTPEC-8:
 
 ```sh
 ARCH=arm64v8
 ```
 
-Once the shell variables have been added, the docker image can be built:
+Once the shell variables have been added, the Docker image can be built:
 
 > __Note__: If you decide to build the image locally, make sure that IMAGE_NAME and IMAGE_TAG in the __.env__ file is in line
 > with the values you used to build the image.
 
 ```sh
-docker build -t $IMAGE_NAME . --build-arg ARCH
+docker build --tag $IMAGE_NAME --build-arg ARCH .
 ```
 
 ## Run on the Camera
@@ -108,7 +108,7 @@ docker save $IMAGE_NAME | docker --tlsverify -H $DEVICE_IP:2376 load
 
 ### Starting the Container
 
-To start the container you can use docker compose:
+To start the container you can use Docker Compose:
 
 ```sh
 docker-compose --tlsverify -H $DEVICE_IP:2376 up
