@@ -124,8 +124,8 @@ docker-compose --tlsverify -H $DEVICE_IP:2376 up -d
 
 to run in detached (background) mode.
 
-Once the docker-compose command has been run, an RTSP stream is set up with the
-start_stream.sh script. The AWS Gstreamer plugin kvssink sends media based on
+Once the `docker-compose` command has been run, an RTSP stream is set up with the
+`start_stream.sh` script. The AWS Gstreamer plugin kvssink sends media based on
 the Matroska container format to AWS Kinesis Video Streams. The plugin is set up
 with default values, however these values can be modified according to the
 [kvssink parameter reference](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/examples-gstreamer-plugin-parameters.html)
