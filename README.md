@@ -100,6 +100,8 @@ Clear Docker memory:
 docker --tlsverify -H $DEVICE_IP:2376 system prune --all --force
 ```
 
+If you encounter any TLS related issues, please see the TLS setup chapter regarding the `DOCKER_CERT_PATH` environment variable in the [Docker ACAP repository](https://github.com/AxisCommunications/docker-acap).
+
 The image can now be saved and loaded to the camera:
 
 ```sh
