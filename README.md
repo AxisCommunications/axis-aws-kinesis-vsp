@@ -51,7 +51,7 @@ Get the Docker image by pulling it from Docker Hub:
 docker pull ${IMAGE_NAME}:latest-<armv7hf or aarch64>
 ```
 
-where the image tag is 'latest-armv7hf' for ARTPEC-7 and 'latest-aarch64' for
+where the image tag is `latest-armv7hf` for ARTPEC-7 and `latest-aarch64` for
 ARTPEC-8 devices.
 
 ### Build Locally
