@@ -77,7 +77,8 @@ ARCH=arm64v8
 
 Once the shell variables have been added, the docker image can be built:
 
-> __Note__: If you decide to build the image locally, make sure that IMAGE_NAME and IMAGE_TAG in the __.env__ file is in line with the values you used to build the image.
+> __Note__: If you decide to build the image locally, make sure that IMAGE_NAME and IMAGE_TAG in the __.env__ file is in line
+> with the values you used to build the image.
 
 ```sh
 docker build -t $IMAGE_NAME . --build-arg ARCH

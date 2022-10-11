@@ -26,6 +26,7 @@ project and show your appreciation, which we would also be very happy about:
     - [Before Submitting an Enhancement](#before-submitting-an-enhancement)
     - [How do I submit a good enhancement suggestion?](#how-do-i-submit-a-good-enhancement-suggestion)
   - [Your first code contribution](#your-first-code-contribution)
+    - [Lint of codebase](#lint-of-codebase)
 
 ## I have a question
 
@@ -150,6 +151,27 @@ And finally when you are satisfied with your changes, open a new PR. This can be
 after pushing your commits. GitHub will notice that there is an update, and a button with the text "Compare and Pull Request"
 will appear. After clicking the button, you will get the option to write a title and description of your pull request and then
 you can open the request by clicking "Create pull request".
+
+#### Lint of codebase
+
+When you create a pull request, a set of linters will run syntax and format checks on different file types in GitHub Actions by
+making use of a tool called [super-linter](https://github.com/github/super-linter). If any of the linters gives an error, this
+will be shown in the action connected to the pull request.
+
+In order to fasten up development, it's possible to run linters as part of your local development environment. Since super-linter
+is using a Docker image in GitHub Actions, users of other editors may run it locally to lint the codebase. For complete
+instructions and guidance, see super-linter page for
+[running locally](https://github.com/github/super-linter/blob/main/docs/run-linter-locally.md).
+
+To run the linters on the codebase from command-line:
+
+```sh
+docker run --rm  \
+  -v $PWD:/tmp/lint \
+  -e RUN_LOCAL=true \
+  -e LINTER_RULES_PATH=/ \
+  github/super-linter:slim-v4
+```
 
 <!-- markdownlint-disable MD034 -->
 [issues]: https://github.com/AxisCommunications/kinesis-video-stream-application/issues
