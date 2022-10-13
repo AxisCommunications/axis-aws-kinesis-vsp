@@ -18,6 +18,7 @@ The following setup is supported:
   - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started, using TLS and SD card as storage
 
 - Computer
+  - OS: Linux/macOS running preferred shell, or Windows 10 with WSL2 installed to run Bash on Windows
   - AWS Account with
 [security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) generated
     - Access key ID
