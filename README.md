@@ -29,9 +29,25 @@ The following setup is supported:
 ## Environment Variables
 
 Before running the solution, environment variables need to be set up.
-Add the values to the variables located in the __.env__ file. They are needed
-for communicating with the camera and AWS. The values can also be added directly
-in the docker-compose.yml file, depending on how you want your setup configured.
+Create a file named __.env__ in the root directory of this repository, it will contain data to communicate with the camera and
+AWS. After creating the file, add the content below to the file and fill in the corresponding values:
+
+```sh
+# Docker variables
+IMAGE_NAME=axisecp/kinesis-video-stream-application
+IMAGE_TAG=latest-<armv7hf or aarch64>
+
+# Camera specific variables
+DEVICE_IP=<camera IP>
+DEVICE_USERNAME=<camera username>
+DEVICE_PASSWORD=<camera password>
+
+# AWS related variables
+AWS_KINESIS_STREAM_NAME=<AWS Kinesis video stream name>
+AWS_REGION=<AWS region>
+AWS_ACCESS_KEY_ID=<AWS access key ID>
+AWS_SECRET_ACCESS_KEY=<AWS secret key>
+```
 
 ## Install
 
