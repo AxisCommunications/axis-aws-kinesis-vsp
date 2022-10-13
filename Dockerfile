@@ -7,7 +7,23 @@ FROM $ARCH/ubuntu:18.04
 RUN <<EOF
 apt-get update
 DEBIAN_FRONTEND=noninteractive
-apt-get install -y --no-install-recommends libssl-dev libcurl4-openssl-dev liblog4cplus-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-base-apps gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools ca-certificates cmake pkg-config m4 git g++-5
+apt-get install -y --no-install-recommends \
+  libssl-dev \
+  libcurl4-openssl-dev \
+  liblog4cplus-dev \
+  libgstreamer1.0-dev \
+  libgstreamer-plugins-base1.0-dev \
+  gstreamer1.0-plugins-base-apps \
+  gstreamer1.0-plugins-bad \
+  gstreamer1.0-plugins-good \
+  gstreamer1.0-plugins-ugly \
+  gstreamer1.0-tools \
+  ca-certificates \
+  cmake \
+  pkg-config \
+  m4 \
+  git \
+  g++-5
 rm -rf /var/lib/apt/lists/*
 EOF
 
