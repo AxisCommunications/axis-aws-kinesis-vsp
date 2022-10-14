@@ -1,5 +1,5 @@
 services:
-  kinesis_stream_producer:
+  kinesis_video_stream_application:
     image: ${IMAGE_NAME}:${IMAGE_TAG}
     environment:
       DEVICE_IP: $DEVICE_IP
