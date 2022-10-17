@@ -6,7 +6,6 @@ FROM $ARCH/ubuntu:18.04 as base
 
 RUN <<EOF
 apt-get update
-DEBIAN_FRONTEND=noninteractive
 apt-get install -y --no-install-recommends \
   libssl-dev \
   libcurl4-openssl-dev \
