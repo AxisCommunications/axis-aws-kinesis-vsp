@@ -23,7 +23,7 @@ The following setup is supported:
 [security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) generated
     - Access key ID
     - Secret access key
-  - [Docker](https://docs.docker.com/get-docker/)
+  - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
   - [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Environment Variables
