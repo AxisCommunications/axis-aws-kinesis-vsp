@@ -27,6 +27,7 @@ The following setup is supported:
   - [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Variables
+
 To run the solution, a number of variables need to be added. These will be used for building or pulling the Docker image and running it.
 
 ### Shell Variables
