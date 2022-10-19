@@ -28,7 +28,8 @@ The following setup is supported:
 
 ## Variables
 
-To run the solution, a number of variables need to be added. These will be used for building or pulling the Docker image and running it.
+To run the solution, a number of variables need to be added. These will be used for building or pulling the Docker image and
+running it.
 
 ### Shell Variables
 
