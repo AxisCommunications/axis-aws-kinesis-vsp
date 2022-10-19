@@ -41,7 +41,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          build-args:
-            ARCH: ${{ matrix.arch }}
+          build-args: ARCH=${{ matrix.arch }}
           tags: axisecp/${{ env.IMAGE_NAME }}:latest-${{ matrix.tag_ext }}
           push: true
