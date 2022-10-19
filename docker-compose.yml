@@ -1,14 +1,14 @@
 services:
-  kinesis_stream_producer:
-    image: $IMAGE_NAME
+  kinesis_video_stream_application:
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
     environment:
-      IP: $IP
-      STREAM_NAME: $STREAM_NAME
-      REGION: $REGION
-      ACCESS_KEY: $ACCESS_KEY_ID
-      SECRET_KEY: $SECRET_KEY
+      DEVICE_IP: $DEVICE_IP
+      DEVICE_USERNAME: $DEVICE_USERNAME
+      DEVICE_PASSWORD: $DEVICE_PASSWORD
+      AWS_KINESIS_STREAM_NAME: $AWS_KINESIS_STREAM_NAME
+      AWS_REGION: $AWS_REGION
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
       GST_PLUGIN_PATH: /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
-    volumes:
-      - ./start_stream.sh:/opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build/start_stream.sh
+      no_proxy: $DEVICE_IP
     command: /bin/sh "start_stream.sh"
-

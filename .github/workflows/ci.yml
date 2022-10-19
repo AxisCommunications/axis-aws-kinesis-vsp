@@ -1,0 +1,21 @@
+---
+name: Continuous integration workflow
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run Super-Linter
+        uses: github/super-linter/slim@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: main
+          LINTER_RULES_PATH: /
