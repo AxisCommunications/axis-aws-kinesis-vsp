@@ -34,7 +34,7 @@ jobs:
       - name: Build the image
         run: |
           docker run --privileged --rm multiarch/qemu-user-static
-          docker build -t axisecp/"$IMAGE_NAME":latest-${{ matrix.tag_ext }} --build-arg ARCH=${{ matrix.arch }} .
+          docker build --build-arg ARCH=${{ matrix.arch }} -t axisecp/${{ env.IMAGE_NAME }}:latest-${{ matrix.tag_ext }} .
 
       - name: Docker login
         uses: docker/login-action@v2
@@ -43,4 +43,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push the image to Docker Hub
-        run: docker push axisecp/"$IMAGE_NAME":latest-${{ matrix.tag_ext }}
+        run: docker push axisecp/${{ env.IMAGE_NAME }}:latest-${{ matrix.tag_ext }}
