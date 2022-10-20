@@ -26,19 +26,36 @@ The following setup is supported:
   - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
   - [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Environment Variables
+## Variables
+
+To run the solution, a number of variables need to be added. These will be used for building or pulling the Docker image and
+running it.
+
+### Shell Variables
+
+Add the image name as a shell variable so that it can be reused:
+
+```sh
+IMAGE_NAME=axisecp/kinesis-video-stream-application
+```
+
+Also, add the image tag:
+
+```sh
+IMAGE_TAG=latest-<armv7hf or aarch64>
+```
+
+where the image tag is `latest-armv7hf` for ARTPEC-7 and `latest-aarch64` for
+ARTPEC-8 devices.
+
+### Environment Variables
 
 Before running the solution, environment variables need to be set up.
 Create a file named __.env__ in the root directory of this repository, it will contain data to communicate with the camera and
 AWS. After creating the file, add the content below to the file and fill in the corresponding values:
 
 ```sh
-# Docker variables
-IMAGE_NAME=axisecp/kinesis-video-stream-application
-IMAGE_TAG=latest-<armv7hf or aarch64>
-
 # Camera specific variables
-DEVICE_IP=<camera IP>
 DEVICE_USERNAME=<camera username>
 DEVICE_PASSWORD=<camera password>
 
@@ -56,30 +73,15 @@ it locally.
 
 ### From Docker Hub
 
-Add the image name as a shell variable so that it can be reused:
-
-```sh
-IMAGE_NAME=axisecp/kinesis-video-stream-application
-```
-
 Get the Docker image by pulling it from Docker Hub:
 
 ```sh
-docker pull ${IMAGE_NAME}:latest-<armv7hf or aarch64>
+docker pull ${IMAGE_NAME}:${IMAGE_TAG}
 ```
-
-where the image tag is `latest-armv7hf` for ARTPEC-7 and `latest-aarch64` for
-ARTPEC-8 devices.
 
 ### Build Locally
 
-Add the image name as a shell variable:
-
-```sh
-IMAGE_NAME=kinesis-video-stream-application
-```
-
-Add the architecture for the Docker image, depending on the camera
+Add the architecture for the Docker image as a shell variable, depending on the camera
 system-on-chip. Use `arm32v7` for ARTPEC-7 devices:
 
 ```sh
@@ -94,11 +96,8 @@ ARCH=arm64v8
 
 Once the shell variables have been added, the Docker image can be built:
 
-> __Note__: If you decide to build the image locally, make sure that IMAGE_NAME and IMAGE_TAG in the __.env__ file is in line
-> with the values you used to build the image.
-
 ```sh
-docker build --tag $IMAGE_NAME --build-arg ARCH .
+docker build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH .
 ```
 
 ## Run on the Camera
@@ -123,7 +122,7 @@ in the [Docker ACAP repository](https://github.com/AxisCommunications/docker-aca
 The image can now be saved and loaded to the camera:
 
 ```sh
-docker save $IMAGE_NAME | docker --tlsverify -H $DEVICE_IP:2376 load
+docker save ${IMAGE_NAME}:${IMAGE_TAG} | docker --tlsverify -H $DEVICE_IP:2376 load
 ```
 
 ### Starting the Container
