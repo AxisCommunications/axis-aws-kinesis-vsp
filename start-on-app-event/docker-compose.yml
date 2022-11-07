@@ -1,0 +1,15 @@
+services:
+  start-kinesis-video-stream-on-event:
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
+    environment:
+      DEVICE_IP: $DEVICE_IP
+      DEVICE_USERNAME: $DEVICE_USERNAME
+      DEVICE_PASSWORD: $DEVICE_PASSWORD
+      AWS_REGION: $AWS_REGION
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+      GST_PLUGIN_PATH: /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
+      no_proxy: $DEVICE_IP
+      APPNAME: $APPNAME
+    volumes:
+      - /var/spool/storage/SD_DISK/:/tmp/recordings/

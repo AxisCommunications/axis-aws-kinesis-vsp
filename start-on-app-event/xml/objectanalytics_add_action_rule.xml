@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Envelope xmlns="http://www.w3.org/2003/05/soap-envelope">
+ <Header/>
+ <Body xmlns:act="http://www.axis.com/vapix/ws/action1" xmlns:aev="http://www.axis.com/vapix/ws/event1" xmlns:tns1="http://www.onvif.org/ver10/topics" xmlns:tnsaxis="http://www.axis.com/2009/event/topics">
+  <AddActionRule xmlns="http://www.axis.com/vapix/ws/action1">
+   <NewActionRule>
+    <Name>objectanalytics action rule</Name>
+    <Enabled>true</Enabled>
+    <!-- No start event -->
+    <Conditions>
+          <Condition>
+      <TopicExpression
+      Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"
+      xmlns="http://docs.oasis-open.org/wsn/b-2">tnsaxis:CameraApplicationPlatform/ObjectAnalytics/Device1ScenarioANY</TopicExpression>
+      <MessageContent
+    Dialect="http://www.onvif.org/ver10/tev/messageContentFilter/ItemFilter"
+    xmlns="http://docs.oasis-open.org/wsn/b-2">boolean(//SimpleItem[@Name="active" and @Value="1"])</MessageContent>
+     </Condition>
+    </Conditions>
+
+    <PrimaryAction>ConfigurationID</PrimaryAction>
+   </NewActionRule>
+  </AddActionRule>
+ </Body>
+</Envelope>

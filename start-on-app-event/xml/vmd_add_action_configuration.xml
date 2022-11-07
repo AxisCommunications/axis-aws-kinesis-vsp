@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Envelope xmlns="http://www.w3.org/2003/05/soap-envelope">
+ <Header/>
+ <Body >
+  <AddActionConfiguration xmlns="http://www.axis.com/vapix/ws/action1">
+   <NewActionConfiguration>
+    <Name>Record video</Name>
+    <TemplateToken>com.axis.action.fixed.recording.storage</TemplateToken>
+    <Parameters>
+     <Parameter Name="stream_options" Value="&amp;streamprofile=&amp;camera=1"/>
+     <Parameter Name="pre_duration" Value="3000"/>
+     <Parameter Name="post_duration" Value="5000"/>
+     <Parameter Name="storage_id" Value="SD_DISK"/>
+    </Parameters>
+   </NewActionConfiguration>
+  </AddActionConfiguration>
+ </Body>
+</Envelope>
