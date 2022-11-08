@@ -1,6 +1,12 @@
 # Application Event Based Streaming
 
-This is an example of how the [AWS Kinesis Video Stream Application](https://github.com/AxisCommunications/axis-aws-kinesis-vsp) can be extended to only stream to [AWS Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/) when an object or motion is detected by either [Axis Object Analytics](https://www.axis.com/products/axis-object-analytics) (AOA) or [Axis Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) (VMD). When the example is run, an action rule and a scenario or profile is created in either AOA or VMD. The rule records clips and saves them to the SD-card when events occur in either application. Each recording is streamed to [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/).
+This is an example of how the [AWS Kinesis Video Stream Application](https://github.com/AxisCommunications/axis-aws-kinesis-vsp)
+can be extended to only stream to [AWS Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/) when an object or
+motion is detected by either [Axis Object Analytics](https://www.axis.com/products/axis-object-analytics) (AOA) or
+[Axis Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) (VMD). When the example is run, an
+action rule and a scenario or profile is created in either AOA or VMD. The rule records clips and saves them to the SD-card when
+events occur in either application. Each recording is streamed to
+[Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/).
 
 ## Requirements
 
@@ -10,7 +16,8 @@ The following setup is supported:
   - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII)
   - Firmware: 10.9 or higher
   - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started, using TLS and SD card as storage
-  - [Axis Object Analytics](https://www.axis.com/products/axis-object-analytics) or [Axis Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) installed and started
+  - [Axis Object Analytics](https://www.axis.com/products/axis-object-analytics) or
+[Axis Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) installed and started
   - 'View Area 1' created
 
 - Computer
@@ -24,7 +31,8 @@ The following setup is supported:
 
 ## Variables
 
-To run the solution, a number of variables need to be added. These will be used for building or pulling the Docker image and running it.
+To run the solution, a number of variables need to be added. These will be used for building or pulling the Docker image and
+running it.
 
 ### Shell Variables
 

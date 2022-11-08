@@ -10,7 +10,9 @@ apt-get install -y \
   python3-pip
 EOF
 
-RUN pip3 install requests
+RUN pip3 install --no-cache-dir requests==2.27.1
+
+WORKDIR /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
 
 COPY ./app.py .
 COPY ./start_stream_mkv.sh .
