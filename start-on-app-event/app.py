@@ -7,8 +7,8 @@ from datetime import date
 import requests
 from requests.auth import HTTPDigestAuth
 
-date = date.today().isoformat().replace("-", "")
-recordings_path = "/tmp/recordings/" + date
+date_today = str(date.today().isoformat()).replace("-", "")
+recordings_path = "/tmp/recordings/" + date_today
 
 app_name = os.environ["APPNAME"]
 device_ip = os.environ["DEVICE_IP"]
