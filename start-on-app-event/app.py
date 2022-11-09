@@ -64,9 +64,7 @@ app_config_data = get_file_data("json/" + app_name + "_config.json")
 app_config_data_json = json.loads(app_config_data)
 set_configuration(app_config_data_json)
 
-add_action_configuration = get_file_data(
-    "xml/" + app_name + "_add_action_configuration.xml"
-)
+add_action_configuration = get_file_data("xml/add_action_configuration.xml")
 time.sleep(5)
 add_action_rule = get_file_data("xml/" + app_name + "_add_action_rule.xml")
 
