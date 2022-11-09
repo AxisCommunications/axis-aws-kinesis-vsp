@@ -18,7 +18,6 @@ The following setup is supported:
   - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started, using TLS and SD card as storage
   - [Axis Object Analytics](https://www.axis.com/products/axis-object-analytics) or
 [Axis Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) installed and started
-  - 'View Area 1' created
 
 - Computer
   - OS: Linux/macOS running preferred shell, or Windows 10 with WSL2 installed to run Bash on Windows
@@ -73,17 +72,6 @@ APPNAME=<objectanalytics or vmd>
 ```
 
 ## Install
-
-The image can be retrieved by either pulling it from Docker Hub, or by building
-it locally.
-
-### From Docker Hub
-
-Get the Docker image by pulling it from Docker Hub:
-
-```sh
-docker pull ${IMAGE_NAME}:${IMAGE_TAG}
-```
 
 ### Build Locally
 
