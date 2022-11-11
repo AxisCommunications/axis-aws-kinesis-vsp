@@ -1,1 +1,80 @@
-{"apiVersion":"1.2", "method":"setConfiguration", "context":"context", "params": {"devices": [{"id": 1, "isActive": true, "type": "camera", "rotation": 180}], "scenarios": [{"id": 1, "filters": [{"time": 1, "type": "timeShortLivedLimit"}, {"distance": 5, "type": "distanceSwayingObject"}, {"width": 3, "height": 3, "type": "sizePercentage"}], "name": "Scenario 1", "type": "motion", "metadataOverlay": null, "objectClassifications": [{"type": "human"}], "devices": [{"id": 1}], "triggers": [{"type": "includeArea", "vertices": [[0.97, 0.97], [0.9797, -0.1034], [0.97, -0.97], [-0.97, -0.97], [-0.97, 0.97]]}]}], "metadataOverlay": [], "trail": {"isActive": false, "lifetimeInSec": 10}}}
+{
+  "apiVersion": "1.2",
+  "method": "setConfiguration",
+  "context": "context",
+  "params": {
+    "devices": [
+      {
+        "id": 1,
+        "isActive": true,
+        "type": "camera",
+        "rotation": 180
+      }
+    ],
+    "scenarios": [
+      {
+        "id": 1,
+        "filters": [
+          {
+            "time": 1,
+            "type": "timeShortLivedLimit"
+          },
+          {
+            "distance": 5,
+            "type": "distanceSwayingObject"
+          },
+          {
+            "width": 3,
+            "height": 3,
+            "type": "sizePercentage"
+          }
+        ],
+        "name": "Scenario 1",
+        "type": "motion",
+        "metadataOverlay": null,
+        "objectClassifications": [
+          {
+            "type": "human"
+          }
+        ],
+        "devices": [
+          {
+            "id": 1
+          }
+        ],
+        "triggers": [
+          {
+            "type": "includeArea",
+            "vertices": [
+              [
+                0.97,
+                0.97
+              ],
+              [
+                0.9797,
+                -0.1034
+              ],
+              [
+                0.97,
+                -0.97
+              ],
+              [
+                -0.97,
+                -0.97
+              ],
+              [
+                -0.97,
+                0.97
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "metadataOverlay": [],
+    "trail": {
+      "isActive": false,
+      "lifetimeInSec": 10
+    }
+  }
+}

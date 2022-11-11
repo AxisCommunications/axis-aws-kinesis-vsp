@@ -1,6 +1,6 @@
 # Application Event Based Streaming
 
-This is an example of how the [AWS Kinesis Video Stream Application](https://github.com/AxisCommunications/axis-aws-kinesis-vsp)
+This is an example of how the [AWS Kinesis Video Stream Application](..)
 can be extended to only stream to [AWS Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/) when an object or
 motion is detected by either [Axis Object Analytics](https://www.axis.com/products/axis-object-analytics) (AOA) or
 [Axis Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) (VMD). When the example is run, an
@@ -53,7 +53,7 @@ ARTPEC-8 devices.
 ### Environment Variables
 
 Before running the solution, environment variables need to be set up.
-Create a file named __.env__ in the root directory of this repository, it will contain data to communicate with the camera and
+Create a file named `.env` in the root directory of this repository, it will contain data to communicate with the camera and
 AWS. After creating the file, add the content below to the file and fill in the corresponding values:
 
 ```sh
@@ -67,7 +67,7 @@ AWS_REGION=<AWS region>
 AWS_ACCESS_KEY_ID=<AWS access key ID>
 AWS_SECRET_ACCESS_KEY=<AWS secret key>
 
-#Specify the application to use, either 'objectanalytics' or 'vmd'
+# Specify the application to use, either 'objectanalytics' or 'vmd'
 APPNAME=<objectanalytics or vmd>
 ```
 
@@ -107,7 +107,7 @@ DEVICE_IP=<camera IP>
 Clear Docker memory:
 
 ```sh
-docker --tlsverify -H $DEVICE_IP:2376 system prune --all --force
+docker --tlsverify --host $DEVICE_IP:2376 system prune --all --force
 ```
 
 If you encounter any TLS related issues, please see the TLS setup chapter regarding the `DOCKER_CERT_PATH` environment variable
@@ -116,7 +116,7 @@ in the [Docker ACAP repository](https://github.com/AxisCommunications/docker-aca
 The image can now be saved and loaded to the camera:
 
 ```sh
-docker save ${IMAGE_NAME}:${IMAGE_TAG} | docker --tlsverify -H $DEVICE_IP:2376 load
+docker save ${IMAGE_NAME}:${IMAGE_TAG} | docker --tlsverify --host $DEVICE_IP:2376 load
 ```
 
 ### Starting the Container
@@ -124,13 +124,13 @@ docker save ${IMAGE_NAME}:${IMAGE_TAG} | docker --tlsverify -H $DEVICE_IP:2376 l
 To start the container you can use Docker Compose:
 
 ```sh
-docker-compose --tlsverify -H $DEVICE_IP:2376 up
+docker-compose --tlsverify --host $DEVICE_IP:2376 up
 ```
 
 or:
 
 ```sh
-docker-compose --tlsverify -H $DEVICE_IP:2376 up -d
+docker-compose --tlsverify --host $DEVICE_IP:2376 up --detach
 ```
 
 to run in detached (background) mode.
