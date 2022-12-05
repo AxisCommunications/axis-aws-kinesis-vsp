@@ -8,7 +8,7 @@ action rule and a scenario or profile is created in either AOA or VMD. The rule 
 events occur in either application. Each recording is streamed to
 [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/).
 
-![diagram](./assets/start-on-app-event.png)
+![diagram](./../assets/start-on-app-event.png)
 
 ## Requirements
 
