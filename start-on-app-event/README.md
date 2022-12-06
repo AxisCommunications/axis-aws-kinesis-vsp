@@ -12,23 +12,7 @@ events occur in either application. Each recording is streamed to
 
 ## Requirements
 
-The following setup is supported:
-
-- Camera
-  - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII)
-  - Firmware: 10.9 or higher
-  - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started, using TLS and SD card as storage
-  - [Axis Object Analytics](https://www.axis.com/products/axis-object-analytics) or
-[Axis Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) installed and started
-
-- Computer
-  - OS: Linux/macOS running preferred shell, or Windows 10 with WSL2 installed to run Bash on Windows
-  - AWS Account with
-[security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) generated
-    - Access key ID
-    - Secret access key
-  - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
-  - [Docker Compose](https://docs.docker.com/compose/install/)
+Same as for the main application. See the requirements section in [AWS Kinesis Video Stream Application](..)
 
 ## Variables
 
@@ -37,24 +21,22 @@ running it.
 
 ### Shell Variables
 
-Add the image name as a shell variable so that it can be reused:
+Add the image name as a shell variable:
 
 ```sh
-IMAGE_NAME=axisecp/kvs-start-on-app-event
+IMAGE_NAME=kvs-start-on-app-event
 ```
 
 Also, add the image tag:
 
 ```sh
-IMAGE_TAG=latest-<armv7hf or aarch64>
+IMAGE_TAG=latest
 ```
-
-where the image tag is `latest-armv7hf` for ARTPEC-7 and `latest-aarch64` for
-ARTPEC-8 devices.
 
 ### Environment Variables
 
-Before running the solution, environment variables need to be set up.
+Before running the solution, environment variables need to be set up. The environment variables are the same as for the main
+application, with the exception of adding a variable called APPNAME relating to the application used for generating events.
 Create a file named `.env` in the root directory of this repository, it will contain data to communicate with the camera and
 AWS. After creating the file, add the content below to the file and fill in the corresponding values:
 
@@ -78,64 +60,29 @@ APPNAME=<objectanalytics or vmd>
 ### Build Locally
 
 Add the architecture for the Docker image as a shell variable, depending on the camera
-system-on-chip. Use `arm32v7` for ARTPEC-7 devices:
+system-on-chip. Use `armv7hf` for ARTPEC-7 devices:
 
 ```sh
-ARCH=arm32v7
+ARCH=armv7hf
 ```
 
-and `arm64v8` for ARTPEC-8:
+and `aarch64` for ARTPEC-8:
 
 ```sh
-ARCH=arm64v8
+ARCH=aarch64
 ```
 
 Once the shell variables have been added, the Docker image can be built:
 
 ```sh
-docker build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH .
+docker buildx build --tag $IMAGE_NAME --build-arg ARCH .
 ```
 
 ## Run on the Camera
 
 ### Save and Load the Image to the Camera
 
-Add the camera's IP address as a shell variable:
-
-```sh
-DEVICE_IP=<camera IP>
-```
-
-Clear Docker memory:
-
-```sh
-docker --tlsverify --host $DEVICE_IP:2376 system prune --all --force
-```
-
-If you encounter any TLS related issues, please see the TLS setup chapter regarding the `DOCKER_CERT_PATH` environment variable
-in the [Docker ACAP repository](https://github.com/AxisCommunications/docker-acap).
-
-The image can now be saved and loaded to the camera:
-
-```sh
-docker save ${IMAGE_NAME}:${IMAGE_TAG} | docker --tlsverify --host $DEVICE_IP:2376 load
-```
-
-### Starting the Container
-
-To start the container you can use Docker Compose:
-
-```sh
-docker-compose --tlsverify --host $DEVICE_IP:2376 up
-```
-
-or:
-
-```sh
-docker-compose --tlsverify --host $DEVICE_IP:2376 up --detach
-```
-
-to run in detached (background) mode.
+Same as for the main application. See the save and load section in [AWS Kinesis Video Stream Application](..)
 
 ## Verify That the Kinesis Video Stream is Successfully Running
 
@@ -155,4 +102,5 @@ of seconds since there might be a delay.
 ## Known Limitations
 
 When streaming to AWS Kinesis Video Streams there is a latency which can be
-affected by the selected AWS region, network setup and video resolution.
+affected by the selected AWS region, network setup and video resolution. This means that eventual event triggered recordings might
+appear in Amazon Kinesis Video Streams with a noticeable delay.
