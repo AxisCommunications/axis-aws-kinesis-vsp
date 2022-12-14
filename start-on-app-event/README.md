@@ -89,7 +89,8 @@ Same as for the main application. See the save and load section in [AWS Kinesis 
 The most straightforward way to verify that the stream from the camera actually
 reaches Kinesis Video Streams is to do it from the AWS UI.
 
-1. Go to either the AOA or VMD app on the camera and view the created profile or scenario. (e.g.  http://192.168.0.1/local/vmd/index.html or  http://192.168.0.1/local/objectanalytics/index.html).
+1. Go to either the AOA or VMD app on the camera and view the created profile or scenario.
+(e.g. <http://192.168.0.1/local/vmd/index.html> or  <http://192.168.0.1/local/objectanalytics/index.html>).
 2. Trigger an event by clicking the button 'Test alarm'
 3. Log in to your AWS account.
 4. Search for and go to the Kinesis Video Streams service.
