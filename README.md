@@ -97,7 +97,7 @@ ARCH=arm64v8
 Once the shell variables have been added, the Docker image can be built:
 
 ```sh
-docker build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH --build-arg KVS_CPP_PRODUCER_SDK_TAG=v3.3.1 .
+docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH --build-arg KVS_CPP_PRODUCER_SDK_TAG=v3.3.1 .
 ```
 
 ## Run on the Camera

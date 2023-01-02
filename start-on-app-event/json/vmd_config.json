@@ -1,0 +1,65 @@
+{
+  "apiVersion": "1.4",
+  "method": "setConfiguration",
+  "context": "context",
+  "params": {
+    "cameras": [
+      {
+        "id": 1,
+        "rotation": 180,
+        "active": true
+      }
+    ],
+    "profiles": [
+      {
+        "camera": 1,
+        "name": "Profile 1",
+        "uid": 1,
+        "filters": [
+          {
+            "type": "timeShortLivedLimit",
+            "active": true,
+            "data": 1
+          },
+          {
+            "type": "distanceSwayingObject",
+            "active": true,
+            "data": 5
+          },
+          {
+            "type": "sizePercentage",
+            "active": true,
+            "data": [
+              5,
+              5
+            ]
+          }
+        ],
+        "triggers": [
+          {
+            "data": [
+              [
+                -0.97,
+                -0.97
+              ],
+              [
+                -0.97,
+                0.97
+              ],
+              [
+                0.97,
+                0.97
+              ],
+              [
+                0.97,
+                -0.97
+              ]
+            ],
+            "type": "includeArea"
+          }
+        ]
+      }
+    ],
+    "configurationStatus": 45
+  }
+}
