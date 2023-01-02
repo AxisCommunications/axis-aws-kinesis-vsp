@@ -97,7 +97,7 @@ ARCH=arm64v8
 Once the shell variables have been added, the Docker image can be built:
 
 ```sh
-docker build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH .
+docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH .
 ```
 
 ## Run on the Camera
