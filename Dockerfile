@@ -28,7 +28,8 @@ EOF
 
 WORKDIR /opt/app/
 
-RUN git clone --recursive https://github.com/awslabs/amazon-kinesis-video-streams-producer-sdk-cpp.git
+ARG KVS_CPP_PRODUCER_SDK_TAG=v3.3.1
+RUN git clone --recursive https://github.com/awslabs/amazon-kinesis-video-streams-producer-sdk-cpp.git -b $KVS_CPP_PRODUCER_SDK_TAG
 
 WORKDIR /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
 
