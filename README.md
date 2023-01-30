@@ -56,7 +56,7 @@ ARTPEC-8 devices.
 ### Environment Variables
 
 Before running the solution, environment variables need to be set up.
-Create a file named __.env__ in the root directory of this repository, it will contain data to communicate with the camera and
+Create a file named `.env` in the root directory of this repository, it will contain data to communicate with the camera and
 AWS. After creating the file, add the content below to the file and fill in the corresponding values:
 
 ```sh
@@ -118,68 +118,69 @@ Prerequisites:
 
 AWS provides [documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html) for how to set the above prerequisites up. However, to simplify the process of setting up an IAM Role assumed by IoT, policies, certificates etc, a script is provided.
 
-If the prerequisites are set up by following the [documentaion](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html) from AWS step 2 below can be skipped.
+If the prerequisites are set up by following the [documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html) from AWS step 2 below can be skipped.
 
-### Steps:
+### Steps
 
-__1.__ Create a file named __.env__ in the `X509_authentication` directory of this repository, it will contain data to communicate with the camera and
+1. Create a file named `.env` in the `X509_authentication` directory of this repository, it will contain data to communicate with the camera and
 AWS. After creating the file, add the content below to the file and fill in the corresponding values:
 
-```ini
-DEVICE_USERNAME=<camera username>
-DEVICE_PASSWORD=<camera password>
-GST_PLUGIN_PATH=/opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
-PROXY=<proxy address, needed if camera is behind a proxy>
+    ```ini
+    DEVICE_USERNAME=<camera username>
+    DEVICE_PASSWORD=<camera password>
+    GST_PLUGIN_PATH=/opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
+    PROXY=<proxy address, needed if camera is behind a proxy>
+    
+    # AWS related variables
+    AWS_KINESIS_STREAM_NAME=<AWS Kinesis video stream name>
+    AWS_REGION=<AWS region>
+    AWS_CREDENTIAL_PROVIDER=<AWS credential provider, see next step for how to fetch it>
+    AWS_ROLE_ALIAS=<Pick a name for the AWS Role Alias>
+    
+    # Used by generate certificate script:
+    AWS_THING=$AWS_KINESIS_STREAM_NAME
+    AWS_THING_TYPE=<Pick a name for the AWS Thing Type>
+    AWS_ROLE=<Pick a name for the AWS Role>
+    AWS_ROLE_ALIAS=<Pick a name for the AWS Role Alias>
+    AWS_IAM_POLICY=<Pick a name for the AWS IAM Policy>
+    AWS_IOT_POLICY=<Pick a name for the AWS IOT Policy>
+    AWS_ROOT_CA_ADDRESS=https://www.amazontrust.com/repository/SFSRootCAG2.pem
+    ```
+    It's required that the value of `AWS_THING` is identical to the value of `AWS_KINESIS_STREAM_NAME`. 
+    
+    To fetch the credentials provider the following command can be used:
+    
+    ```sh
+    aws --profile default iot describe-endpoint --endpoint-type iot:CredentialProvider --output text
+    ```
 
-# AWS related variables
-AWS_KINESIS_STREAM_NAME=<AWS Kinesis video stream name>
-AWS_REGION=<AWS region>
-AWS_CREDENTIAL_PROVIDER=<AWS credential provider, see next step for how to fetch it>
-AWS_ROLE_ALIAS=<Pick a name for the AWS Role Alias>
+2. Step into the `certificate_files` directory and run the following command to generate certificate and keys:
+   
+   > This step can be skipped if setting up the certificate manually according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html).
+    ```sh
+    ./generate.sh ../.env
+    ```
 
-# Used by generate certificate script:
-AWS_THING=$AWS_KINESIS_STREAM_NAME
-AWS_THING_TYPE=<Pick a name for the AWS Thing Type>
-AWS_ROLE=<Pick a name for the AWS Role>
-AWS_ROLE_ALIAS=<Pick a name for the AWS Role Alias>
-AWS_IAM_POLICY=<Pick a name for the AWS IAM Policy>
-AWS_IOT_POLICY=<Pick a name for the AWS IOT Policy>
-AWS_ROOT_CA_ADDRESS=https://www.amazontrust.com/repository/SFSRootCAG2.pem
-```
-> __`AWS_THING` and `AWS_KINESIS_STREAM_NAME` must have the same name.__
+3. Step back into the `X509_authentication` directory and build an image.
+- To build the image first set the following environment variables in your shell:
+    ```sh
+    export IMAGE_NAME=<Choose a name to tag the new image running with certificates with>
+    export IMAGE_TAG=<latest-<armv7hf or aarch64>
+    export DEVICE_IP=<camera IP>
+    ```
+- Then run the build command:
+    ```sh
+    docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg IMAGE_TAG=$IMAGE_TAG .
+    ```
+    
+4. Create the Kinesis Video Stream.
+- If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html), permission will **not** be set for KinesisVideo:CreateStream action. I.e. the stream will have to be created manually.
 
-> __To fetch the credentials provider the following command can be used:__
-
-```sh
-aws --profile default iot describe-endpoint --endpoint-type iot:CredentialProvider --output text
-```
-
-__2.__ (_Optional, if not settings the certificates up manually_) Step into the `certificate_files` directory and run the following command to generate certificate and keys:
-
-```sh
-./generate.sh ../.env
-```
-
-__3.__ Step back into the `X509_authentication` directory and build an image.
-   - To build the image first set the following environment variables in your shell:
-     ```ini
-     export IMAGE_NAME=<Choose a name to tag the new image running with certificates with>
-     export IMAGE_TAG=<latest-<armv7hf or aarch64>
-     export DEVICE_IP=<camera IP>
-     ```
-   - Then run the build command:
-     ```sh
-     docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg IMAGE_TAG=$IMAGE_TAG .
-     ```
-
-__4.__ Create the Kinesis Video Stream.
-   - If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html), permission will __not__ be set for KinesisVideo:CreateStream action. I.e. the stream will have to be created manually.
-
-```sh
-aws kinesisvideo create-stream  --data-retention-in-hours 2 --stream-name <name of the stream used in above steps>
-```
->Note! The stream name must be the same as the name of the Thing created earlier.
-
+    ```sh
+    aws kinesisvideo create-stream  --data-retention-in-hours 2 --stream-name <name of the stream used in above steps>
+    ```
+    >The stream name must be the same as the name of the Thing created earlier.
+    
 
 ## Run on the Camera
 
