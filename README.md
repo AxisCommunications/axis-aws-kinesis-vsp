@@ -105,8 +105,6 @@ Once the shell variables have been added, the Docker image can be built:
 docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH --build-arg KVS_CPP_PRODUCER_SDK_TAG=v3.3.1 .
 ```
 
-
-
 ## Option 2: AWS IoT certificates
 
 Kinesis Video Streams do not support certificate-based authentication, however, AWS IoT has a credentials provider that allows
@@ -151,6 +149,7 @@ If the prerequisites are set up by following the
     AWS_IOT_POLICY=<Pick a name for the AWS IOT Policy>
     AWS_ROOT_CA_ADDRESS=https://www.amazontrust.com/repository/SFSRootCAG2.pem
     ```
+
     It's required that the value of `AWS_THING` is identical to the value of `AWS_KINESIS_STREAM_NAME`.
 
     To fetch the credentials provider the following command can be used:
@@ -158,32 +157,41 @@ If the prerequisites are set up by following the
     ```sh
     aws --profile default iot describe-endpoint --endpoint-type iot:CredentialProvider --output text
     ```
+
 2. Step into the `certificate_files` directory and run the following command to generate certificate and keys:
 
    > This step can be skipped if setting up the certificate manually according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html).
+
     ```sh
     ./generate.sh ../.env
     ```
+
 3. Step back into the `X509_authentication` directory and build an image.
+
 - To build the image first set the following environment variables in your shell:
+
     ```sh
     export IMAGE_NAME=<Choose a name to tag the new image running with certificates with>
     export IMAGE_TAG=<latest-<armv7hf or aarch64>
     export DEVICE_IP=<camera IP>
     ```
+
 - Then run the build command:
+
     ```sh
     docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg IMAGE_TAG=$IMAGE_TAG .
     ```
+
 4. Create the Kinesis Video Stream.
+
 - If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html),
   permission will **not** be set for KinesisVideo:CreateStream action. I.e. the stream will have to be created manually.
 
     ```sh
     aws kinesisvideo create-stream  --data-retention-in-hours 2 --stream-name <name of the stream used in above steps>
     ```
-    >The stream name must be the same as the name of the Thing created earlier.
 
+    >The stream name must be the same as the name of the Thing created earlier.
 
 ## Run on the Camera
 
