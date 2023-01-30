@@ -168,24 +168,24 @@ If the prerequisites are set up by following the
 
 3. Step back into the `X509_authentication` directory and build an image.
 
-- To build the image first set the following environment variables in your shell:
+    - To build the image first set the following environment variables in your shell:
 
-    ```sh
-    export IMAGE_NAME=<Choose a name to tag the new image running with certificates with>
-    export IMAGE_TAG=<latest-<armv7hf or aarch64>
-    export DEVICE_IP=<camera IP>
-    ```
+        ```sh
+        export IMAGE_NAME=<Choose a name to tag the new image running with certificates with>
+        export IMAGE_TAG=<latest-<armv7hf or aarch64>
+        export DEVICE_IP=<camera IP>
+        ```
 
-- Then run the build command:
+    - Then run the build command:
 
-    ```sh
-    docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg IMAGE_TAG=$IMAGE_TAG .
-    ```
+        ```sh
+        docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg IMAGE_TAG=$IMAGE_TAG .
+        ```
 
 4. Create the Kinesis Video Stream.
 
-- If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html),
-  permission will **not** be set for KinesisVideo:CreateStream action. I.e. the stream will have to be created manually.
+   If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html),
+   permission will **not** be set for KinesisVideo:CreateStream action. I.e. the stream will have to be created manually.
 
     ```sh
     aws kinesisvideo create-stream  --data-retention-in-hours 2 --stream-name <name of the stream used in above steps>
