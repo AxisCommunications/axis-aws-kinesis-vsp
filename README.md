@@ -140,11 +140,10 @@ If the prerequisites are set up by following the
     AWS_CREDENTIAL_PROVIDER=<AWS credential provider, see next step for how to fetch it>
     AWS_ROLE_ALIAS=<Pick a name for the AWS Role Alias>
 
-    # Used by generate certificate script:
+    # Additional AWS variables needed for generating certificate
     AWS_THING=$AWS_KINESIS_STREAM_NAME
     AWS_THING_TYPE=<Pick a name for the AWS Thing Type>
     AWS_ROLE=<Pick a name for the AWS Role>
-    AWS_ROLE_ALIAS=<Pick a name for the AWS Role Alias>
     AWS_IAM_POLICY=<Pick a name for the AWS IAM Policy>
     AWS_IOT_POLICY=<Pick a name for the AWS IOT Policy>
     AWS_ROOT_CA_ADDRESS=https://www.amazontrust.com/repository/SFSRootCAG2.pem
