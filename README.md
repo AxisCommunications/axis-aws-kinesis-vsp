@@ -110,7 +110,7 @@ docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH --build-ar
 Kinesis Video Streams do not support certificate-based authentication, however, AWS IoT has a credentials provider that allows
 you to use the built-in X.509 certificate as the unique device identity to authenticate AWS requests.
 
-### Prerequisites:
+### Prerequisites
 
 - Create an IoT Thing Type and an IoT Thing
 - Create an IAM Role to be Assumed by IoT
@@ -123,14 +123,13 @@ is provided.
 If the prerequisites are set up by following the
 [documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html) from AWS step 2 below can be skipped.
 
-
 In addition the steps below make use of the following tools to various extent:
-- **AWS CLI**.
-    - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
-    - Ensure to choose `json` as output and a region that supports Kinesis Video Streams during configuration.
-- **jq**, a lightweight command-line JSON processor.
-    - Installation and getting started instructions can be found [here](https://stedolan.github.io/jq/).
 
+- **AWS CLI**.
+  - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
+  - Ensure to choose `json` as output and a region that supports Kinesis Video Streams during configuration.
+- **jq**, a lightweight command-line JSON processor.
+  - Installation and getting started instructions can be found [here](https://stedolan.github.io/jq/).
 
 ### Steps
 
@@ -140,7 +139,7 @@ In addition the steps below make use of the following tools to various extent:
     > For the `generate.sh` script and docker compose to pick up the environment variables the file needs to be named `.env`
     **and** be placed in the `x509_authentication` directory.
 
-    ```ini
+    ```sh
     DEVICE_USERNAME=<camera username>
     DEVICE_PASSWORD=<camera password>
     GST_PLUGIN_PATH=/opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
