@@ -135,10 +135,10 @@ In addition the steps below make use of the following tools to various extent:
 ### Steps
 
 1. Create a file named `.env` in the `x509_authentication` directory of this repository, it will contain data to communicate with
-   the camera and AWS. Add the content below to the file and fill in the corresponding values:
+    the camera and AWS. Add the content below to the file and fill in the corresponding values:
 
-   > For the `generate.sh` script and docker compose to pick up the environment variables the file needs to be named `.env`
-   **and** be placed in the `x509_authentication` directory.
+    > For the `generate.sh` script and docker compose to pick up the environment variables the file needs to be named `.env`
+    **and** be placed in the `x509_authentication` directory.
 
     ```ini
     DEVICE_USERNAME=<camera username>
@@ -171,7 +171,7 @@ In addition the steps below make use of the following tools to various extent:
 
 2. Step into the `certificate_files` directory and run the following command to generate certificate and keys:
 
-   > This step can be skipped if setting up the certificate manually according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html).
+    > This step can be skipped if setting up the certificate manually according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html).
 
     ```sh
     ./generate.sh ../.env
@@ -195,8 +195,8 @@ In addition the steps below make use of the following tools to various extent:
 
 4. Create the Kinesis Video Stream.
 
-   If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html),
-   permission will **not** be set for KinesisVideo:CreateStream action. I.e. the stream will have to be created manually.
+    If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html),
+    permission will **not** be set for KinesisVideo:CreateStream action. I.e. the stream will have to be created manually.
 
     ```sh
     aws kinesisvideo create-stream  --data-retention-in-hours 2 --stream-name <name of the stream used in above steps>
