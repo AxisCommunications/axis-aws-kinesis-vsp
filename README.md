@@ -110,7 +110,7 @@ docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH --build-ar
 Kinesis Video Streams do not support certificate-based authentication, however, AWS IoT has a credentials provider that allows
 you to use the built-in X.509 certificate as the unique device identity to authenticate AWS requests.
 
-Prerequisites:
+### Prerequisites:
 
 - Create an IoT Thing Type and an IoT Thing
 - Create an IAM Role to be Assumed by IoT
@@ -123,10 +123,22 @@ is provided.
 If the prerequisites are set up by following the
 [documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html) from AWS step 2 below can be skipped.
 
+
+In addition the steps below make use of the following tools to various extent:
+- **AWS CLI**.
+    - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
+    - Ensure to choose `json` as output and a region that supports Kinesis Video Streams during configuration.
+- **jq**, a lightweight command-line JSON processor.
+    - Installation and getting started instructions can be found [here](https://stedolan.github.io/jq/).
+
+
 ### Steps
 
-1. Create a file named `.env` in the `X509_authentication` directory of this repository, it will contain data to communicate with
-   the camera and AWS. After creating the file, add the content below to the file and fill in the corresponding values:
+1. Create a file named `.env` in the `x509_authentication` directory of this repository, it will contain data to communicate with
+   the camera and AWS. Add the content below to the file and fill in the corresponding values:
+
+   > For the `generate.sh` script and docker compose to pick up the environment variables the file needs to be named `.env`
+   **and** be placed in the `x509_authentication` directory.
 
     ```ini
     DEVICE_USERNAME=<camera username>
@@ -165,13 +177,13 @@ If the prerequisites are set up by following the
     ./generate.sh ../.env
     ```
 
-3. Step back into the `X509_authentication` directory and build an image.
+3. Step back into the `x509_authentication` directory and build an image.
 
     - To build the image first set the following environment variables in your shell:
 
         ```sh
         export IMAGE_NAME=<Choose a name to tag the new image running with certificates with>
-        export IMAGE_TAG=<latest-<armv7hf or aarch64>
+        export IMAGE_TAG=<Choose either latest-armv7hf or latest-aarch64>
         export DEVICE_IP=<camera IP>
         ```
 

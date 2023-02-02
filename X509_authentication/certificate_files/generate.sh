@@ -31,9 +31,9 @@ cat > tmp/iam-policy-document.json <<EOF
 }
 EOF
 
-
+echo ""
 echo "Creating IAM Role: ${AWS_ROLE}"
-if aws --profile default iam get-role --role-name "${AWS_ROLE}" > tmp/iam-role.json ; then
+if aws --profile default iam get-role --role-name "${AWS_ROLE}" > tmp/iam-role.json 2>&1; then
     echo "Role: ${AWS_ROLE} already available, continuing..."
 else
     aws --profile default iam create-role --role-name "${AWS_ROLE}" --assume-role-policy-document 'file://tmp/iam-policy-document.json' > tmp/iam-role.json
@@ -59,11 +59,12 @@ cat > tmp/iam-permission-document.json <<EOF
 EOF
 
 echo "Attaching permissions policy: ${AWS_IAM_POLICY} to: ${AWS_ROLE}"
-aws --profile default iam put-role-policy --role-name "${AWS_ROLE}" --policy-name "${AWS_IAM_POLICY}" --policy-document 'file://tmp/iam-permission-document.json' 
+aws --profile default iam put-role-policy --role-name "${AWS_ROLE}" --policy-name "${AWS_IAM_POLICY}" --policy-document 'file://tmp/iam-permission-document.json'
 
 # Create a Role Alias
+echo ""
 echo "Creating Role Alias: ${AWS_ROLE_ALIAS}"
-if aws --profile default iot describe-role-alias --role-alias "${AWS_ROLE_ALIAS}" > tmp/iot-role-alias.json; then
+if aws --profile default iot describe-role-alias --role-alias "${AWS_ROLE_ALIAS}" > tmp/iot-role-alias.json 2>&1; then
     echo "Role Alias: ${AWS_ROLE_ALIAS} already available, continuing..."
 else
     aws --profile default iot create-role-alias --role-alias "${AWS_ROLE_ALIAS}" --role-arn "$(jq --raw-output '.Role.Arn' tmp/iam-role.json)" --credential-duration-seconds 3600
@@ -93,13 +94,15 @@ cat > tmp/iot-policy-document.json <<EOF
 }
 EOF
 
+echo ""
 echo "Creating Policy: ${AWS_IOT_POLICY} that will enable IoT to assume role with the certificate (once it is attached) using the role alias"
-if aws --profile default iot get-policy --policy-name "${AWS_IOT_POLICY}"; then
+if aws --profile default iot get-policy --policy-name "${AWS_IOT_POLICY}" 2>/dev/null; then
     echo "Policy: ${AWS_IOT_POLICY} already available, continuing..."
 else
     aws --profile default iot create-policy --policy-name "${AWS_IOT_POLICY}" --policy-document 'file://tmp/iot-policy-document.json'
 fi
 
+echo ""
 echo "Creating the certificate to which the policy for IoT created above must be attached"
 aws --profile default iot create-keys-and-certificate --set-as-active --certificate-pem-outfile certificate.pem --public-key-outfile public.pem.key --private-key-outfile private.pem.key > certificate
 
@@ -109,6 +112,7 @@ aws --profile default iot attach-policy --policy-name "${AWS_IOT_POLICY}" --targ
 echo "Attaching the IoT thing ${AWS_THING} to the certificate"
 aws --profile default  iot attach-thing-principal --thing-name "${AWS_THING}" --principal "$(jq --raw-output '.certificateArn' certificate)"
 
+echo ""
 echo "Getting endpoint needed to authorize requests through the IoT credentials provider"
 aws --profile default iot describe-endpoint --endpoint-type iot:CredentialProvider --output text > tmp/iot-credential-provider.txt
 
@@ -117,4 +121,3 @@ curl --silent "${AWS_ROOT_CA_ADDRESS}" --output cacert.pem
 
 # Clean up tmp folder
 rm -rf tmp
-
