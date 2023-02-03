@@ -13,21 +13,21 @@ perform image and or video analytics.
 The following setup is supported:
 
 - Camera
-  - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII)
-  - Firmware: 10.9 or higher
-  - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started, using TLS and SD card as storage
+    - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII)
+    - Firmware: 10.9 or higher
+    - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started, using TLS and SD card as storage
 
 - Computer
-  - OS: Linux/macOS running preferred shell, or Windows 10 with WSL2 installed to run Bash on Windows
-  - AWS Account with
+    - OS: Linux/macOS running preferred shell, or Windows 10 with WSL2 installed to run Bash on Windows
+    - AWS Account with
     [security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) generated
-    - [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key)
-      - Access key ID
-      - Secret access key
-    - [Option 2: AWS IoT certificates](#option-2-aws-iot-certificates)
-      - AWS IoT certificates
+        - [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key)
+            - Access key ID
+            - Secret access key
+        - [Option 2: AWS IoT certificates](#option-2-aws-iot-certificates)
+            - AWS IoT certificates
 - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
-  - [Docker Compose](https://docs.docker.com/compose/install/)
+    - [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Option 1: Access key ID and Secret access key
 
@@ -126,10 +126,10 @@ If the prerequisites are set up by following the
 In addition the steps below make use of the following tools to various extent:
 
 - **AWS CLI**.
-  - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
-  - Ensure to choose `json` as output and a region that supports Kinesis Video Streams during configuration.
+    - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
+    - Ensure to choose `json` as output and a region that supports Kinesis Video Streams during configuration.
 - **jq**, a lightweight command-line JSON processor.
-  - Installation and getting started instructions can be found [here](https://stedolan.github.io/jq/).
+    - Installation and getting started instructions can be found [here](https://stedolan.github.io/jq/).
 
 ### Steps
 
