@@ -113,8 +113,8 @@ you to use the built-in X.509 certificate as the unique device identity to authe
 ### Prerequisites
 
 - Create an IoT Thing Type and an IoT Thing
-- Create an IAM Role to be Assumed by IoT
-- Create and Configure the X.509 Certificate
+- Create an IAM Role to be assumed by IoT
+- Create and configure the X.509 certificate
 
 AWS provides [documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html) for how to set the above
 prerequisites up. However, to simplify the process of setting up an IAM Role assumed by IoT, policies, certificates etc, a script
@@ -127,17 +127,17 @@ In addition the steps below make use of the following tools to various extent:
 
 - **AWS CLI**.
     - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
-    - Ensure to choose `json` as output and a region that supports Kinesis Video Streams during configuration.
+        - Ensure to choose a region that supports Kinesis Video Streams.
 - **jq**, a lightweight command-line JSON processor.
     - Installation and getting started instructions can be found [here](https://stedolan.github.io/jq/).
 
 ### Steps
 
-1. Create a file named `.env` in the `x509_authentication` directory of this repository, it will contain data to communicate with
+1. Create a file named `.env` in the `x509-authentication` directory of this repository, it will contain data to communicate with
     the camera and AWS. Add the content below to the file and fill in the corresponding values:
 
     > For the `generate.sh` script and Docker Compose to pick up the environment variables the file needs to be named `.env`
-    **and** be placed in the `x509_authentication` directory.
+    **and** be placed in the `x509-authentication` directory.
 
     ```sh
     DEVICE_USERNAME=<camera username>
@@ -172,11 +172,19 @@ In addition the steps below make use of the following tools to various extent:
 
     > This step can be skipped if setting up the certificate manually according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html).
 
+    If `AWS CLI` is configured with `output = json` the script can be run as:
     ```sh
     ./generate.sh ../.env
     ```
 
-3. Step back into the `x509_authentication` directory and build an image.
+    If another configuration is set, `AWS_DEFAULT_OUTPUT="json"` can be added to the call instead, i.e.:
+    ```sh
+    AWS_DEFAULT_OUTPUT="json" ./generate.sh ../.env
+    ```
+
+    > Currently the script only supports a profile named `default` for the calls made towards AWS CLI. If you like it to use another profile read about [Named profiles for the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) in the AWS documentation and update the script accordingly.
+
+3. Step back into the `x509-authentication` directory and build an image.
 
     - To build the image first set the following environment variables in your shell:
 

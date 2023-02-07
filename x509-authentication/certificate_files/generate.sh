@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z "$1" ]; then
+    echo "Please add the path to the .env file as an argument"
+    exit 1
+fi
+
 ENV_FILE_PATH="$1"
 
 # Export env vars
