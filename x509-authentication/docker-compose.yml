@@ -1,0 +1,15 @@
+version: "3"
+services:
+  kinesis_video_stream_application:
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
+    environment:
+      DEVICE_IP: $DEVICE_IP
+      DEVICE_USERNAME: $DEVICE_USERNAME
+      DEVICE_PASSWORD: $DEVICE_PASSWORD
+      AWS_KINESIS_STREAM_NAME: $AWS_KINESIS_STREAM_NAME
+      AWS_REGION: $AWS_REGION
+      AWS_CREDENTIAL_PROVIDER: $AWS_CREDENTIAL_PROVIDER
+      AWS_ROLE_ALIAS: $AWS_ROLE_ALIAS
+      GST_PLUGIN_PATH: $GST_PLUGIN_PATH
+      no_proxy: $DEVICE_IP
+    command: /bin/sh "start_stream.sh"

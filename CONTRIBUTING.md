@@ -19,14 +19,14 @@ project and show your appreciation, which we would also be very happy about:
 
 - [I have a question](#i-have-a-question)
 - [I want to contribute](#i-want-to-contribute)
-  - [Reporting bugs](#reporting-bugs)
-    - [Before submitting a bug report](#before-submitting-a-bug-report)
-    - [How do I submit a good bug report?](#how-do-i-submit-a-good-bug-report)
-  - [Suggesting enhancements](#suggesting-enhancements)
-    - [Before Submitting an Enhancement](#before-submitting-an-enhancement)
-    - [How do I submit a good enhancement suggestion?](#how-do-i-submit-a-good-enhancement-suggestion)
-  - [Your first code contribution](#your-first-code-contribution)
-    - [Lint of codebase](#lint-of-codebase)
+    - [Reporting bugs](#reporting-bugs)
+        - [Before submitting a bug report](#before-submitting-a-bug-report)
+        - [How do I submit a good bug report?](#how-do-i-submit-a-good-bug-report)
+    - [Suggesting enhancements](#suggesting-enhancements)
+        - [Before Submitting an Enhancement](#before-submitting-an-enhancement)
+        - [How do I submit a good enhancement suggestion?](#how-do-i-submit-a-good-enhancement-suggestion)
+    - [Your first code contribution](#your-first-code-contribution)
+        - [Lint of codebase](#lint-of-codebase)
 
 ## I have a question
 
@@ -58,13 +58,13 @@ help us fix any potential bug as fast as possible:
 already a bug report existing for your bug or error in the [bug tracker][issues_bugs].
 - Also make sure to search the internet to see if users outside of the GitHub community have discussed the issue.
 - Collect information about the bug:
-  - Axis device model
-  - Axis device firmware version
-  - Stack trace
-  - OS and version (Windows, Linux, macOS, x86, ARM)
-  - Version of the interpreter, compiler, SDK, runtime environment, package manager, depending on what seems relevant
-  - Possibly your input and the output
-  - Can you reliably reproduce the issue? And can you also reproduce it with older versions?
+    - Axis device model
+    - Axis device firmware version
+    - Stack trace
+    - OS and version (Windows, Linux, macOS, x86, ARM)
+    - Version of the interpreter, compiler, SDK, runtime environment, package manager, depending on what seems relevant
+    - Possibly your input and the output
+    - Can you reliably reproduce the issue? And can you also reproduce it with older versions?
 
 #### How do I submit a good bug report?
 
@@ -170,6 +170,7 @@ docker run --rm  \
   -v $PWD:/tmp/lint \
   -e RUN_LOCAL=true \
   -e LINTER_RULES_PATH=/ \
+  -e MARKDOWN_CONFIG_FILE=.markdownlint.yml \
   github/super-linter:slim-v4
 ```
 
