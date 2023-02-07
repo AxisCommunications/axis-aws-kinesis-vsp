@@ -173,11 +173,13 @@ In addition the steps below make use of the following tools to various extent:
     > This step can be skipped if setting up the certificate manually according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html).
 
     If `AWS CLI` is configured with `output = json` the script can be run as:
+
     ```sh
     ./generate.sh ../.env
     ```
 
     If another configuration is set, `AWS_DEFAULT_OUTPUT="json"` can be added to the call instead, i.e.:
+
     ```sh
     AWS_DEFAULT_OUTPUT="json" ./generate.sh ../.env
     ```
