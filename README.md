@@ -136,7 +136,7 @@ In addition the steps below make use of the following tools to various extent:
 1. Create a file named `.env` in the `x509_authentication` directory of this repository, it will contain data to communicate with
     the camera and AWS. Add the content below to the file and fill in the corresponding values:
 
-    > For the `generate.sh` script and docker compose to pick up the environment variables the file needs to be named `.env`
+    > For the `generate.sh` script and Docker Compose to pick up the environment variables the file needs to be named `.env`
     **and** be placed in the `x509_authentication` directory.
 
     ```sh
@@ -195,10 +195,10 @@ In addition the steps below make use of the following tools to various extent:
 4. Create the Kinesis Video Stream.
 
     If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html),
-    permission will **not** be set for KinesisVideo:CreateStream action. I.e. the stream will have to be created manually.
+    permission will **not** be set for `KinesisVideo:CreateStream` action. I.e. the stream will have to be created manually.
 
     ```sh
-    aws kinesisvideo create-stream  --data-retention-in-hours 2 --stream-name <name of the stream used in above steps>
+    aws kinesisvideo create-stream --data-retention-in-hours 2 --stream-name <name of the stream used in above steps>
     ```
 
     >The stream name must be the same as the name of the Thing created earlier.

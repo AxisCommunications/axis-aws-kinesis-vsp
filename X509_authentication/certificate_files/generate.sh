@@ -8,7 +8,7 @@ set -o allexport
 source "$ENV_FILE_PATH"
 set +o allexport
 
-#Create a temporary directory for generated files
+# Create a temporary directory for generated files
 mkdir tmp
 
 echo "Creating IoT Thing: ${AWS_THING} and Thing Type: ${AWS_THING_TYPE}"
@@ -110,7 +110,7 @@ echo "Attaching the policy for IoT (${AWS_IOT_POLICY} created in earlier steps) 
 aws --profile default iot attach-policy --policy-name "${AWS_IOT_POLICY}" --target "$(jq --raw-output '.certificateArn' certificate)"
 
 echo "Attaching the IoT thing ${AWS_THING} to the certificate"
-aws --profile default  iot attach-thing-principal --thing-name "${AWS_THING}" --principal "$(jq --raw-output '.certificateArn' certificate)"
+aws --profile default iot attach-thing-principal --thing-name "${AWS_THING}" --principal "$(jq --raw-output '.certificateArn' certificate)"
 
 echo ""
 echo "Getting endpoint needed to authorize requests through the IoT credentials provider"
