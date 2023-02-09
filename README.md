@@ -278,3 +278,34 @@ of seconds since there might be a delay.
 
 When streaming to AWS Kinesis Video Streams there is a latency which can be
 affected by the selected AWS region, network setup and video resolution.
+
+## Create temporary credentials from the certificate
+
+If option 2 above have been performed, temporary credentials can be issued to create a stream. An example of how these temporary
+key and secret can be set up and used is provided below where a script is run to set up temporary credentials, run a Kinesis
+Stream and download it.
+
+### Prerequisites
+
+1. Run through Option 2 above to create a certificate and private keys.
+2. Update the Docker compose file in the root folder of the repo.
+
+    - Update the environment variables in the `docker-compose` file:
+    ```
+    # From:
+    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+
+    # To:
+    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_TMP
+    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_TMP
+    AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN_TMP
+    ```
+3. Run the script `get_kvs_clip.sh`
+
+    ```
+    ./get_kvs_clip.sh --clip-length 60
+    ```
+
+    - The argument `--clip-length` specifies the length of the clip to download in seconds
+    - TLS usage can be specified with the argument `--use-tls true`, if TLS is not wanted don't specify this argument.
