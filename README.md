@@ -235,17 +235,17 @@ The second option is to use temporary credentials generated from the certificate
     Temporary credentials created with an expiration date set to:2023-02-15T19:54:53Z
     
     Run the following command in your shell to export the temporary credentials so that they can be picked up by docker compose.
-    export AWS_ACCESS_KEY_ID_TMP=********************
-    export AWS_SECRET_ACCESS_KEY_TMP=******************
-    export AWS_SESSION_TOKEN_TMP=************************
+    export AWS_ACCESS_KEY_ID=********************
+    export AWS_SECRET_ACCESS_KEY=******************
+    export AWS_SESSION_TOKEN=************************
     ```
 
 2. Follow the instructions and export the variables:
     
     ```sh
-    export AWS_ACCESS_KEY_ID_TMP=********************
-    export AWS_SECRET_ACCESS_KEY_TMP=******************
-    export AWS_SESSION_TOKEN_TMP=************************
+    export AWS_ACCESS_KEY_ID=********************
+    export AWS_SECRET_ACCESS_KEY=******************
+    export AWS_SESSION_TOKEN=************************
     ```
     
     > The actual values are much longer than the substitutes above `*****` 
@@ -262,9 +262,9 @@ The second option is to use temporary credentials generated from the certificate
      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
      
      # To:
-     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_TMP
-     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_TMP
-     AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN_TMP
+     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+     AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
      ```
  
 ## Run on the Camera

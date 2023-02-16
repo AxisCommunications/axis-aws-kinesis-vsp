@@ -72,7 +72,7 @@ echo "Creating Role Alias: ${AWS_ROLE_ALIAS}"
 if aws --profile default iot describe-role-alias --role-alias "${AWS_ROLE_ALIAS}" > tmp/iot-role-alias.json 2>&1; then
     echo "Role Alias: ${AWS_ROLE_ALIAS} already available, continuing..."
 else
-    aws --profile default iot create-role-alias --role-alias "${AWS_ROLE_ALIAS}" --role-arn "$(jq --raw-output '.Role.Arn' tmp/iam-role.json)" --credential-duration-seconds 3600 #@tif, is one hour really needed? Try smaller value...
+    aws --profile default iot create-role-alias --role-alias "${AWS_ROLE_ALIAS}" --role-arn "$(jq --raw-output '.Role.Arn' tmp/iam-role.json)" --credential-duration-seconds 3600
     aws --profile default iot describe-role-alias --role-alias "${AWS_ROLE_ALIAS}" > tmp/iot-role-alias.json
 fi
 
