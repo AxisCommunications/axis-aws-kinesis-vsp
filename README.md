@@ -192,6 +192,7 @@ In addition the steps below make use of the following tools to various extent:
 There's two options for how to run an image using the generated certificates. Either by building the certificates into an image or by generation temporary credentials from the certificate.
 
 To build the certificates into the image the following steps needs to be performed:
+
 1. Step back into the `x509-authentication` directory and build an image.
 
     - To build the image first set the following environment variables in your shell:
@@ -252,8 +253,6 @@ The second option is to use temporary credentials generated from the certificate
 3. When using the temporary credentials the original image from [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key) can be used with one minor update in to the `docker-compose.yml` file needed to start the Kinesis stream.
 
     - In the root folder of the repo update the `docker-compose.yml` to use the temporary credentials set in the exported environment variables above, in addition including the `AWS_SESSION_TOKEN`.
-
-     - Update the environment variables in the `docker-compose` file:
 
      ```sh
      # From:
