@@ -219,21 +219,20 @@ To build the certificates into the image the following steps needs to be perform
 
     >The stream name must be the same as the name of the Thing created earlier.
 
-
 The second option is to use temporary credentials generated from the certificate files, with this option the image won't need to be rebuild. To use this option the following steps needs to be performed:
 
 1. Generate the temporary credentials by running the `generate_temporary_credentials.sh` script in the `x509-authentication/certificate` folder similar to how the certificate was generated:
-    
+
     ```sh
     ./generate_temporary_credentials.sh ../.env
     ```
 
     The script will echo the temporary credentials and environment variables to set:
-    
+
     ```sh
     √ ~ % ./generate_temporary_credentials.sh ../.env
     Temporary credentials created with an expiration date set to:2023-02-15T19:54:53Z
-    
+
     Run the following command in your shell to export the temporary credentials so that they can be picked up by docker compose.
     export AWS_ACCESS_KEY_ID=********************
     export AWS_SECRET_ACCESS_KEY=******************
@@ -241,32 +240,32 @@ The second option is to use temporary credentials generated from the certificate
     ```
 
 2. Follow the instructions and export the variables:
-    
+
     ```sh
     export AWS_ACCESS_KEY_ID=********************
     export AWS_SECRET_ACCESS_KEY=******************
     export AWS_SESSION_TOKEN=************************
     ```
-    
-    > The actual values are much longer than the substitutes above `*****` 
-    
+
+    > The actual values are much longer than the substitutes above `*****`
+
 3. When using the temporary credentials the original image from [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key) can be used with one minor update in to the `docker-compose.yml` file needed to start the Kinesis stream.
 
     - In the root folder of the repo update the `docker-compose.yml` to use the temporary credentials set in the exported environment variables above, in addition including the `AWS_SESSION_TOKEN`.
-     
+
      - Update the environment variables in the `docker-compose` file:
 
-     ```
+     ```sh
      # From:
      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-     
+
      # To:
      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
      AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
      ```
- 
+
 ## Run on the Camera
 
 ### Save and Load the Image to the Camera
