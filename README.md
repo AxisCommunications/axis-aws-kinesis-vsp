@@ -26,6 +26,7 @@ The following setup is supported:
             - Secret access key
         - [Option 2: AWS IoT certificates](#option-2-aws-iot-certificates)
             - AWS IoT certificates
+            - As an alternative to using the generated certificate to authenticate, additional temporary credentials can be generated from the certificate comprising a temporary access key ID, secret access key and session token.
 - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
     - [Docker Compose](https://docs.docker.com/compose/install/)
 
@@ -131,12 +132,12 @@ In addition the steps below make use of the following tools to various extent:
 - **jq**, a lightweight command-line JSON processor.
     - Installation and getting started instructions can be found [here](https://stedolan.github.io/jq/).
 
-### Steps
+### Creating the certificate files
 
 1. Create a file named `.env` in the `x509-authentication` directory of this repository, it will contain data to communicate with
     the camera and AWS. Add the content below to the file and fill in the corresponding values:
 
-    > For the `generate.sh` script and Docker Compose to pick up the environment variables the file needs to be named `.env`
+    > For the `generate_certificate.sh` script and Docker Compose to pick up the environment variables the file needs to be named `.env`
     **and** be placed in the `x509-authentication` directory.
 
     ```sh
@@ -175,18 +176,23 @@ In addition the steps below make use of the following tools to various extent:
     If `AWS CLI` is configured with `output = json` the script can be run as:
 
     ```sh
-    ./generate.sh ../.env
+    ./generate_certificate.sh ../.env
     ```
 
     If another configuration is set, `AWS_DEFAULT_OUTPUT="json"` can be added to the call instead, i.e.:
 
     ```sh
-    AWS_DEFAULT_OUTPUT="json" ./generate.sh ../.env
+    AWS_DEFAULT_OUTPUT="json" ./generate_certificate.sh ../.env
     ```
 
     > Currently the script only supports a profile named `default` for the calls made towards AWS CLI. If you like it to use another profile read about [Named profiles for the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) in the AWS documentation and update the script accordingly.
 
-3. Step back into the `x509-authentication` directory and build an image.
+### Creating the image
+
+There's two options for how to run an image using the generated certificates. Either by building the certificates into an image or by generation temporary credentials from the certificate.
+
+To build the certificates into the image the following steps needs to be performed:
+1. Step back into the `x509-authentication` directory and build an image.
 
     - To build the image first set the following environment variables in your shell:
 
@@ -202,7 +208,7 @@ In addition the steps below make use of the following tools to various extent:
         docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg IMAGE_TAG=$IMAGE_TAG .
         ```
 
-4. Create the Kinesis Video Stream.
+2. Create the Kinesis Video Stream.
 
     If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html),
     permission will **not** be set for `KinesisVideo:CreateStream` action. I.e. the stream will have to be created manually.
@@ -213,6 +219,54 @@ In addition the steps below make use of the following tools to various extent:
 
     >The stream name must be the same as the name of the Thing created earlier.
 
+
+The second option is to use temporary credentials generated from the certificate files, with this option the image won't need to be rebuild. To use this option the following steps needs to be performed:
+
+1. Generate the temporary credentials by running the `generate_temporary_credentials.sh` script in the `x509-authentication/certificate` folder similar to how the certificate was generated:
+    
+    ```sh
+    ./generate_temporary_credentials.sh ../.env
+    ```
+
+    The script will echo the temporary credentials and environment variables to set:
+    
+    ```sh
+    √ ~ % ./generate_temporary_credentials.sh ../.env
+    Temporary credentials created with an expiration date set to:2023-02-15T19:54:53Z
+    
+    Run the following command in your shell to export the temporary credentials so that they can be picked up by docker compose.
+    export AWS_ACCESS_KEY_ID_TMP=********************
+    export AWS_SECRET_ACCESS_KEY_TMP=******************
+    export AWS_SESSION_TOKEN_TMP=************************
+    ```
+
+2. Follow the instructions and export the variables:
+    
+    ```sh
+    export AWS_ACCESS_KEY_ID_TMP=********************
+    export AWS_SECRET_ACCESS_KEY_TMP=******************
+    export AWS_SESSION_TOKEN_TMP=************************
+    ```
+    
+    > The actual values are much longer than the substitutes above `*****` 
+    
+3. When using the temporary credentials the original image from [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key) can be used with one minor update in to the `docker-compose.yml` file needed to start the Kinesis stream.
+
+    - In the root folder of the repo update the `docker-compose.yml` to use the temporary credentials set in the exported environment variables above, in addition including the `AWS_SESSION_TOKEN`.
+     
+     - Update the environment variables in the `docker-compose` file:
+
+     ```
+     # From:
+     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+     
+     # To:
+     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_TMP
+     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_TMP
+     AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN_TMP
+     ```
+ 
 ## Run on the Camera
 
 ### Save and Load the Image to the Camera
