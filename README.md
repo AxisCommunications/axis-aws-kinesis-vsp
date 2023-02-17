@@ -1,3 +1,4 @@
+<!-- omit in toc -->
 # AWS Kinesis Video Stream Application
 
 The AWS Kinesis Video Stream Application can be run on a virtualization enabled
@@ -7,6 +8,29 @@ stream can thereafter be fed into other AWS services such as Rekognition to
 perform image and or video analytics.
 
 ![diagram](./assets/diagram.png)
+
+<!-- omit in toc -->
+## Table of contents
+
+- [Requirements](#requirements)
+- [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key)
+  - [Variables](#variables)
+    - [Shell Variables](#shell-variables)
+    - [Environment Variables](#environment-variables)
+  - [Install](#install)
+    - [From Docker Hub](#from-docker-hub)
+    - [Build Locally](#build-locally)
+- [Option 2: AWS IoT certificates](#option-2-aws-iot-certificates)
+  - [Prerequisites](#prerequisites)
+  - [Creating the certificate files](#creating-the-certificate-files)
+  - [Creating the image](#creating-the-image)
+    - [Option 1: Building the certificates into the image:](#option-1-building-the-certificates-into-the-image)
+    - [Option 2: Use temporary credentials generated from the certificate files](#option-2-use-temporary-credentials-generated-from-the-certificate-files)
+- [Run on the Camera](#run-on-the-camera)
+  - [Save and Load the Image to the Camera](#save-and-load-the-image-to-the-camera)
+  - [Starting the Container](#starting-the-container)
+- [Verify That the Kinesis Video Stream is Successfully Running](#verify-that-the-kinesis-video-stream-is-successfully-running)
+- [Known Limitations](#known-limitations)
 
 ## Requirements
 
@@ -32,12 +56,12 @@ The following setup is supported:
 
 ## Option 1: Access key ID and Secret access key
 
-## Variables
+### Variables
 
 To run the solution, a number of variables need to be added. These will be used for building or pulling the Docker image and
 running it.
 
-### Shell Variables
+#### Shell Variables
 
 Add the image name as a shell variable so that it can be reused:
 
@@ -54,7 +78,7 @@ IMAGE_TAG=latest-<armv7hf or aarch64>
 where the image tag is `latest-armv7hf` for ARTPEC-7 and `latest-aarch64` for
 ARTPEC-8 devices.
 
-### Environment Variables
+#### Environment Variables
 
 Before running the solution, environment variables need to be set up.
 Create a file named `.env` in the root directory of this repository, it will contain data to communicate with the camera and
@@ -72,12 +96,12 @@ AWS_ACCESS_KEY_ID=<AWS access key ID>
 AWS_SECRET_ACCESS_KEY=<AWS secret key>
 ```
 
-## Install
+### Install
 
 The image can be retrieved by either pulling it from Docker Hub, or by building
 it locally.
 
-### From Docker Hub
+#### From Docker Hub
 
 Get the Docker image by pulling it from Docker Hub:
 
@@ -85,7 +109,7 @@ Get the Docker image by pulling it from Docker Hub:
 docker pull ${IMAGE_NAME}:${IMAGE_TAG}
 ```
 
-### Build Locally
+#### Build Locally
 
 Add the architecture for the Docker image as a shell variable, depending on the camera
 system-on-chip. Use `arm32v7` for ARTPEC-7 devices:
@@ -191,7 +215,9 @@ In addition the steps below make use of the following tools to various extent:
 
 There's two options for how to run an image using the generated certificates. Either by building the certificates into an image or by generation temporary credentials from the certificate.
 
-To build the certificates into the image the following steps needs to be performed:
+#### Option 1: Building the certificates into the image:
+
+With this option the image **need to be rebuild** to include the certificate. To use this option the following steps needs to be performed:
 
 1. Step back into the `x509-authentication` directory and build an image.
 
@@ -220,7 +246,9 @@ To build the certificates into the image the following steps needs to be perform
 
     >The stream name must be the same as the name of the Thing created earlier.
 
-The second option is to use temporary credentials generated from the certificate files, with this option the image won't need to be rebuild. To use this option the following steps needs to be performed:
+#### Option 2: Use temporary credentials generated from the certificate files
+
+With this option the image will **not** need to be rebuild. To use this option the following steps needs to be performed:
 
 1. Generate the temporary credentials by running the `generate_temporary_credentials.sh` script in the `x509-authentication/certificate` folder similar to how the certificate was generated:
 
