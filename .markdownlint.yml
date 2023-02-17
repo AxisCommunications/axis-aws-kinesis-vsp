@@ -8,3 +8,8 @@ MD013: false
 
 # First line in a file should be a top-level heading
 MD041: false
+
+# Only complain about duplicated headers if they are siblings
+MD024:
+  siblings_only: true
+        

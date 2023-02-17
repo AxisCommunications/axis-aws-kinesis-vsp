@@ -14,21 +14,21 @@ perform image and or video analytics.
 
 - [Requirements](#requirements)
 - [Option 1: Access Key ID and Secret Access Key](#option-1-access-key-id-and-secret-access-key)
-  - [Variables](#variables)
-    - [Container Build Variables](#container-build-variables)
-    - [Container Runtime Variables](#container-runtime-variables)
-  - [Install](#install)
-    - [From Docker Hub](#from-docker-hub)
-    - [Build Locally](#build-locally)
+    - [Variables](#variables)
+        - [Container Build Variables](#container-build-variables)
+        - [Container Runtime Variables](#container-runtime-variables)
+    - [Install](#install)
+        - [From Docker Hub](#from-docker-hub)
+        - [Build Locally](#build-locally)
 - [Option 2: AWS IoT Certificate](#option-2-aws-iot-certificate)
-  - [Prerequisites](#prerequisites)
-  - [Creating the Certificate Files](#creating-the-certificate-files)
-  - [Install](#install-1)
-    - [From Docker Hub](#from-docker-hub-1)
-    - [Build Locally](#build-locally-1)
+    - [Prerequisites](#prerequisites)
+    - [Creating the Certificate Files](#creating-the-certificate-files)
+    - [Install](#install-1)
+        - [From Docker Hub](#from-docker-hub-1)
+        - [Build Locally](#build-locally-1)
 - [Run on the Camera](#run-on-the-camera)
-  - [Save and Load the Image to the Camera](#save-and-load-the-image-to-the-camera)
-  - [Starting the Container](#starting-the-container)
+    - [Save and Load the Image to the Camera](#save-and-load-the-image-to-the-camera)
+    - [Starting the Container](#starting-the-container)
 - [Verify That the Kinesis Video Stream is Successfully Running](#verify-that-the-kinesis-video-stream-is-successfully-running)
 - [Known Limitations](#known-limitations)
 
@@ -51,8 +51,8 @@ The following setup is supported:
             - Option 1. Using AWS IoT certificate alone
             - Option 2. Generating temporary credentials (temporary access key ID, secret access key and session token) from the IoT certificate
     - AWS CLI
-      - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
-        - Ensure to choose a region that supports Kinesis Video Streams.
+        - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
+            - Ensure to choose a region that supports Kinesis Video Streams.
     - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
     - [Docker Compose](https://docs.docker.com/compose/install/)
     - [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
@@ -141,6 +141,7 @@ you to use the built-in X.509 certificate as the unique device identity to authe
 ### Prerequisites
 
 To create the certificate, the following AWS resources need to be set up.
+
 - An IoT Thing Type and an IoT Thing.
 - An IAM Role to be assumed by IoT.
 - X.509 certificate created and configured.
