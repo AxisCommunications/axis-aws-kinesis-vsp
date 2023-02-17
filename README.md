@@ -13,19 +13,19 @@ perform image and or video analytics.
 ## Table of contents
 
 - [Requirements](#requirements)
-- [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key)
+- [Option 1: Access Key ID and Secret Access Key](#option-1-access-key-id-and-secret-access-key)
   - [Variables](#variables)
-    - [Shell Variables](#shell-variables)
-    - [Environment Variables](#environment-variables)
+    - [Container Build Variables](#container-build-variables)
+    - [Container Runtime Variables](#container-runtime-variables)
   - [Install](#install)
     - [From Docker Hub](#from-docker-hub)
     - [Build Locally](#build-locally)
-- [Option 2: AWS IoT certificates](#option-2-aws-iot-certificates)
+- [Option 2: AWS IoT Certificate](#option-2-aws-iot-certificate)
   - [Prerequisites](#prerequisites)
-  - [Creating the certificate files](#creating-the-certificate-files)
-  - [Creating the image](#creating-the-image)
-    - [Option 1: Building the certificates into the image:](#option-1-building-the-certificates-into-the-image)
-    - [Option 2: Use temporary credentials generated from the certificate files](#option-2-use-temporary-credentials-generated-from-the-certificate-files)
+  - [Creating the Certificate Files](#creating-the-certificate-files)
+  - [Install](#install-1)
+    - [From Docker Hub](#from-docker-hub-1)
+    - [Build Locally](#build-locally-1)
 - [Run on the Camera](#run-on-the-camera)
   - [Save and Load the Image to the Camera](#save-and-load-the-image-to-the-camera)
   - [Starting the Container](#starting-the-container)
@@ -43,25 +43,28 @@ The following setup is supported:
 
 - Computer
     - OS: Linux/macOS running preferred shell, or Windows 10 with WSL2 installed to run Bash on Windows
-    - AWS Account with
-    [security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) generated
+    - AWS Account with [security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) generated
         - [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key)
             - Access key ID
             - Secret access key
-        - [Option 2: AWS IoT certificates](#option-2-aws-iot-certificates)
-            - AWS IoT certificates
-            - As an alternative to using the generated certificate to authenticate, additional temporary credentials can be generated from the certificate comprising a temporary access key ID, secret access key and session token.
-- [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
+        - [Option 2: AWS IoT certificate](#option-2-aws-iot-certificate)
+            - Option 1. Using AWS IoT certificate alone
+            - Option 2. Generating temporary credentials (temporary access key ID, secret access key and session token) from the IoT certificate
+    - AWS CLI
+      - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
+        - Ensure to choose a region that supports Kinesis Video Streams.
+    - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
     - [Docker Compose](https://docs.docker.com/compose/install/)
+    - [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
 
-## Option 1: Access key ID and Secret access key
+## Option 1: Access Key ID and Secret Access Key
 
 ### Variables
 
 To run the solution, a number of variables need to be added. These will be used for building or pulling the Docker image and
 running it.
 
-#### Shell Variables
+#### Container Build Variables
 
 Add the image name as a shell variable so that it can be reused:
 
@@ -78,7 +81,7 @@ IMAGE_TAG=latest-<armv7hf or aarch64>
 where the image tag is `latest-armv7hf` for ARTPEC-7 and `latest-aarch64` for
 ARTPEC-8 devices.
 
-#### Environment Variables
+#### Container Runtime Variables
 
 Before running the solution, environment variables need to be set up.
 Create a file named `.env` in the root directory of this repository, it will contain data to communicate with the camera and
@@ -130,33 +133,26 @@ Once the shell variables have been added, the Docker image can be built:
 docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH --build-arg KVS_CPP_PRODUCER_SDK_TAG=v3.3.1 .
 ```
 
-## Option 2: AWS IoT certificates
+## Option 2: AWS IoT Certificate
 
 Kinesis Video Streams do not support certificate-based authentication, however, AWS IoT has a credentials provider that allows
 you to use the built-in X.509 certificate as the unique device identity to authenticate AWS requests.
 
 ### Prerequisites
 
-- Create an IoT Thing Type and an IoT Thing
-- Create an IAM Role to be assumed by IoT
-- Create and configure the X.509 certificate
+To create the certificate, the following AWS resources need to be set up.
+- An IoT Thing Type and an IoT Thing.
+- An IAM Role to be assumed by IoT.
+- X.509 certificate created and configured.
 
 AWS provides [documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html) for how to set the above
-prerequisites up. However, to simplify the process of setting up an IAM Role assumed by IoT, policies, certificates etc, a script
+prerequisites up. However, to simplify the process of setting up an IAM Role assumed by IoT, policies, certificate etc, a [script](https://github.com/AxisCommunications/axis-aws-kinesis-vsp/blob/main/x509-authentication/certificate_files/generate_certificate.sh)
 is provided.
 
 If the prerequisites are set up by following the
-[documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html) from AWS step 2 below can be skipped.
+[documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html) from AWS the step [Creating the certificate files](#creating-the-certificate-files) below can be skipped.
 
-In addition the steps below make use of the following tools to various extent:
-
-- **AWS CLI**.
-    - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
-        - Ensure to choose a region that supports Kinesis Video Streams.
-- **jq**, a lightweight command-line JSON processor.
-    - Installation and getting started instructions can be found [here](https://stedolan.github.io/jq/).
-
-### Creating the certificate files
+### Creating the Certificate Files
 
 1. Create a file named `.env` in the `x509-authentication` directory of this repository, it will contain data to communicate with
     the camera and AWS. Add the content below to the file and fill in the corresponding values:
@@ -211,42 +207,11 @@ In addition the steps below make use of the following tools to various extent:
 
     > Currently the script only supports a profile named `default` for the calls made towards AWS CLI. If you like it to use another profile read about [Named profiles for the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) in the AWS documentation and update the script accordingly.
 
-### Creating the image
+### Install
 
-There's two options for how to run an image using the generated certificates. Either by building the certificates into an image or by generation temporary credentials from the certificate.
+There's two options for how to run an image using the generated certificate. Either by building the certificate into an image or by generation temporary credentials from the certificate.
 
-#### Option 1: Building the certificates into the image:
-
-With this option the image **need to be rebuild** to include the certificate. To use this option the following steps needs to be performed:
-
-1. Step back into the `x509-authentication` directory and build an image.
-
-    - To build the image first set the following environment variables in your shell:
-
-        ```sh
-        export IMAGE_NAME=<Choose a name to tag the new image running with certificates with>
-        export IMAGE_TAG=<Choose either latest-armv7hf or latest-aarch64>
-        export DEVICE_IP=<camera IP>
-        ```
-
-    - Then run the build command:
-
-        ```sh
-        docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg IMAGE_TAG=$IMAGE_TAG .
-        ```
-
-2. Create the Kinesis Video Stream.
-
-    If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html),
-    permission will **not** be set for `KinesisVideo:CreateStream` action. I.e. the stream will have to be created manually.
-
-    ```sh
-    aws kinesisvideo create-stream --data-retention-in-hours 2 --stream-name <name of the stream used in above steps>
-    ```
-
-    >The stream name must be the same as the name of the Thing created earlier.
-
-#### Option 2: Use temporary credentials generated from the certificate files
+#### From Docker Hub
 
 With this option the image will **not** need to be rebuild. To use this option the following steps needs to be performed:
 
@@ -292,6 +257,37 @@ With this option the image will **not** need to be rebuild. To use this option t
      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
      AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
      ```
+
+#### Build Locally
+
+With this option the image **need to be rebuild** to include the certificate. To use this option the following steps needs to be performed:
+
+1. Step back into the `x509-authentication` directory and build an image.
+
+    - To build the image first set the following environment variables in your shell:
+
+        ```sh
+        export IMAGE_NAME=<Choose a name to tag the new image running with certificate with>
+        export IMAGE_TAG=<Choose either latest-armv7hf or latest-aarch64>
+        export DEVICE_IP=<camera IP>
+        ```
+
+    - Then run the build command:
+
+        ```sh
+        docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg IMAGE_TAG=$IMAGE_TAG .
+        ```
+
+2. Create the Kinesis Video Stream.
+
+    If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html),
+    permission will **not** be set for `KinesisVideo:CreateStream` action. I.e. the stream will have to be created manually.
+
+    ```sh
+    aws kinesisvideo create-stream --data-retention-in-hours 2 --stream-name <name of the stream used in above steps>
+    ```
+
+    >The stream name must be the same as the name of the Thing created earlier.
 
 ## Run on the Camera
 
