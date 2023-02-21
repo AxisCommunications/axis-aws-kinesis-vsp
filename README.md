@@ -214,7 +214,7 @@ There's two options for how to run an image using the generated certificate. Eit
 
 #### From Docker Hub
 
-With this option the image will **not** need to be rebuild. To use this option the following steps needs to be performed:
+With this option the image need **not** be rebuilt. To use this option the following steps needs to be performed:
 
 1. Generate the temporary credentials by running the `generate_temporary_credentials.sh` script in the `x509-authentication/certificate` folder similar to how the certificate was generated:
 
@@ -261,7 +261,7 @@ With this option the image will **not** need to be rebuild. To use this option t
 
 #### Build Locally
 
-With this option the image **need to be rebuild** to include the certificate. To use this option the following steps needs to be performed:
+With this option the image **need to be rebuilt** to include the certificate. To use this option the following steps needs to be performed:
 
 1. Step back into the `x509-authentication` directory and build an image.
 
