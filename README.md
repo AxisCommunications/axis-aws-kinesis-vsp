@@ -268,7 +268,7 @@ With this option the image **need to be rebuild** to include the certificate. To
     - To build the image first set the following environment variables in your shell:
 
         ```sh
-        export IMAGE_NAME=<Choose a name to tag the new image running with certificate with>
+        export IMAGE_NAME=<Choose a name to tag the new image running with certificate>
         export IMAGE_TAG=<Choose either latest-armv7hf or latest-aarch64>
         export DEVICE_IP=<camera IP>
         ```
