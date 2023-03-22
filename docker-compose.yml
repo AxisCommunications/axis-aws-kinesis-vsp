@@ -10,6 +10,7 @@ services:
       AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
       AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
+      LD_LIBRARY_PATH: /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
       GST_PLUGIN_PATH: /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
       no_proxy: $DEVICE_IP
     command: /bin/sh "start_stream.sh"
