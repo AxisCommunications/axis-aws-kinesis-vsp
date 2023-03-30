@@ -37,12 +37,14 @@ ENV CC=/usr/bin/gcc-5
 ENV CXX=/usr/bin/g++-5
 
 RUN <<EOF
-cmake .. -DBUILD_GSTREAMER_PLUGIN=TRUE
+# Building dependent libs is OFF as the required libs compatible with 
+# target arch like curl, openssl, log4cplus, gstreamer are installed via apt-get
+cmake .. -DBUILD_DEPENDENCIES=OFF -DBUILD_GSTREAMER_PLUGIN=TRUE
 make
 EOF
 
 FROM $ARCH/ubuntu:18.04
-
+#
 COPY --from=base /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/ /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/
 
 WORKDIR /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build/
