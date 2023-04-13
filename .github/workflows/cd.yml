@@ -15,7 +15,7 @@ jobs:
           - tag_ext: "aarch64"
             arch: "arm64v8"
     env:
-      IMAGE_NAME: ${{ github.repository }}
+      IMAGE_NAME: kinesis-video-stream-application
       REGISTRY: ghcr.io
 
     steps:
@@ -37,22 +37,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract Docker metadata
-        uses: docker/metadata-action@v3
-        id: metadata
+      - name: Build and push image to GitHub Container Registry
+        uses: docker/build-push-action@v3
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-      - name: Print metadata values
-        run: |
-          echo ${{ steps.metadata.outputs.tags }}
-          echo ${{ steps.metadata.outputs.labels }}
-
-#      - name: Build and push image to GitHub Container Registry
-#        uses: docker/build-push-action@v3
-#        with:
-#          context: .
-#          build-args: ARCH=${{ matrix.arch }}
-#          tags: ${{ steps.metadata.outputs.tags }}
-#          labels: ${{ steps.metadata.outputs.labels }}
-#          push: true
+          context: .
+          build-args: ARCH=${{ matrix.arch }}
+          tags: ${{ env.REGISTRY }}/AxisCommunications/${{ env.IMAGE_NAME }}:latest-${{ matrix.ARCH }}
+          push: true
