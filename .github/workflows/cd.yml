@@ -45,14 +45,14 @@ jobs:
 
       - name: Print metadata values
         run: |
-          echo ${{ steps.metadata.output.tags }}
-          echo ${{ steps.metadata.output.labels }}
+          echo ${{ steps.metadata.outputs.tags }}
+          echo ${{ steps.metadata.outputs.labels }}
 
 #      - name: Build and push image to GitHub Container Registry
 #        uses: docker/build-push-action@v3
 #        with:
 #          context: .
 #          build-args: ARCH=${{ matrix.arch }}
-#          tags: ${{ steps.metadata.output.tags }}
-#          labels: ${{ steps.metadata.output.labels }}
+#          tags: ${{ steps.metadata.outputs.tags }}
+#          labels: ${{ steps.metadata.outputs.labels }}
 #          push: true
