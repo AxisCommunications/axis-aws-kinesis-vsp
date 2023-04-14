@@ -18,13 +18,13 @@ perform image and or video analytics.
         - [Container Build Variables](#container-build-variables)
         - [Container Runtime Variables](#container-runtime-variables)
     - [Install](#install)
-        - [From Docker Hub](#from-docker-hub)
+        - [From GitHub Container Registry](#from-docker-hub)
         - [Build Locally](#build-locally)
 - [Option 2: AWS IoT Certificate](#option-2-aws-iot-certificate)
     - [Prerequisites](#prerequisites)
     - [Creating the Certificate Files](#creating-the-certificate-files)
     - [Install](#install-1)
-        - [From Docker Hub](#from-docker-hub-1)
+        - [From GitHub Container Registry](#from-docker-hub-1)
         - [Build Locally](#build-locally-1)
 - [Run on the Camera](#run-on-the-camera)
     - [Save and Load the Image to the Camera](#save-and-load-the-image-to-the-camera)
@@ -69,7 +69,7 @@ running it.
 Add the image name as a shell variable so that it can be reused:
 
 ```sh
-IMAGE_NAME=axisecp/kinesis-video-stream-application
+IMAGE_NAME=ghcr.io/axiscommunications/kinesis-video-stream-application
 ```
 
 Also, add the image tag:
@@ -101,12 +101,12 @@ AWS_SECRET_ACCESS_KEY=<AWS secret key>
 
 ### Install
 
-The image can be retrieved by either pulling it from Docker Hub, or by building
+The image can be retrieved by either pulling it from GitHub Container Registry, or by building
 it locally.
 
-#### From Docker Hub
+#### From GitHub Container Registry
 
-Get the Docker image by pulling it from Docker Hub:
+Get the Docker image by pulling it from GitHub Container Registry:
 
 ```sh
 docker pull ${IMAGE_NAME}:${IMAGE_TAG}
@@ -212,7 +212,7 @@ If the prerequisites are set up by following the
 
 There's two options for how to run an image using the generated certificate. Either by building the certificate into an image or by generation temporary credentials from the certificate.
 
-#### From Docker Hub
+#### From GitHub Container Registry
 
 With this option the image need **not** be rebuilt. To use this option the following steps needs to be performed:
 
