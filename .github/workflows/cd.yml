@@ -44,5 +44,5 @@ jobs:
         with:
           context: .
           build-args: ARCH=${{ matrix.arch }}
-          tags: ${{ env.REGISTRY }}/axiscommunications/${{ env.IMAGE_NAME }}:latest-${{ matrix.ARCH }}
+          tags: ${{ env.REGISTRY }}/axiscommunications/${{ env.IMAGE_NAME }}:latest-${{ matrix.tag_ext }}
           push: true
