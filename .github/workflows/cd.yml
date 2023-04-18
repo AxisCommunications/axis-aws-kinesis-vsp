@@ -17,7 +17,7 @@ jobs:
           - tag_ext: "aarch64"
             arch: "arm64v8"
     env:
-      IMAGE_NAME: kinesis-video-stream-application
+      IMAGE_NAME: axis-aws-kinesis-vsp
       REGISTRY: ghcr.io
 
     steps:
@@ -39,10 +39,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get the repository tag name
+        run: |
+          echo ${{ env.GITHUB_REF }} | grep -oP '(?<=tags\/).*' > TAG_NAME
+
       - name: Build and push image to GitHub Container Registry
         uses: docker/build-push-action@v3
         with:
           context: .
           build-args: ARCH=${{ matrix.arch }}
-          tags: ${{ env.REGISTRY }}/axiscommunications/${{ env.IMAGE_NAME }}:latest-${{ matrix.tag_ext }}
+          tags: ${{ env.REGISTRY }}/axiscommunications/${{ env.IMAGE_NAME }}:$(cat TAG_NAME)-${{ matrix.tag_ext }}
           push: true
