@@ -1,3 +1,28 @@
+©<2023> Axis Communications AB. AXIS COMMUNICATIONS, AXIS, ARTPEC and VAPIX are registered trademarks of Axis AB in various jurisdictions. All other trademarks are the property of their respective owners.
+
+> CONFIDENTIALITY NOTICE:
+>
+> To access and use this repository, you (or your employer) must have entered
+> into a non-disclosure agreement with Axis Communications AB ("Axis") that
+> protects the contents, information and data herein. Such non-disclosure
+> agreement may be either a separate NDA or a confidentiality undertaking in a
+> commercial contract (for example a Service Agreement). You acknowledge that
+> all contents, information and data you may access through this repository,
+> including information about any activities or work carried out within the
+> repository, is confidential information of Axis and subject to the terms of
+> the applicable confidentiality undertaking. Any exceptions to the
+> confidentiality are limited to those set forth in the applicable
+> confidentiality undertaking. If the applicable confidentiality undertaking
+> requires information to be marked as "confidential" in order to be protected,
+> this notice shall fulfill such requirement for all information in the
+> repository.
+>
+> You are accountable for all activities attributable to your account and you
+> may not allow any other person to use your account to access this repository
+> or the information contained therein. If you believe that someone has
+> compromised or broken the security of your credentials to this repository, you
+> must immediately contact Axis at <product-security@axis.com>.
+
 <!-- omit in toc -->
 # AWS Kinesis Video Stream Application
 
@@ -12,6 +37,7 @@ perform image and or video analytics.
 <!-- omit in toc -->
 ## Table of contents
 
+- [Target Audience](#target-audience)
 - [Requirements](#requirements)
 - [Option 1: Access Key ID and Secret Access Key](#option-1-access-key-id-and-secret-access-key)
     - [Variables](#variables)
@@ -32,12 +58,15 @@ perform image and or video analytics.
 - [Verify That the Kinesis Video Stream is Successfully Running](#verify-that-the-kinesis-video-stream-is-successfully-running)
 - [Known Limitations](#known-limitations)
 
+## Target Audience
+This reposirory is intended for low code developers building integration offerings to connect and stream Axis cameras video into Amazon Kinesis Video Stream service.
+
 ## Requirements
 
 The following setup is supported:
 
 - Camera
-    - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII)
+    - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII, P3265-LV)
     - Firmware: 10.9 or higher
     - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started, using TLS and SD card as storage
 
@@ -50,7 +79,7 @@ The following setup is supported:
         - [Option 2: AWS IoT certificate](#option-2-aws-iot-certificate)
             - Option 1. Using AWS IoT certificate alone
             - Option 2. Generating temporary credentials (temporary access key ID, secret access key and session token) from the IoT certificate
-    - AWS CLI
+    - AWS CL
         - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
             - Ensure to choose a region that supports Kinesis Video Streams.
     - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
