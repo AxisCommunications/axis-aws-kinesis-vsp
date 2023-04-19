@@ -2,8 +2,8 @@ name: Build and Push Kinesis Video Stream Application Image
 
 on:
   push:
-#    tags:
-#      - "*"
+    tags:
+      - "*"
 
 jobs:
   build_and_push:
