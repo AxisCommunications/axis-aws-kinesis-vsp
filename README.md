@@ -59,6 +59,7 @@ perform image and or video analytics.
 - [Known Limitations](#known-limitations)
 
 ## Target Audience
+
 This reposirory is intended for low code developers building integration offerings to connect and stream Axis cameras video into Amazon Kinesis Video Stream service.
 
 ## Requirements
@@ -79,7 +80,7 @@ The following setup is supported:
         - [Option 2: AWS IoT certificate](#option-2-aws-iot-certificate)
             - Option 1. Using AWS IoT certificate alone
             - Option 2. Generating temporary credentials (temporary access key ID, secret access key and session token) from the IoT certificate
-    - AWS CL
+    - AWS CLI
         - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
             - Ensure to choose a region that supports Kinesis Video Streams.
     - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
