@@ -1,28 +1,5 @@
 ©<2023> Axis Communications AB. AXIS COMMUNICATIONS, AXIS, ARTPEC and VAPIX are registered trademarks of Axis AB in various jurisdictions. All other trademarks are the property of their respective owners.
 
-> CONFIDENTIALITY NOTICE:
->
-> To access and use this repository, you (or your employer) must have entered
-> into a non-disclosure agreement with Axis Communications AB ("Axis") that
-> protects the contents, information and data herein. Such non-disclosure
-> agreement may be either a separate NDA or a confidentiality undertaking in a
-> commercial contract (for example a Service Agreement). You acknowledge that
-> all contents, information and data you may access through this repository,
-> including information about any activities or work carried out within the
-> repository, is confidential information of Axis and subject to the terms of
-> the applicable confidentiality undertaking. Any exceptions to the
-> confidentiality are limited to those set forth in the applicable
-> confidentiality undertaking. If the applicable confidentiality undertaking
-> requires information to be marked as "confidential" in order to be protected,
-> this notice shall fulfill such requirement for all information in the
-> repository.
->
-> You are accountable for all activities attributable to your account and you
-> may not allow any other person to use your account to access this repository
-> or the information contained therein. If you believe that someone has
-> compromised or broken the security of your credentials to this repository, you
-> must immediately contact Axis at <product-security@axis.com>.
-
 <!-- omit in toc -->
 # AWS Kinesis Video Stream Application
 
