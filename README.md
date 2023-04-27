@@ -362,3 +362,7 @@ of seconds since there might be a delay.
 
 When streaming to AWS Kinesis Video Streams there is a latency which can be
 affected by the selected AWS region, network setup and video resolution.
+
+## License
+
+[Apache 2.0](LICENSE)
