@@ -255,16 +255,16 @@ With this option the image need **not** be rebuilt. To use this option the follo
 
     - In the root folder of the repository update the `docker-compose.yml` to use the temporary credentials set in the exported environment variables above, in addition including the `AWS_SESSION_TOKEN`.
 
-     ```sh
-     # From:
-     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+        ```sh
+        # From:
+        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
 
-     # To:
-     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-     AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
-     ```
+        # To:
+        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+        AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
+        ```
 
 #### Build Locally
 

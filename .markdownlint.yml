@@ -12,4 +12,3 @@ MD041: false
 # Only complain about duplicated headers if they are siblings
 MD024:
   siblings_only: true
-        
