@@ -1,6 +1,6 @@
 # Application Event Based Streaming
 
-This is an example of how the [AWS Kinesis Video Stream Application](..)
+This is an example of how the [AWS Kinesis Video Stream Application](../README.md)
 can be extended to only stream to [AWS Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/) when an object or
 motion is detected by either [Axis Object Analytics](https://www.axis.com/products/axis-object-analytics) (AOA) or
 [Axis Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) (VMD). When the example is run, an
@@ -12,7 +12,7 @@ events occur in either application. Each recording is streamed to
 
 ## Requirements
 
-Same as for the main application. See the requirements section in [AWS Kinesis Video Stream Application](..).
+Same as for the main application. See the requirements section in [AWS Kinesis Video Stream Application](../README.md).
 
 ## Variables
 
@@ -82,7 +82,7 @@ docker buildx build --tag $IMAGE_NAME --build-arg ARCH .
 
 ### Save and Load the Image to the Camera
 
-Same as for the main application. See the save and load section in [AWS Kinesis Video Stream Application](..).
+Same as for the main application. See the save and load section in [AWS Kinesis Video Stream Application](../README.md).
 
 ## Verify That the Kinesis Video Stream is Successfully Running
 
