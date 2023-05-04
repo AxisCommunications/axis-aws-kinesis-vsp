@@ -34,6 +34,7 @@ perform image and or video analytics.
     - [Starting the Container](#starting-the-container)
 - [Verify That the Kinesis Video Stream is Successfully Running](#verify-that-the-kinesis-video-stream-is-successfully-running)
 - [Known Limitations](#known-limitations)
+- [License](#license)
 
 ## Target Audience
 

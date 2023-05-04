@@ -19,14 +19,14 @@ project and show your appreciation, which we would also be very happy about:
 
 - [I have a question](#i-have-a-question)
 - [I want to contribute](#i-want-to-contribute)
-  - [Reporting bugs](#reporting-bugs)
-    - [Before submitting a bug report](#before-submitting-a-bug-report)
-    - [How do I submit a good bug report?](#how-do-i-submit-a-good-bug-report)
-  - [Suggesting enhancements](#suggesting-enhancements)
-    - [Before Submitting an Enhancement](#before-submitting-an-enhancement)
-    - [How do I submit a good enhancement suggestion?](#how-do-i-submit-a-good-enhancement-suggestion)
-  - [Your first code contribution](#your-first-code-contribution)
-    - [Lint of codebase](#lint-of-codebase)
+    - [Reporting bugs](#reporting-bugs)
+        - [Before submitting a bug report](#before-submitting-a-bug-report)
+        - [How do I submit a good bug report?](#how-do-i-submit-a-good-bug-report)
+    - [Suggesting enhancements](#suggesting-enhancements)
+        - [Before Submitting an Enhancement](#before-submitting-an-enhancement)
+        - [How do I submit a good enhancement suggestion?](#how-do-i-submit-a-good-enhancement-suggestion)
+    - [Your first code contribution](#your-first-code-contribution)
+        - [Lint of codebase](#lint-of-codebase)
 
 ## I have a question
 
