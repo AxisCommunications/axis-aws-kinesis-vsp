@@ -11,5 +11,7 @@ services:
       GST_PLUGIN_PATH: /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
       no_proxy: $DEVICE_IP
       APPNAME: $APPNAME
+      GENERATE_EVENT_TRIGGERS: $GENERATE_EVENT_TRIGGERS
+      AWS_KINESIS_STREAM_NAME: $AWS_KINESIS_STREAM_NAME
     volumes:
       - /var/spool/storage/SD_DISK/:/tmp/recordings/
