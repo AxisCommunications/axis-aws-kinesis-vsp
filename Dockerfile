@@ -2,11 +2,16 @@
 
 ARG ARCH
 
-FROM $ARCH/ubuntu:18.04 as base
+#FROM $ARCH/ubuntu:18.04 as base
+FROM $ARCH/ubuntu:20.04 as base
 
 RUN <<EOF
 apt-get update
-apt-get install -y --no-install-recommends \
+DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  tzdata \
+  build-essential \
+  automake \
+  autoconf \
   libssl-dev \
   libcurl4-openssl-dev \
   liblog4cplus-dev \
@@ -21,8 +26,7 @@ apt-get install -y --no-install-recommends \
   cmake \
   pkg-config \
   m4 \
-  git \
-  g++-5
+  git
 rm -rf /var/lib/apt/lists/*
 EOF
 
@@ -33,15 +37,12 @@ RUN git clone --recursive https://github.com/awslabs/amazon-kinesis-video-stream
 
 WORKDIR /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
 
-ENV CC=/usr/bin/gcc-5
-ENV CXX=/usr/bin/g++-5
-
 RUN <<EOF
 cmake .. -DBUILD_GSTREAMER_PLUGIN=TRUE
 make
 EOF
 
-FROM $ARCH/ubuntu:18.04
+FROM $ARCH/ubuntu:20.04
 
 COPY --from=base /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/ /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/
 
