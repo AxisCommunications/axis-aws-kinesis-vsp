@@ -1,3 +1,4 @@
 failure-threshold: warning
 ignored:
   - DL3008
+  - SC2086
