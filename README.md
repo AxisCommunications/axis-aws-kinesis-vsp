@@ -1,9 +1,9 @@
 ©2023 Axis Communications AB. AXIS COMMUNICATIONS, AXIS, ARTPEC and VAPIX are registered trademarks of Axis AB in various jurisdictions. All other trademarks are the property of their respective owners.
 
 <!-- omit in toc -->
-# AWS Kinesis Video Stream Application
+# Application for Amazon Kinesis Video Streams
 
-The AWS Kinesis Video Stream Application can be run on a virtualization enabled
+The Application for Amazon Kinesis Video Streams can be run on a virtualization enabled
 Axis camera as a container, making it possible to stream video to
 [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/). The
 stream can thereafter be fed into other AWS services such as Amazon Rekognition to
