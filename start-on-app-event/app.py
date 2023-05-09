@@ -11,7 +11,10 @@ app_name = os.environ["APPNAME"]
 device_ip = os.environ["DEVICE_IP"]
 device_username = os.environ["DEVICE_USERNAME"]
 device_password = os.environ["DEVICE_PASSWORD"]
-generate_event_triggers = eval(os.environ["GENERATE_EVENT_TRIGGERS"].lower().capitalize())
+generate_event_triggers = eval(
+    os.environ["GENERATE_EVENT_TRIGGERS"].lower().capitalize()
+)
+
 
 def get_recordings_path():
     date_today = str(date.today().isoformat()).replace("-", "")
