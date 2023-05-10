@@ -1,4 +1,4 @@
-©2023 Axis Communications AB. AXIS COMMUNICATIONS, AXIS, ARTPEC and VAPIX are registered trademarks of Axis AB in various jurisdictions. All other trademarks are the property of their respective owners.
+*©2023 Axis Communications AB. AXIS COMMUNICATIONS, AXIS, ARTPEC and VAPIX are registered trademarks of Axis AB in various jurisdictions. All other trademarks are the property of their respective owners.*
 
 <!-- omit in toc -->
 # Application for Amazon Kinesis Video Streams
@@ -38,7 +38,8 @@ perform image and or video analytics.
 
 ## Target Audience
 
-This reposirory is intended for low code developers building integration offerings to connect and stream Axis cameras video into the Amazon Kinesis Video Streams service.
+This repository is intended for [low code developers](https://en.wikipedia.org/wiki/Low-code_development_platform) building integration
+offerings to connect and stream Axis cameras video into the Amazon Kinesis Video Streams service.
 
 ## Requirements
 
