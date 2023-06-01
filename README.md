@@ -1,10 +1,12 @@
-<!-- omit in toc -->
-# AWS Kinesis Video Stream Application
+*©2023 Axis Communications AB. AXIS COMMUNICATIONS, AXIS, ARTPEC and VAPIX are registered trademarks of Axis AB in various jurisdictions. All other trademarks are the property of their respective owners.*
 
-The AWS Kinesis Video Stream Application can be run on a virtualization enabled
+<!-- omit in toc -->
+# Application for Amazon Kinesis Video Streams
+
+The Application for Amazon Kinesis Video Streams can be run on a virtualization enabled
 Axis camera as a container, making it possible to stream video to
-[AWS Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/). The
-stream can thereafter be fed into other AWS services such as Rekognition to
+[Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/). The
+stream can thereafter be fed into other AWS services such as Amazon Rekognition to
 perform image and or video analytics.
 
 ![diagram](./assets/diagram.png)
@@ -12,6 +14,7 @@ perform image and or video analytics.
 <!-- omit in toc -->
 ## Table of contents
 
+- [Target Audience](#target-audience)
 - [Requirements](#requirements)
 - [Option 1: Access Key ID and Secret Access Key](#option-1-access-key-id-and-secret-access-key)
     - [Variables](#variables)
@@ -29,15 +32,21 @@ perform image and or video analytics.
 - [Run on the Camera](#run-on-the-camera)
     - [Save and Load the Image to the Camera](#save-and-load-the-image-to-the-camera)
     - [Starting the Container](#starting-the-container)
-- [Verify That the Kinesis Video Stream is Successfully Running](#verify-that-the-kinesis-video-stream-is-successfully-running)
+- [Verify That the Amazon Kinesis Video Stream is Successfully Running](#verify-that-the-amazon-kinesis-video-stream-is-successfully-running)
 - [Known Limitations](#known-limitations)
+- [License](#license)
+
+## Target Audience
+
+This repository is intended for [low code developers](https://en.wikipedia.org/wiki/Low-code_development_platform) building integration
+offerings to connect and stream Axis cameras video into the Amazon Kinesis Video Streams service.
 
 ## Requirements
 
 The following setup is supported:
 
 - Camera
-    - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII)
+    - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII, P3265-LV)
     - Firmware: 10.9 or higher
     - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started, using TLS and SD card as storage
 
@@ -52,7 +61,7 @@ The following setup is supported:
             - Option 2. Generating temporary credentials (temporary access key ID, secret access key and session token) from the IoT certificate
     - AWS CLI
         - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
-            - Ensure to choose a region that supports Kinesis Video Streams.
+            - Ensure to choose a region that supports Amazon Kinesis Video Streams.
     - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
     - [Docker Compose](https://docs.docker.com/compose/install/)
     - [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
@@ -93,7 +102,7 @@ DEVICE_USERNAME=<camera username>
 DEVICE_PASSWORD=<camera password>
 
 # AWS related variables
-AWS_KINESIS_STREAM_NAME=<AWS Kinesis video stream name>
+AWS_KINESIS_STREAM_NAME=<Amazon Kinesis video stream name>
 AWS_REGION=<AWS region>
 AWS_ACCESS_KEY_ID=<AWS access key ID>
 AWS_SECRET_ACCESS_KEY=<AWS secret key>
@@ -135,7 +144,7 @@ docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH --build-ar
 
 ## Option 2: AWS IoT Certificate
 
-Kinesis Video Streams do not support certificate-based authentication, however, AWS IoT has a credentials provider that allows
+Amazon Kinesis Video Streams do not support certificate-based authentication, however, AWS IoT has a credentials provider that allows
 you to use the built-in X.509 certificate as the unique device identity to authenticate AWS requests.
 
 ### Prerequisites
@@ -168,7 +177,7 @@ If the prerequisites are set up by following the
     PROXY=<proxy address, needed if camera is behind a proxy>
 
     # AWS related variables
-    AWS_KINESIS_STREAM_NAME=<AWS Kinesis video stream name>
+    AWS_KINESIS_STREAM_NAME=<Amazon Kinesis video stream name>
     AWS_REGION=<AWS region>
     AWS_CREDENTIAL_PROVIDER=<AWS credential provider, see next step for how to fetch it>
     AWS_ROLE_ALIAS=<Pick a name for the AWS Role Alias>
@@ -244,20 +253,20 @@ With this option the image need **not** be rebuilt. To use this option the follo
 
     > The actual values are much longer than the substitutes above `*****`
 
-3. When using the temporary credentials the original image from [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key) can be used with one minor update in to the `docker-compose.yml` file needed to start the Kinesis stream.
+3. When using the temporary credentials the original image from [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key) can be used with one minor update in to the `docker-compose.yml` file needed to start the Amazon Kinesis stream.
 
     - In the root folder of the repository update the `docker-compose.yml` to use the temporary credentials set in the exported environment variables above, in addition including the `AWS_SESSION_TOKEN`.
 
-     ```sh
-     # From:
-     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+        ```sh
+        # From:
+        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
 
-     # To:
-     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-     AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
-     ```
+        # To:
+        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+        AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
+        ```
 
 #### Build Locally
 
@@ -279,7 +288,7 @@ With this option the image **need to be rebuilt** to include the certificate. To
         docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg IMAGE_TAG=$IMAGE_TAG .
         ```
 
-2. Create the Kinesis Video Stream.
+2. Create the Amazon Kinesis Video Stream.
 
     If the policy is set with the script above or according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html),
     permission will **not** be set for `KinesisVideo:CreateStream` action. I.e. the stream will have to be created manually.
@@ -333,19 +342,19 @@ to run in detached (background) mode.
 
 Once the `docker-compose` command has been run, an RTSP stream is set up with the
 `start_stream.sh` script. The AWS GStreamer plugin kvssink sends media based on
-the Matroska container format to AWS Kinesis Video Streams. The plugin is set up
+the Matroska container format to Amazon Kinesis Video Streams. The plugin is set up
 with default values, however these values can be modified according to the
 [kvssink parameter reference](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/examples-gstreamer-plugin-parameters.html)
 .
 
-## Verify That the Kinesis Video Stream is Successfully Running
+## Verify That the Amazon Kinesis Video Stream is Successfully Running
 
 The most straightforward way to verify that the stream from the camera actually
-reaches Kinesis Video Streams is to do it from the AWS UI.
+reaches Amazon Kinesis Video Streams is to do it from the AWS UI.
 
 1. Log in to your AWS account.
-2. Search for and go to the Kinesis Video Streams service.
-3. Make sure that you are in the correct AWS region, and select the Kinesis
+2. Search for and go to the Amazon Kinesis Video Streams service.
+3. Make sure that you are in the correct AWS region, and select the Amazon Kinesis
 video stream in the list.
 4. Click the 'Media Playback' button.
 5. If everything is set up correctly, the stream should show up. Wait a number
@@ -353,5 +362,9 @@ of seconds since there might be a delay.
 
 ## Known Limitations
 
-When streaming to AWS Kinesis Video Streams there is a latency which can be
+When streaming to Amazon Kinesis Video Streams there is a latency which can be
 affected by the selected AWS region, network setup and video resolution.
+
+## License
+
+[Apache 2.0](LICENSE)

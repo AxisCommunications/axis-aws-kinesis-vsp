@@ -166,12 +166,12 @@ instructions and guidance, see super-linter page for
 To run the linters on the codebase from command-line:
 
 ```sh
-docker run --rm  \
-  -v $PWD:/tmp/lint \
-  -e RUN_LOCAL=true \
-  -e LINTER_RULES_PATH=/ \
-  -e MARKDOWN_CONFIG_FILE=.markdownlint.yml \
-  github/super-linter:slim-v4
+docker run --rm \
+    -v $PWD:/tmp/lint \
+    -e RUN_LOCAL=true \
+    -e LINTER_RULES_PATH=/ \
+    -e MARKDOWN_CONFIG_FILE=.markdownlint.yml \
+    github/super-linter:slim-v4
 ```
 
 <!-- markdownlint-disable MD034 -->
