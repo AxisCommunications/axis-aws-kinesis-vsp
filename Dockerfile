@@ -7,6 +7,7 @@ FROM $ARCH/ubuntu:18.04 as base
 RUN <<EOF
 apt-get update
 apt-get install -y --no-install-recommends \
+  qemu-user-static \
   libssl-dev \
   libcurl4-openssl-dev \
   liblog4cplus-dev \
