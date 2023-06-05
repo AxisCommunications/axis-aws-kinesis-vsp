@@ -53,6 +53,9 @@ AWS_SECRET_ACCESS_KEY=<AWS secret key>
 
 # Specify the application to use, either 'objectanalytics' or 'vmd'
 APPNAME=<objectanalytics or vmd>
+
+# Specify if to set up the camera event rule and app scenario, required the first time you run it.
+GENERATE_EVENT_TRIGGERS=<True or False>
 ```
 
 ## Install

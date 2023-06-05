@@ -18,19 +18,24 @@ import json
 import os
 import time
 import xml.etree.ElementTree as ET
+from ast import literal_eval
 from datetime import date
 
 import requests
 from requests.auth import HTTPDigestAuth
 
-date_today = str(date.today().isoformat()).replace("-", "")
-recordings_path = "/tmp/recordings/" + date_today
-
 app_name = os.environ["APPNAME"]
 device_ip = os.environ["DEVICE_IP"]
 device_username = os.environ["DEVICE_USERNAME"]
 device_password = os.environ["DEVICE_PASSWORD"]
-os.environ["AWS_KINESIS_STREAM_NAME"] = app_name + "-events"
+generate_event_triggers = literal_eval(
+    os.environ["GENERATE_EVENT_TRIGGERS"].lower().capitalize()
+)
+
+
+def get_recordings_path():
+    date_today = str(date.today().isoformat()).replace("-", "")
+    return "/tmp/recordings/" + date_today
 
 
 def get_file_data(file_name):
@@ -76,28 +81,43 @@ def folder_has_changed(current, last):
     return len(current - last) > 0
 
 
-app_config_data = get_file_data("json/" + app_name + "_config.json")
-app_config_data_json = json.loads(app_config_data)
-set_configuration(app_config_data_json)
+def generate_rules_and_actions():
+    app_config_data = get_file_data("json/" + app_name + "_config.json")
+    app_config_data_json = json.loads(app_config_data)
+    set_configuration(app_config_data_json)
 
-add_action_configuration = get_file_data("xml/add_action_configuration.xml")
-time.sleep(5)
-add_action_rule = get_file_data("xml/" + app_name + "_add_action_rule.xml")
+    add_action_configuration = get_file_data("xml/add_action_configuration.xml")
+    time.sleep(5)
+    add_action_rule = get_file_data("xml/" + app_name + "_add_action_rule.xml")
+    response = vapix_services(add_action_configuration)
 
-response = vapix_services(add_action_configuration)
-action_config_id = get_action_configuration_id(response)
-new_action_rule = add_action_rule.replace("ConfigurationID", str(action_config_id))
-vapix_services(new_action_rule)
+    action_config_id = get_action_configuration_id(response)
+    new_action_rule = add_action_rule.replace("ConfigurationID", str(action_config_id))
+    vapix_services(new_action_rule)
+
+
+if generate_event_triggers:
+    generate_rules_and_actions()
+
+recordings_path = get_recordings_path()
+last_recordings_path = recordings_path
 
 last_folder_comp = get_folder_composition(recordings_path)
 
 while True:
+    recordings_path = get_recordings_path()
     current_folder_comp = get_folder_composition(recordings_path)
-    if folder_has_changed(current_folder_comp, last_folder_comp):
-        new_file_path = str(sorted(list(current_folder_comp))[-1])
-        os.environ["FILE_NAME"] = new_file_path
-        os.system("./start_stream_mkv.sh")
+
+    if recordings_path != last_recordings_path:
+        last_recordings_path = recordings_path
+        last_folder_comp = current_folder_comp
     else:
-        print("No event detected...")
-    last_folder_comp = current_folder_comp
-    time.sleep(3)
+        if folder_has_changed(current_folder_comp, last_folder_comp):
+            new_file_path = str(sorted(list(current_folder_comp))[-1])
+            os.environ["FILE_NAME"] = new_file_path
+            os.system("./start_stream_mkv.sh")
+        else:
+            print("no event detected...")
+        last_folder_comp = current_folder_comp
+        last_recordings_path = recordings_path
+        time.sleep(3)
