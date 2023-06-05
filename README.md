@@ -6,7 +6,7 @@
 The Application for Amazon Kinesis Video Streams can be run on a virtualization enabled
 Axis camera as a container, making it possible to stream video to
 [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/). The
-stream can thereafter be fed into other AWS services such as Amazon Rekognition to
+stream can thereafter be fed into other AWS services such as [Amazon Rekognition](https://aws.amazon.com/rekognition/) to
 perform image and or video analytics.
 
 ![diagram](./assets/diagram.png)
