@@ -253,7 +253,7 @@ With this option the image need **not** be rebuilt. To use this option the follo
 
     > The actual values are much longer than the substitutes above `*****`
 
-3. When using the temporary credentials the original image from [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key) can be used with one minor update in to the `docker-compose.yml` file needed to start the Amazon Kinesis stream.
+3. When using the temporary credentials the original image from [Option 1: Access Kinesis Video Streams resources using IAM](#option-1-access-kinesis-video-streams-resources-using-iam) can be used with one minor update in to the `docker-compose.yml` file needed to start the Amazon Kinesis stream.
 
     - In the root folder of the repository update the `docker-compose.yml` to use the temporary credentials set in the exported environment variables above, in addition including the `AWS_SESSION_TOKEN`.
 
