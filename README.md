@@ -16,14 +16,14 @@ perform image and or video analytics.
 
 - [Target Audience](#target-audience)
 - [Requirements](#requirements)
-- [Option 1: Access Key ID and Secret Access Key](#option-1-access-key-id-and-secret-access-key)
+- [Option 1: Access Kinesis Video Streams resources using IAM](#option-1-access-kinesis-video-streams-resources-using-iam)
     - [Variables](#variables)
         - [Container Build Variables](#container-build-variables)
         - [Container Runtime Variables](#container-runtime-variables)
     - [Install](#install)
         - [From Docker Hub](#from-docker-hub)
         - [Build Locally](#build-locally)
-- [Option 2: AWS IoT Certificate](#option-2-aws-iot-certificate)
+- [Option 2: Access Kinesis Video Streams resources using AWS IoT](#option-2-access-kinesis-video-streams-resources-using-aws-iot)
     - [Prerequisites](#prerequisites)
     - [Creating the Certificate Files](#creating-the-certificate-files)
     - [Install](#install-1)
@@ -53,12 +53,12 @@ The following setup is supported:
 - Computer
     - OS: Linux/macOS running preferred shell, or Windows with WSL2 installed to run Bash on Windows
     - AWS Account with [security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) generated
-        - [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key)
+        - [Option 1: Access Kinesis Video Streams resources using IAM](#option-1-access-kinesis-video-streams-resources-using-iam)
             - Access key ID
             - Secret access key
-        - [Option 2: AWS IoT certificate](#option-2-aws-iot-certificate)
-            - Option 1. Using AWS IoT certificate alone
-            - Option 2. Generating temporary credentials (temporary access key ID, secret access key and session token) from the IoT certificate
+        - [Option 2: Access Kinesis Video Streams resources using AWS IoT](#option-2-access-kinesis-video-streams-resources-using-aws-iot)
+            - Option 2.1. Using AWS IoT certificate alone
+            - Option 2.2. Generating temporary credentials (temporary access key ID, secret access key and session token) from the IoT certificate
     - AWS CLI
         - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
             - Ensure to choose a region that supports Amazon Kinesis Video Streams.
@@ -66,7 +66,7 @@ The following setup is supported:
     - [Docker Compose](https://docs.docker.com/compose/install/)
     - [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
 
-## Option 1: Access Key ID and Secret Access Key
+## Option 1: Access Kinesis Video Streams resources using IAM
 
 ### Variables
 
@@ -142,7 +142,7 @@ Once the shell variables have been added, the Docker image can be built:
 docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH --build-arg KVS_CPP_PRODUCER_SDK_TAG=v3.3.1 .
 ```
 
-## Option 2: AWS IoT Certificate
+## Option 2: Access Kinesis Video Streams resources using AWS IoT
 
 Amazon Kinesis Video Streams do not support certificate-based authentication, however, AWS IoT has a credentials provider that allows
 you to use the built-in X.509 certificate as the unique device identity to authenticate AWS requests.
