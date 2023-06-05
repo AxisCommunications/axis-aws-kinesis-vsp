@@ -78,13 +78,13 @@ running it.
 Add the IMAGE_NAME as a shell variable so that it can be reused:
 
 ```sh
-IMAGE_NAME=axisecp/kinesis-video-stream-application
+export IMAGE_NAME=axisecp/kinesis-video-stream-application
 ```
 
 Also, add the IMAGE_TAG:
 
 ```sh
-IMAGE_TAG=latest-<armv7hf or aarch64>
+export IMAGE_TAG=latest-<armv7hf or aarch64>
 ```
 
 where the IMAGE_TAG is `latest-armv7hf` for ARTPEC-7 and `latest-aarch64` for
@@ -127,13 +127,13 @@ Add the architecture for the Docker image as a shell variable, depending on the 
 system-on-chip. Use `arm32v7` for ARTPEC-7 devices:
 
 ```sh
-ARCH=arm32v7
+export ARCH=arm32v7
 ```
 
 and `arm64v8` for ARTPEC-8:
 
 ```sh
-ARCH=arm64v8
+export ARCH=arm64v8
 ```
 
 Once the shell variables have been added, the Docker image can be built:
@@ -306,7 +306,7 @@ With this option the image **need to be rebuilt** to include the certificate. To
 Add the camera's IP address as a shell variable:
 
 ```sh
-DEVICE_IP=<camera IP>
+export DEVICE_IP=<camera IP>
 ```
 
 Clear Docker memory:

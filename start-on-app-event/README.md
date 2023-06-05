@@ -24,13 +24,13 @@ running it.
 Add the image name as a shell variable:
 
 ```sh
-IMAGE_NAME=kvs-start-on-app-event
+export IMAGE_NAME=kvs-start-on-app-event
 ```
 
 Also, add the image tag:
 
 ```sh
-IMAGE_TAG=latest
+export IMAGE_TAG=latest
 ```
 
 ### Environment Variables
@@ -63,13 +63,13 @@ Add the architecture for the Docker image as a shell variable, depending on the 
 system-on-chip. Use `armv7hf` for ARTPEC-7 devices:
 
 ```sh
-ARCH=armv7hf
+export ARCH=armv7hf
 ```
 
 and `aarch64` for ARTPEC-8:
 
 ```sh
-ARCH=aarch64
+export ARCH=aarch64
 ```
 
 Once the shell variables have been added, the Docker image can be built:
