@@ -2,6 +2,7 @@ import json
 import os
 import time
 import xml.etree.ElementTree as ET
+from ast import literal_eval
 from datetime import date
 
 import requests
@@ -11,7 +12,7 @@ app_name = os.environ["APPNAME"]
 device_ip = os.environ["DEVICE_IP"]
 device_username = os.environ["DEVICE_USERNAME"]
 device_password = os.environ["DEVICE_PASSWORD"]
-generate_event_triggers = eval(
+generate_event_triggers = literal_eval(
     os.environ["GENERATE_EVENT_TRIGGERS"].lower().capitalize()
 )
 
