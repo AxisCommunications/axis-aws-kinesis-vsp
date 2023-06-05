@@ -75,19 +75,19 @@ running it.
 
 #### Container Build Variables
 
-Add the image name as a shell variable so that it can be reused:
+Add the IMAGE_NAME as a shell variable so that it can be reused:
 
 ```sh
 IMAGE_NAME=axisecp/kinesis-video-stream-application
 ```
 
-Also, add the image tag:
+Also, add the IMAGE_TAG:
 
 ```sh
 IMAGE_TAG=latest-<armv7hf or aarch64>
 ```
 
-where the image tag is `latest-armv7hf` for ARTPEC-7 and `latest-aarch64` for
+where the IMAGE_TAG is `latest-armv7hf` for ARTPEC-7 and `latest-aarch64` for
 ARTPEC-8 devices.
 
 #### Container Runtime Variables
