@@ -2,9 +2,9 @@
 
 This is an example of how the [Application for Amazon Kinesis Video Streams](../README.md)
 can be extended to only stream to [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/) when an object or
-motion is detected by either [AXIS Object Analytics](https://www.axis.com/products/axis-object-analytics) (AOA) or
-[AXIS Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) (VMD). When the example is run, an
-action rule and a scenario or profile is created in either AOA or VMD. The rule records clips and saves them to the SD-card when
+motion is detected by either [AXIS Object Analytics](https://www.axis.com/products/axis-object-analytics) or
+[AXIS Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection). When the example is run, an
+action rule and a scenario or profile is created in either AXIS Object Analytics or AXIS Video Motion Detection. The rule records clips and saves them to the SD-card when
 events occur in either application. Each recording is streamed to
 [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/).
 
@@ -89,7 +89,7 @@ Same as for the main application. See the save and load section in [Application 
 The most straightforward way to verify that the stream from the camera actually
 reaches Amazon Kinesis Video Streams is to do it from the AWS UI.
 
-1. Go to either the AOA or VMD app on the camera and view the created profile or scenario.
+1. Go to either the AXIS Object Analytics or AXIS Video Motion Detection app on the camera and view the created profile or scenario.
 (e.g. <http://192.168.0.1/local/vmd/index.html> or  <http://192.168.0.1/local/objectanalytics/index.html>).
 2. Trigger an event by clicking the button **Test alarm**
 3. Log in to your AWS account.
