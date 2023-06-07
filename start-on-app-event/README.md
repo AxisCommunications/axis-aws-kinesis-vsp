@@ -2,8 +2,8 @@
 
 This is an example of how the [Application for Amazon Kinesis Video Streams](../README.md)
 can be extended to only stream to [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/) when an object or
-motion is detected by either [Axis Object Analytics](https://www.axis.com/products/axis-object-analytics) (AOA) or
-[Axis Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) (VMD). When the example is run, an
+motion is detected by either [AXIS Object Analytics](https://www.axis.com/products/axis-object-analytics) (AOA) or
+[AXIS Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) (VMD). When the example is run, an
 action rule and a scenario or profile is created in either AOA or VMD. The rule records clips and saves them to the SD-card when
 events occur in either application. Each recording is streamed to
 [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/).
