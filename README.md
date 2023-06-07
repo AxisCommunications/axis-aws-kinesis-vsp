@@ -358,7 +358,7 @@ reaches Amazon Kinesis Video Streams is to do it from the AWS UI.
 2. Search for and go to the Amazon Kinesis Video Streams service.
 3. Make sure that you are in the correct AWS region, and select the Amazon Kinesis
 video stream in the list.
-4. Click the 'Media Playback' button.
+4. Click the **Media Playback** button.
 5. If everything is set up correctly, the stream should show up. Wait a number
 of seconds since there might be a delay.
 
