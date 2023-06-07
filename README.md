@@ -236,7 +236,7 @@ With this option the image need **not** be rebuilt. To use this option the follo
     The script will echo the temporary credentials and environment variables to set:
 
     ```sh
-    √ ~ % ./generate_temporary_credentials.sh ../.env
+    ./generate_temporary_credentials.sh ../.env
     Temporary credentials created with an expiration date set to:2023-02-15T19:54:53Z
 
     Run the following command in your shell to export the temporary credentials so that they can be picked up by docker compose.
