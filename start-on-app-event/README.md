@@ -91,12 +91,12 @@ reaches Amazon Kinesis Video Streams is to do it from the AWS UI.
 
 1. Go to either the AOA or VMD app on the camera and view the created profile or scenario.
 (e.g. <http://192.168.0.1/local/vmd/index.html> or  <http://192.168.0.1/local/objectanalytics/index.html>).
-2. Trigger an event by clicking the button 'Test alarm'
+2. Trigger an event by clicking the button **Test alarm**
 3. Log in to your AWS account.
 4. Search for and go to the Amazon Kinesis Video Streams service.
 5. Make sure that you are in the correct AWS region, and select the Amazon Kinesis
 video stream in the list.
-6. Click the 'Media Playback' button.
+6. Click the **Media Playback** button.
 7. If everything is set up correctly, the stream should show up. Wait a number
 of seconds since there might be a delay.
 
