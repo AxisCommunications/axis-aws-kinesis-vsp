@@ -68,7 +68,7 @@ The following setup is supported:
 
 ## Option 1: Access Kinesis Video Streams resources using IAM
 
-When setting up an IAM user or role, see the [official AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iam.html) describing how to define permissions for streaming to Amazon Kinesis Video Streams.
+When setting up an IAM user or a role for streaming to Amazon Kinesis Video Streams, see the [official AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iam.html) describing how to define permissions.
 
 ### Variables
 
