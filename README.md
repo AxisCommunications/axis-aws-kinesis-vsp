@@ -32,6 +32,7 @@ perform image and or video analytics.
 - [Run on the Camera](#run-on-the-camera)
     - [Save and Load the Image to the Camera](#save-and-load-the-image-to-the-camera)
     - [Starting the Container](#starting-the-container)
+- [Use case - Event based Amazon Kinesis Video Streams](#use-case---event-based-amazon-kinesis-video-streams)
 - [Verify That the Amazon Kinesis Video Stream is Successfully Running](#verify-that-the-amazon-kinesis-video-stream-is-successfully-running)
 - [Known Limitations](#known-limitations)
 - [License](#license)
@@ -348,6 +349,11 @@ the Matroska container format to Amazon Kinesis Video Streams. The plugin is set
 with default values, however these values can be modified according to the
 [kvssink parameter reference](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/examples-gstreamer-plugin-parameters.html)
 .
+
+## Use case - Event based Amazon Kinesis Video Streams
+
+This repository also includes an example use case [start-on-app-event](./start-on-app-event) that generates [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/) based on an event triggered by rules created with AXIS analytics applications like [AXIS Object Analytics](https://www.axis.com/products/axis-object-analytics) or
+[AXIS Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection).
 
 ## Verify That the Amazon Kinesis Video Stream is Successfully Running
 
