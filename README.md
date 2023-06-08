@@ -64,7 +64,7 @@ The following setup is supported:
             - Ensure to choose a region that supports Amazon Kinesis Video Streams.
     - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
     - [Docker Compose](https://docs.docker.com/compose/install/)
-    - [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
+    - Only required for option 2: [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
 
 ## Option 1: Access Kinesis Video Streams resources using IAM
 
