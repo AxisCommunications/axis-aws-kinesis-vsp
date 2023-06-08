@@ -65,11 +65,11 @@ The following setup is supported:
             - Ensure to choose a region that supports Amazon Kinesis Video Streams.
     - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
     - [Docker Compose](https://docs.docker.com/compose/install/)
-    - [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
+    - Only required for option 2: [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
 
 ## Option 1: Access Kinesis Video Streams resources using IAM
 
-When setting up an IAM user or role, see the [official AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iam.html) describing how to define permissions for streaming to Amazon Kinesis Video Streams.
+When setting up an IAM user or a role for streaming to Amazon Kinesis Video Streams, see the [official AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iam.html) describing how to define permissions.
 
 ### Variables
 
