@@ -90,7 +90,7 @@ Same as for the main application. See the save and load section in [Application 
 The most straightforward way to verify that the stream from the camera actually
 reaches Amazon Kinesis Video Streams is to do it from the AWS UI.
 
-1. Go to either the AXIS Object Analytics or AXIS Video Motion Detection app on the camera and view the created profile or scenario.
+1. Go to either the AXIS Object Analytics or AXIS Video Motion Detection app on the camera and view the created scenario or profile with the name 'Start-on-event'.
 (e.g. <http://192.168.0.1/local/vmd/index.html> or  <http://192.168.0.1/local/objectanalytics/index.html>).
 2. Trigger an event by clicking the button **Test alarm**
 3. Log in to your AWS account.
