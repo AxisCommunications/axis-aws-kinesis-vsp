@@ -29,7 +29,7 @@
             "type": "sizePercentage"
           }
         ],
-        "name": "Scenario 1",
+        "name": "Start-on-event",
         "type": "motion",
         "metadataOverlay": null,
         "objectClassifications": [
