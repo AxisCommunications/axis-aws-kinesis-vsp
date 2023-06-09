@@ -102,6 +102,8 @@ of seconds since there might be a delay.
 
 ## Known Limitations
 
-When streaming to Amazon Kinesis Video Streams there is a latency which can be
+* When streaming to Amazon Kinesis Video Streams there is a latency which can be
 affected by the selected AWS region, network setup and video resolution. This means that eventual event triggered recordings might
 appear in Amazon Kinesis Video Streams with a noticeable delay.
+
+* In the event rule configuration, there is a prebuffer and postbuffer set up of one respectively five seconds. However, if these durations are increased there is a risk that the the full clip is not uploaded to Amazon Kinesis since the creation of the file might not be done at the moment of sending it. Please open an issue if this is something you have encountered and would like to discuss.
