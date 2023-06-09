@@ -47,7 +47,7 @@ offerings to connect and stream Axis cameras video into the Amazon Kinesis Video
 The following setup is supported:
 
 - Camera
-    - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII, P3265-LV)
+  - Chip: ARTPEC-{7-8} [DLPU enabled devices](https://axiscommunications.github.io/acap-documentation/docs/axis-devices-and-compatibility/#acap-computer-vision-sdk) (e.g., Q1615 MkIII, P3265-LV)
     - Firmware: 10.9 or higher
     - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started, using TLS and SD card as storage
 
