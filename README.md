@@ -240,7 +240,7 @@ With this option the image need **not** be rebuilt. To use this option the follo
     ./generate_temporary_credentials.sh ../.env
     Temporary credentials created with an expiration date set to:2023-02-15T19:54:53Z
 
-    Run the following command in your shell to export the temporary credentials so that they can be picked up by docker compose.
+    Run the following command in your shell to export the temporary credentials so that they can be picked up by Docker Compose.
     export AWS_ACCESS_KEY_ID=********************
     export AWS_SECRET_ACCESS_KEY=******************
     export AWS_SESSION_TOKEN=************************
