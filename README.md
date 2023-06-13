@@ -353,7 +353,7 @@ with default values, however these values can be modified according to the
 
 ## Use case - Event based Amazon Kinesis Video Streams
 
-This repository also includes an example use case [start-on-app-event](./start-on-app-event) that generates [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/) based on an event triggered by rules created with AXIS analytics applications like [AXIS Object Analytics](https://www.axis.com/products/axis-object-analytics) or
+This repository also includes an example use case [start-on-app-event](./start-on-app-event) that generates [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/) based on an event triggered by rules created with Axis analytics applications like [AXIS Object Analytics](https://www.axis.com/products/axis-object-analytics) or
 [AXIS Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection).
 
 ## Verify That the Amazon Kinesis Video Stream is Successfully Running
