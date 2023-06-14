@@ -68,6 +68,9 @@ The following setup is supported:
     - [Docker Compose](https://docs.docker.com/compose/install/)
     - Only required for option 2: [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
 
+> **Note** Developers are recommended to follow [AWS Credentials access best practices](https://docs.aws.amazon.com/accounts/latest/reference/credentials-access-keys-best-practices.html) in safeguaring the credentials included
+> in developer machine configuration.
+
 ## Option 1: Access Kinesis Video Streams resources using IAM
 
 When setting up an IAM user or a role for streaming to Amazon Kinesis Video Streams, see the [official AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iam.html) describing how to define permissions.
@@ -171,7 +174,7 @@ If the prerequisites are set up by following the
 1. Create a file named `.env` in the `x509-authentication` directory of this repository, it will contain data to communicate with
     the camera and AWS. Add the content below to the file and fill in the corresponding values:
 
-    > For the `generate_certificate.sh` script and Docker Compose to pick up the environment variables the file needs to be named `.env`
+    > **Note** For the `generate_certificate.sh` script and Docker Compose to pick up the environment variables the file needs to be named `.env`
     **and** be placed in the `x509-authentication` directory.
 
     ```sh
@@ -205,7 +208,7 @@ If the prerequisites are set up by following the
 
 2. Step into the `certificate_files` directory and run the following command to generate certificate and keys:
 
-    > This step can be skipped if setting up the certificate manually according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html).
+    > **Note** This step can be skipped if setting up the certificate manually according to the [AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iot.html).
 
     If `AWS CLI` is configured with `output = json` the script can be run as:
 
@@ -219,7 +222,7 @@ If the prerequisites are set up by following the
     AWS_DEFAULT_OUTPUT="json" ./generate_certificate.sh ../.env
     ```
 
-    > Currently the script only supports a profile named `default` for the calls made towards AWS CLI. If you like it to use another profile read about [Named profiles for the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) in the AWS documentation and update the script accordingly.
+    > **Note** Currently the script only supports a profile named `default` for the calls made towards AWS CLI. If you like it to use another profile read about [Named profiles for the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) in the AWS documentation and update the script accordingly.
 
 ### Install
 
@@ -255,7 +258,7 @@ With this option the image need **not** be rebuilt. To use this option the follo
     export AWS_SESSION_TOKEN=************************
     ```
 
-    > The actual values are much longer than the substitutes above `*****`
+    > **Note** The actual values are much longer than the substitutes above `*****`
 
 3. When using the temporary credentials the original image from [Option 1: Access Kinesis Video Streams resources using IAM](#option-1-access-kinesis-video-streams-resources-using-iam) can be used with one minor update in to the `docker-compose.yml` file needed to start the Amazon Kinesis stream.
 
@@ -301,7 +304,7 @@ With this option the image **need to be rebuilt** to include the certificate. To
     aws kinesisvideo create-stream --data-retention-in-hours 2 --stream-name <name of the stream used in above steps>
     ```
 
-    >The stream name must be the same as the name of the Thing created earlier.
+    > **Note** The stream name must be the same as the name of the Thing created earlier.
 
 ## Run on the Camera
 
