@@ -68,7 +68,7 @@ The following setup is supported:
     - [Docker Compose](https://docs.docker.com/compose/install/)
     - Only required for option 2: [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
 
-> **Note** Developers are recommended to follow [AWS Credentials access best practices](https://docs.aws.amazon.com/accounts/latest/reference/credentials-access-keys-best-practices.html) in safeguaring the credentials included
+> **Note** Developers are recommended to follow [AWS Credentials access best practices](https://docs.aws.amazon.com/accounts/latest/reference/credentials-access-keys-best-practices.html) in safeguarding the credentials included
 > in developer machine configuration.
 
 ## Option 1: Access Kinesis Video Streams resources using IAM
