@@ -16,14 +16,14 @@ perform image and or video analytics.
 
 - [Target Audience](#target-audience)
 - [Requirements](#requirements)
-- [Option 1: Access Key ID and Secret Access Key](#option-1-access-key-id-and-secret-access-key)
+- [Option 1: Access Kinesis Video Streams resources using IAM](#option-1-access-kinesis-video-streams-resources-using-iam)
     - [Variables](#variables)
         - [Container Build Variables](#container-build-variables)
         - [Container Runtime Variables](#container-runtime-variables)
     - [Install](#install)
         - [From Docker Hub](#from-docker-hub)
         - [Build Locally](#build-locally)
-- [Option 2: AWS IoT Certificate](#option-2-aws-iot-certificate)
+- [Option 2: Access Kinesis Video Streams resources using AWS IoT](#option-2-access-kinesis-video-streams-resources-using-aws-iot)
     - [Prerequisites](#prerequisites)
     - [Creating the Certificate Files](#creating-the-certificate-files)
     - [Install](#install-1)
@@ -32,8 +32,10 @@ perform image and or video analytics.
 - [Run on the Camera](#run-on-the-camera)
     - [Save and Load the Image to the Camera](#save-and-load-the-image-to-the-camera)
     - [Starting the Container](#starting-the-container)
+- [Use case - Event based Amazon Kinesis Video Streams](#use-case---event-based-amazon-kinesis-video-streams)
 - [Verify That the Amazon Kinesis Video Stream is Successfully Running](#verify-that-the-amazon-kinesis-video-stream-is-successfully-running)
 - [Known Limitations](#known-limitations)
+- [Disclaimer](#disclaimer)
 - [License](#license)
 
 ## Target Audience
@@ -46,27 +48,29 @@ offerings to connect and stream Axis cameras video into the Amazon Kinesis Video
 The following setup is supported:
 
 - Camera
-    - Chip: ARTPEC-{7-8} DLPU devices (e.g., Q1615 MkIII, P3265-LV)
+    - Chip: ARTPEC-{7-8} [DLPU enabled devices](https://axiscommunications.github.io/acap-documentation/docs/axis-devices-and-compatibility/#acap-computer-vision-sdk) (e.g., Q1615 MkIII, P3265-LV)
     - Firmware: 10.9 or higher
     - [Docker ACAP](https://github.com/AxisCommunications/docker-acap) installed and started, using TLS and SD card as storage
 
 - Computer
-    - OS: Linux/macOS running preferred shell, or Windows 10 with WSL2 installed to run Bash on Windows
+    - OS: Linux/macOS running preferred shell, or Windows with WSL2 installed to run Bash on Windows
     - AWS Account with [security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) generated
-        - [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key)
+        - [Option 1: Access Kinesis Video Streams resources using IAM](#option-1-access-kinesis-video-streams-resources-using-iam)
             - Access key ID
             - Secret access key
-        - [Option 2: AWS IoT certificate](#option-2-aws-iot-certificate)
-            - Option 1. Using AWS IoT certificate alone
-            - Option 2. Generating temporary credentials (temporary access key ID, secret access key and session token) from the IoT certificate
+        - [Option 2: Access Kinesis Video Streams resources using AWS IoT](#option-2-access-kinesis-video-streams-resources-using-aws-iot)
+            - Option 2.1. Using AWS IoT certificate alone
+            - Option 2.2. Generating temporary credentials (temporary access key ID, secret access key and session token) from the IoT certificate
     - AWS CLI
         - [Getting started with the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
             - Ensure to choose a region that supports Amazon Kinesis Video Streams.
     - [Docker](https://docs.docker.com/get-docker/) with BuildKit enabled
     - [Docker Compose](https://docs.docker.com/compose/install/)
-    - [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
+    - Only required for option 2: [jq](https://stedolan.github.io/jq/), a lightweight command-line JSON processor
 
-## Option 1: Access Key ID and Secret Access Key
+## Option 1: Access Kinesis Video Streams resources using IAM
+
+When setting up an IAM user or a role for streaming to Amazon Kinesis Video Streams, see the [official AWS documentation](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-iam.html) describing how to define permissions.
 
 ### Variables
 
@@ -75,19 +79,19 @@ running it.
 
 #### Container Build Variables
 
-Add the image name as a shell variable so that it can be reused:
+Add the IMAGE_NAME as a shell variable so that it can be reused:
 
 ```sh
-IMAGE_NAME=axisecp/kinesis-video-stream-application
+export IMAGE_NAME=axisecp/kinesis-video-stream-application
 ```
 
-Also, add the image tag:
+Also, add the IMAGE_TAG:
 
 ```sh
-IMAGE_TAG=latest-<armv7hf or aarch64>
+export IMAGE_TAG=latest-<armv7hf or aarch64>
 ```
 
-where the image tag is `latest-armv7hf` for ARTPEC-7 and `latest-aarch64` for
+where the IMAGE_TAG is `latest-armv7hf` for ARTPEC-7 and `latest-aarch64` for
 ARTPEC-8 devices.
 
 #### Container Runtime Variables
@@ -127,13 +131,13 @@ Add the architecture for the Docker image as a shell variable, depending on the 
 system-on-chip. Use `arm32v7` for ARTPEC-7 devices:
 
 ```sh
-ARCH=arm32v7
+export ARCH=arm32v7
 ```
 
 and `arm64v8` for ARTPEC-8:
 
 ```sh
-ARCH=arm64v8
+export ARCH=arm64v8
 ```
 
 Once the shell variables have been added, the Docker image can be built:
@@ -142,7 +146,7 @@ Once the shell variables have been added, the Docker image can be built:
 docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg ARCH --build-arg KVS_CPP_PRODUCER_SDK_TAG=v3.3.1 .
 ```
 
-## Option 2: AWS IoT Certificate
+## Option 2: Access Kinesis Video Streams resources using AWS IoT
 
 Amazon Kinesis Video Streams do not support certificate-based authentication, however, AWS IoT has a credentials provider that allows
 you to use the built-in X.509 certificate as the unique device identity to authenticate AWS requests.
@@ -234,10 +238,10 @@ With this option the image need **not** be rebuilt. To use this option the follo
     The script will echo the temporary credentials and environment variables to set:
 
     ```sh
-    √ ~ % ./generate_temporary_credentials.sh ../.env
+    ./generate_temporary_credentials.sh ../.env
     Temporary credentials created with an expiration date set to:2023-02-15T19:54:53Z
 
-    Run the following command in your shell to export the temporary credentials so that they can be picked up by docker compose.
+    Run the following command in your shell to export the temporary credentials so that they can be picked up by Docker Compose.
     export AWS_ACCESS_KEY_ID=********************
     export AWS_SECRET_ACCESS_KEY=******************
     export AWS_SESSION_TOKEN=************************
@@ -253,7 +257,7 @@ With this option the image need **not** be rebuilt. To use this option the follo
 
     > The actual values are much longer than the substitutes above `*****`
 
-3. When using the temporary credentials the original image from [Option 1: Access key ID and Secret access key](#option-1-access-key-id-and-secret-access-key) can be used with one minor update in to the `docker-compose.yml` file needed to start the Amazon Kinesis stream.
+3. When using the temporary credentials the original image from [Option 1: Access Kinesis Video Streams resources using IAM](#option-1-access-kinesis-video-streams-resources-using-iam) can be used with one minor update in to the `docker-compose.yml` file needed to start the Amazon Kinesis stream.
 
     - In the root folder of the repository update the `docker-compose.yml` to use the temporary credentials set in the exported environment variables above, in addition including the `AWS_SESSION_TOKEN`.
 
@@ -306,7 +310,7 @@ With this option the image **need to be rebuilt** to include the certificate. To
 Add the camera's IP address as a shell variable:
 
 ```sh
-DEVICE_IP=<camera IP>
+export DEVICE_IP=<camera IP>
 ```
 
 Clear Docker memory:
@@ -347,6 +351,11 @@ with default values, however these values can be modified according to the
 [kvssink parameter reference](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/examples-gstreamer-plugin-parameters.html)
 .
 
+## Use case - Event based Amazon Kinesis Video Streams
+
+This repository also includes an example use case [start-on-app-event](./start-on-app-event) that generates [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/) based on an event triggered by rules created with Axis analytics applications like [AXIS Object Analytics](https://www.axis.com/products/axis-object-analytics) or
+[AXIS Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection).
+
 ## Verify That the Amazon Kinesis Video Stream is Successfully Running
 
 The most straightforward way to verify that the stream from the camera actually
@@ -356,7 +365,7 @@ reaches Amazon Kinesis Video Streams is to do it from the AWS UI.
 2. Search for and go to the Amazon Kinesis Video Streams service.
 3. Make sure that you are in the correct AWS region, and select the Amazon Kinesis
 video stream in the list.
-4. Click the 'Media Playback' button.
+4. Click the **Media Playback** button.
 5. If everything is set up correctly, the stream should show up. Wait a number
 of seconds since there might be a delay.
 
@@ -365,6 +374,22 @@ of seconds since there might be a delay.
 When streaming to Amazon Kinesis Video Streams there is a latency which can be
 affected by the selected AWS region, network setup and video resolution.
 
+## Disclaimer
+
+<!-- textlint-disable -->
+
+This document and its content are provided courtesy of Axis and all rights to the document shall remain vested in Axis Communications AB. AXIS COMMUNICATIONS, AXIS, ARTPEC and VAPIX are registered trademarks of Axis AB in various jurisdictions. All other trademarks are the property of their respective owners, and we are not affiliated with, endorsed or sponsored by them or their affiliates. Amazon Web Services, AWS and the Powered by AWS logo are trademarks of Amazon.com, Inc. or its affiliates. Docker and the Docker logo are trademarks or registered trademarks of Docker, Inc. in the United States and/or other countries. Docker, Inc. and other parties may also have trademark rights in other terms used herein.
+
+As described in this document, you may be able to connect to, access and use third party products, web sites, example code, software or services (“Third Party Services”). You acknowledge that any such connection and access to such Third Party Services are made available to you for convenience only. Axis does not endorse any Third Party Services, nor does Axis make any representations or provide any warranties whatsoever with respect to any Third Party Services, and Axis specifically disclaims any liability or obligations with regard to Third Party Services. The Third Party Services are provided to you in accordance with their respective terms and conditions, and you alone are responsible for ensuring that you (a) procure appropriate rights to access and use any such Third Party Services and (b) comply with the terms and conditions applicable to its use.
+
+PLEASE BE ADVISED THAT THIS DOCUMENT IS PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, AND IS NOT INTENDED TO, AND SHALL NOT, CREATE ANY LEGAL OBLIGATION FOR AXIS COMMUNICATIONS AB AND/OR ANY OF ITS AFFILIATES. THE ENTIRE RISK AS TO THE USE, RESULTS AND PERFORMANCE OF THIS DOCUMENT AND ANY THIRD PARTY SERVICES REFERENCED HEREIN IS ASSUMED BY THE USER OF THE DOCUMENT AND AXIS DISCLAIMS AND EXCLUDES, TO THE MAXIMUM EXTENT PERMITTED BY LAW, ALL WARRANTIES, WHETHER STATUTORY, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT AND PRODUCT LIABILITY.
+
+<!-- textlint-enable -->
+
 ## License
 
-[Apache 2.0](LICENSE)
+Example Code means the examples provided by Axis in this document within the grey text boxes.
+
+Example Code ©2023 Axis Communications AB is licensed under the [Apache License, Version 2.0 (the “License”)](./LICENSE). You may not use the Example Code except in compliance with the License.
+
+You may obtain a copy of the License at <https://www.apache.org/licenses/LICENSE-2.0>. Example Code distributed under the License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.

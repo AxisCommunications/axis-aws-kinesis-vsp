@@ -2,9 +2,9 @@
 
 This is an example of how the [Application for Amazon Kinesis Video Streams](../README.md)
 can be extended to only stream to [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/) when an object or
-motion is detected by either [Axis Object Analytics](https://www.axis.com/products/axis-object-analytics) (AOA) or
-[Axis Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection) (VMD). When the example is run, an
-action rule and a scenario or profile is created in either AOA or VMD. The rule records clips and saves them to the SD-card when
+motion is detected by analytics applications like [AXIS Object Analytics](https://www.axis.com/products/axis-object-analytics) or
+[AXIS Video Motion Detection](https://www.axis.com/products/axis-video-motion-detection). When the example is run, an
+action rule and a scenario or profile is created in either AXIS Object Analytics or AXIS Video Motion Detection. The rule records clips and saves them to the SD-card when
 events occur in either application. Each recording is streamed to
 [Amazon Kinesis Video Streams](https://aws.amazon.com/kinesis/video-streams/).
 
@@ -24,13 +24,13 @@ running it.
 Add the image name as a shell variable:
 
 ```sh
-IMAGE_NAME=kvs-start-on-app-event
+export IMAGE_NAME=kvs-start-on-app-event
 ```
 
 Also, add the image tag:
 
 ```sh
-IMAGE_TAG=latest
+export IMAGE_TAG=latest
 ```
 
 ### Environment Variables
@@ -66,16 +66,17 @@ Add the architecture for the Docker image as a shell variable, depending on the 
 system-on-chip. Use `armv7hf` for ARTPEC-7 devices:
 
 ```sh
-ARCH=armv7hf
+export ARCH=armv7hf
 ```
 
 and `aarch64` for ARTPEC-8:
 
 ```sh
-ARCH=aarch64
+export ARCH=aarch64
 ```
 
 Once the shell variables have been added, the Docker image can be built:
+This would be an incremental build on top of "axisecp/kinesis-video-stream-application:latest-$ARCH" adding necessary files to build for the use case.
 
 ```sh
 docker buildx build --tag $IMAGE_NAME --build-arg ARCH .
@@ -92,19 +93,21 @@ Same as for the main application. See the save and load section in [Application 
 The most straightforward way to verify that the stream from the camera actually
 reaches Amazon Kinesis Video Streams is to do it from the AWS UI.
 
-1. Go to either the AOA or VMD app on the camera and view the created profile or scenario.
+1. Go to either the AXIS Object Analytics or AXIS Video Motion Detection app on the camera and view the created scenario or profile with the name 'Start-on-event'.
 (e.g. <http://192.168.0.1/local/vmd/index.html> or  <http://192.168.0.1/local/objectanalytics/index.html>).
-2. Trigger an event by clicking the button 'Test alarm'
+2. Trigger an event by clicking the button **Test alarm**
 3. Log in to your AWS account.
 4. Search for and go to the Amazon Kinesis Video Streams service.
 5. Make sure that you are in the correct AWS region, and select the Amazon Kinesis
 video stream in the list.
-6. Click the 'Media Playback' button.
+6. Click the **Media Playback** button.
 7. If everything is set up correctly, the stream should show up. Wait a number
 of seconds since there might be a delay.
 
 ## Known Limitations
 
-When streaming to Amazon Kinesis Video Streams there is a latency which can be
+* When streaming to Amazon Kinesis Video Streams there is a latency which can be
 affected by the selected AWS region, network setup and video resolution. This means that eventual event triggered recordings might
 appear in Amazon Kinesis Video Streams with a noticeable delay.
+
+* In the event rule configuration, there is a prebuffer and postbuffer durations configured to store 1sec and 5sec video clips respectively. However, if these durations are increased there is a risk that the the full clip is not uploaded to Amazon Kinesis since the file write to SD card might still be in progress while sending it. Please open an issue if this is something you have encountered and would like to discuss.
