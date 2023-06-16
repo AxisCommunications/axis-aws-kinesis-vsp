@@ -336,18 +336,18 @@ docker save ${IMAGE_NAME}:${IMAGE_TAG} | docker --tlsverify -H $DEVICE_IP:2376 l
 To start the container you can use Docker Compose:
 
 ```sh
-docker-compose --tlsverify -H $DEVICE_IP:2376 up
+docker --tlsverify -H $DEVICE_IP:2376 compose up
 ```
 
 or:
 
 ```sh
-docker-compose --tlsverify -H $DEVICE_IP:2376 up -d
+docker --tlsverify -H $DEVICE_IP:2376 compose up -d
 ```
 
 to run in detached (background) mode.
 
-Once the `docker-compose` command has been run, an RTSP stream is set up with the
+Once the `docker compose` command has been run, an RTSP stream is set up with the
 `start_stream.sh` script. The AWS GStreamer plugin kvssink sends media based on
 the Matroska container format to Amazon Kinesis Video Streams. The plugin is set up
 with default values, however these values can be modified according to the
