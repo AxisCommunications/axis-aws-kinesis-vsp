@@ -181,7 +181,7 @@ If the prerequisites are set up by following the
     DEVICE_USERNAME=<camera username>
     DEVICE_PASSWORD=<camera password>
     GST_PLUGIN_PATH=/opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build
-    PROXY=<proxy address, needed if camera is behind a proxy>
+    # PROXY=<proxy address, needed if camera is behind a proxy>
 
     # AWS related variables
     AWS_KINESIS_STREAM_NAME=<Amazon Kinesis video stream name>
@@ -226,7 +226,15 @@ If the prerequisites are set up by following the
 
 ### Install
 
-There's two options for how to run an image using the generated certificate. Either by building the certificate into an image or by generation temporary credentials from the certificate.
+There's two options for how to run an image using the generated certificate. Either by building the certificate into an image or by generating temporary credentials from the certificate.
+
+- To be able to build or pull the image, set the following environment variables in your shell:
+
+    ```sh
+    export IMAGE_NAME=axisecp/kinesis-video-stream-application
+    export IMAGE_TAG=<Choose either latest-armv7hf or latest-aarch64>
+    export DEVICE_IP=<camera IP>
+    ```
 
 #### From Docker Hub
 
@@ -260,40 +268,24 @@ With this option the image need **not** be rebuilt. To use this option the follo
 
     > **Note** The actual values are much longer than the substitutes above `*****`
 
-3. When using the temporary credentials the original image from [Option 1: Access Kinesis Video Streams resources using IAM](#option-1-access-kinesis-video-streams-resources-using-iam) can be used with one minor update in to the `docker-compose.yml` file needed to start the Amazon Kinesis stream.
+3. When using temporary credentials, the same image as the one from [Option 1: Access Kinesis Video Streams resources using IAM](#option-1-access-kinesis-video-streams-resources-using-iam) can be used.
+Pull the image from DockerHub by running the following command:
 
-    - In the root folder of the repository update the `docker-compose.yml` to use the temporary credentials set in the exported environment variables above, in addition including the `AWS_SESSION_TOKEN`.
+    ```sh
+    docker pull ${IMAGE_NAME}:${IMAGE_TAG}
+    ```
 
-        ```sh
-        # From:
-        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-
-        # To:
-        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-        AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
-        ```
+4. Go back to the root folder of the repository. This is so that the application can be run from the correct directory in the 'Run on the Camera' section.
 
 #### Build Locally
 
 With this option the image **need to be rebuilt** to include the certificate. To use this option the following steps needs to be performed:
 
-1. Step back into the `x509-authentication` directory and build an image.
+1. Step back into the `x509-authentication` directory and build an image:
 
-    - To build the image first set the following environment variables in your shell:
-
-        ```sh
-        export IMAGE_NAME=<Choose a name to tag the new image running with certificate>
-        export IMAGE_TAG=<Choose either latest-armv7hf or latest-aarch64>
-        export DEVICE_IP=<camera IP>
-        ```
-
-    - Then run the build command:
-
-        ```sh
-        docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg IMAGE_TAG=$IMAGE_TAG .
-        ```
+    ```sh
+    docker buildx build --tag ${IMAGE_NAME}:${IMAGE_TAG} --build-arg IMAGE_TAG=$IMAGE_TAG .
+    ```
 
 2. Create the Amazon Kinesis Video Stream.
 
