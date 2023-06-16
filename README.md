@@ -275,7 +275,9 @@ Pull the image from DockerHub by running the following command:
     docker pull ${IMAGE_NAME}:${IMAGE_TAG}
     ```
 
-4. Go back to the root folder of the repository. This is so that the application can be run from the correct directory in the 'Run on the Camera' section.
+4. Copy the recently created .env file and paste it into the root directory of the repository, so that the Docker Compose can pick up all the required variables.
+
+5. Change directory to the root folder of the repository. This is needed to run the application from the correct directory in the 'Run on the Camera' section below.
 
 #### Build Locally
 
