@@ -27,6 +27,7 @@ project and show your appreciation, which we would also be very happy about:
         - [How do I submit a good enhancement suggestion?](#how-do-i-submit-a-good-enhancement-suggestion)
     - [Your first code contribution](#your-first-code-contribution)
         - [Lint of codebase](#lint-of-codebase)
+- [Creating a release](#creating-a-release)
 
 ## I have a question
 
@@ -117,13 +118,13 @@ Start by [forking the repository](https://docs.github.com/github/getting-started
 repository to your account to grant you write access. Continue with cloning the forked repository to your local machine.
 
 ```sh
-git clone https://github.com/<your username>/kinesis-video-stream-application.git
+git clone https://github.com/<your username>/axis-aws-kinesis-vsp.git
 ```
 
 Navigate into the cloned directory and create a new branch:
 
 ```sh
-cd kinesis-video-stream-application
+cd axis-aws-kinesis-vsp
 git switch -c <branch name>
 ```
 
@@ -174,10 +175,25 @@ docker run --rm \
     github/super-linter:slim-v4
 ```
 
+## Creating a release
+
+Before making an official release, please update the following file:
+
+- `CHANGELOG.md`
+
+Commit the files with a git commit message saying `release v<major>.<minor>.<patch>`, and then run the following commands:
+
+```sh
+git tag -a v<major>.<minor>.<patch> -m v<major>.<minor>.<patch> -s
+git push --follow-tags
+```
+
+- Update the GitHub release with the information found in `CHANGELOG.md`
+
 <!-- markdownlint-disable MD034 -->
-[issues]: https://github.com/AxisCommunications/kinesis-video-stream-application/issues
-[issues_new]: https://github.com/AxisCommunications/kinesis-video-stream-application/issues/new
-[issues_bugs]: https://github.com/AxisCommunications/kinesis-video-stream-application/issues?q=label%3Abug
-[discussions]: https://github.com/AxisCommunications/kinesis-video-stream-application/discussions
-[discussions_new]: https://github.com/AxisCommunications/kinesis-video-stream-application/discussions/new
+[issues]: https://github.com/AxisCommunications/axis-aws-kinesis-vsp/issues
+[issues_new]: https://github.com/AxisCommunications/axis-aws-kinesis-vsp/issues/new
+[issues_bugs]: https://github.com/AxisCommunications/axis-aws-kinesis-vsp/issues?q=label%3Abug
+[discussions]: https://github.com/AxisCommunications/axis-aws-kinesis-vsp/discussions
+[discussions_new]: https://github.com/AxisCommunications/axis-aws-kinesis-vsp/discussions/new
 <!-- markdownlint-enable MD034 -->
