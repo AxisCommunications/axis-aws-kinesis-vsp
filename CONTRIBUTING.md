@@ -184,7 +184,7 @@ Before making an official release, please update the following file:
 Commit the files with a git commit message saying `release v<major>.<minor>.<patch>`, and then run the following commands:
 
 ```sh
-git tag -a v<major>.<minor>.<patch> -m v<major>.<minor>.<patch> -s
+git tag -a v<major>.<minor>.<patch> -m v<major>.<minor>.<patch>
 git push --follow-tags
 ```
 
