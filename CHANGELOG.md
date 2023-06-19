@@ -10,4 +10,3 @@ versioning ([SemVer](https://semver.org/)) scheme.
 ### Added
 
 - First release for Application for Amazon Kinesis.
-
