@@ -48,13 +48,7 @@ jobs:
         with:
           context: .
           build-args: ARCH=${{ matrix.arch }}
-          tags: axisecp/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}-${{ matrix.tag_ext }}
-          push: true
-
-      - name: Build and push latest image to Docker Hub
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          build-args: ARCH=${{ matrix.arch }}
-          tags: axisecp/${{ env.IMAGE_NAME }}:latest-${{ matrix.tag_ext }}
+          tags: |
+            axisecp/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}-${{ matrix.tag_ext }}
+            axisecp/${{ env.IMAGE_NAME }}:latest-${{ matrix.tag_ext }}
           push: true
