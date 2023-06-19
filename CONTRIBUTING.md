@@ -27,6 +27,7 @@ project and show your appreciation, which we would also be very happy about:
         - [How do I submit a good enhancement suggestion?](#how-do-i-submit-a-good-enhancement-suggestion)
     - [Your first code contribution](#your-first-code-contribution)
         - [Lint of codebase](#lint-of-codebase)
+- [Creating a release](#creating-a-release)
 
 ## I have a question
 
@@ -173,6 +174,21 @@ docker run --rm \
     -e MARKDOWN_CONFIG_FILE=.markdownlint.yml \
     github/super-linter:slim-v4
 ```
+
+## Creating a release
+
+Before making an official release, please update the following file:
+
+- `CHANGELOG.md`
+
+Commit the files with a git commit message saying `release v<major>.<minor>.<patch>`, and then run the following commands:
+
+```sh
+git tag -a v<major>.<minor>.<patch> -m v<major>.<minor>.<patch> -s
+git push --follow-tags
+```
+
+- Update the GitHub release with the information found in `CHANGELOG.md`
 
 <!-- markdownlint-disable MD034 -->
 [issues]: https://github.com/AxisCommunications/axis-aws-kinesis-vsp/issues
