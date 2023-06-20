@@ -9,4 +9,4 @@ versioning ([SemVer](https://semver.org/)) scheme.
 
 ### Added
 
-- First release for Application for Amazon Kinesis.
+- First Release for "Application for Amazon Kinesis Video Streams" including an example use case of streaming Amazon Kinesis video based on events triggered by Axis analytics applications.
