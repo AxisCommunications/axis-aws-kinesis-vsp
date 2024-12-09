@@ -44,7 +44,7 @@ EOF
 
 FROM $ARCH/ubuntu:18.04
 
-COPY --from=base /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/ /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/
+COPY --from=base /opt/app /opt/app/
 
 WORKDIR /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build/
 
