@@ -54,3 +54,5 @@ apt-get install -y gstreamer1.0-tools libssl-dev gstreamer1.0-rtsp gstreamer1.0-
 EOF
 
 COPY start_stream.sh .
+
+COPY LICENSE /opt/app
