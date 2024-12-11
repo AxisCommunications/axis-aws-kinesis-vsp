@@ -44,7 +44,7 @@ EOF
 
 FROM $ARCH/ubuntu:18.04
 
-COPY --from=base /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/ /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/
+COPY --from=base /opt/app /opt/app/
 
 WORKDIR /opt/app/amazon-kinesis-video-streams-producer-sdk-cpp/build/
 
@@ -54,3 +54,5 @@ apt-get install -y gstreamer1.0-tools libssl-dev gstreamer1.0-rtsp gstreamer1.0-
 EOF
 
 COPY start_stream.sh .
+
+COPY LICENSE /opt/app
