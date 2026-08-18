@@ -6,6 +6,9 @@ on:
     tags:
       - "*"
 
+permissions:
+  contents: read
+
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
